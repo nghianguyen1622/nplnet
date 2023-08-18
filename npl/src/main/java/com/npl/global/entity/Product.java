@@ -3,44 +3,52 @@ package com.npl.global.entity;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "products")
+@Table(name = "PRODUCTS")
 public class Product extends AbstractEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 
+	@Id
+	@Column(name = "PDT_ID" , nullable = false)
+	private String pdtId;
+	
 	@Column(name = "NAME")
 	private String name;
 	
-	@Column(name = "ALIAS")
+	@Column(name = "ALIAS" , nullable = false)
 	private String alias;
 	
-	@Column(name = "SHORT_DESCRIPTION")
-	private String shortDescription;
+	@Column(name = "SHORT_DES")
+	private String shortDes;
 	
 	@Lob
-	@Column(name = "FULL_DESCRIPTION")
-	private String fullDescription;
+	@Column(name = "FULL_DES")
+	private String fullDes;
 	
-	private boolean enabled;
+	@Column(name = "ENABLED")
+	private String enabled;
 	
-	private boolean editYN;
-	private boolean delYN;
+	@Column(name = "EDIT_YN")
+	private String editYN;
 	
-	@Column(name = "in_stock")
-	private boolean inStock;
+	@Column(name = "DEL_YN")
+	private String delYN;
+	
+	@Column(name = "USE_YN")
+	private String useYN;
+	
+	@Column(name = "FLAG")
+	private String flag;
+	
+	@Column(name = "IN_STOCK")
+	private String inStock;
 	
 	private float cost;
 	
@@ -49,21 +57,14 @@ public class Product extends AbstractEntity {
 	@Column(name = "DISCOUNT_PERCENT")
 	private float discountPercent;
 	
-	private float length;
-	private float width;
-	private float height;
-	private float weight;
-	
 	@Column(name = "MAIN_IMAGE")
 	private String mainImage;
 	
-	@ManyToOne
-	@JoinColumn(name = "CATEGORY_ID")
-	private Category category;
+	@Column(name = "CATEGORY_ID", nullable = false)
+	private String category;
 	
-	@ManyToOne
-	@JoinColumn(name = "BRAND_ID")
-	private Brand brand;
+	@Column(name = "BRAND_ID", nullable = false)
+	private String brand;
 	
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<ProductImage> images = new HashSet<>();
@@ -72,6 +73,14 @@ public class Product extends AbstractEntity {
 	private Set<ProductDetail> details = new HashSet<>();
 
 	public Product() {
+	}
+
+	public String getPdtId() {
+		return pdtId;
+	}
+
+	public void setPdtId(String pdtId) {
+		this.pdtId = pdtId;
 	}
 
 	public String getName() {
@@ -90,51 +99,67 @@ public class Product extends AbstractEntity {
 		this.alias = alias;
 	}
 
-	public String getShortDescription() {
-		return shortDescription;
+	public String getShortDes() {
+		return shortDes;
 	}
 
-	public void setShortDescription(String shortDescription) {
-		this.shortDescription = shortDescription;
+	public void setShortDes(String shortDes) {
+		this.shortDes = shortDes;
 	}
 
-	public String getFullDescription() {
-		return fullDescription;
+	public String getFullDes() {
+		return fullDes;
 	}
 
-	public void setFullDescription(String fullDescription) {
-		this.fullDescription = fullDescription;
+	public void setFullDes(String fullDes) {
+		this.fullDes = fullDes;
 	}
 
-	public boolean isEnabled() {
+	public String getEnabled() {
 		return enabled;
 	}
 
-	public void setEnabled(boolean enabled) {
+	public void setEnabled(String enabled) {
 		this.enabled = enabled;
 	}
 
-	public boolean isEditYN() {
+	public String getEditYN() {
 		return editYN;
 	}
 
-	public void setEditYN(boolean editYN) {
+	public void setEditYN(String editYN) {
 		this.editYN = editYN;
 	}
 
-	public boolean isDelYN() {
+	public String getDelYN() {
 		return delYN;
 	}
 
-	public void setDelYN(boolean delYN) {
+	public void setDelYN(String delYN) {
 		this.delYN = delYN;
 	}
 
-	public boolean isInStock() {
+	public String getUseYN() {
+		return useYN;
+	}
+
+	public void setUseYN(String useYN) {
+		this.useYN = useYN;
+	}
+
+	public String getFlag() {
+		return flag;
+	}
+
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
+
+	public String getInStock() {
 		return inStock;
 	}
 
-	public void setInStock(boolean inStock) {
+	public void setInStock(String inStock) {
 		this.inStock = inStock;
 	}
 
@@ -162,38 +187,6 @@ public class Product extends AbstractEntity {
 		this.discountPercent = discountPercent;
 	}
 
-	public float getLength() {
-		return length;
-	}
-
-	public void setLength(float length) {
-		this.length = length;
-	}
-
-	public float getWidth() {
-		return width;
-	}
-
-	public void setWidth(float width) {
-		this.width = width;
-	}
-
-	public float getHeight() {
-		return height;
-	}
-
-	public void setHeight(float height) {
-		this.height = height;
-	}
-
-	public float getWeight() {
-		return weight;
-	}
-
-	public void setWeight(float weight) {
-		this.weight = weight;
-	}
-
 	public String getMainImage() {
 		return mainImage;
 	}
@@ -201,20 +194,20 @@ public class Product extends AbstractEntity {
 	public void setMainImage(String mainImage) {
 		this.mainImage = mainImage;
 	}
-
-	public Category getCategory() {
+	
+	public String getCategory() {
 		return category;
 	}
 
-	public void setCategory(Category category) {
+	public void setCategory(String category) {
 		this.category = category;
 	}
 
-	public Brand getBrand() {
+	public String getBrand() {
 		return brand;
 	}
 
-	public void setBrand(Brand brand) {
+	public void setBrand(String brand) {
 		this.brand = brand;
 	}
 

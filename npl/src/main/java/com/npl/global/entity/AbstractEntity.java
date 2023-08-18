@@ -1,13 +1,15 @@
 package com.npl.global.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.FetchType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @MappedSuperclass
 public abstract class AbstractEntity implements Serializable {
@@ -15,18 +17,21 @@ public abstract class AbstractEntity implements Serializable {
 	/**
 	 * Đây là cấu hình chung cho mọi Table. 
 	 * Khi tạo mới Table vui lòng Extends Class này. 
-	 * khi Extends vui lòng không tại @Id cho Table mới.
+	 * khi Extends vui lòng tại @Id cho Table mới.
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	protected String id;
-
+	@Temporal(TemporalType.DATE)
 	@Column(name = "CREATED_TIME")
-	protected String createdTime;
+	protected Date createdTime;
 
+	@Temporal(TemporalType.DATE)
 	@Column(name = "UPDATE_TIME")
-	protected String updatedTime;
+	protected Date updatedTime;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "WORK_DATE")
+	protected Date workDate;
 
 	@Column(name = "WORK_USER")
 	protected String workUser;
@@ -35,28 +40,28 @@ public abstract class AbstractEntity implements Serializable {
 	@JoinColumn(name = "COM_ID")
 	protected Company company;
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getCreatedTime() {
+	public Date getCreatedTime() {
 		return createdTime;
 	}
 
-	public void setCreatedTime(String createdTime) {
+	public void setCreatedTime(Date createdTime) {
 		this.createdTime = createdTime;
 	}
 
-	public String getUpdatedTime() {
+	public Date getUpdatedTime() {
 		return updatedTime;
 	}
 
-	public void setUpdatedTime(String updatedTime) {
+	public void setUpdatedTime(Date updatedTime) {
 		this.updatedTime = updatedTime;
+	}
+
+	public Date getWorkDate() {
+		return workDate;
+	}
+
+	public void setWorkDate(Date workDate) {
+		this.workDate = workDate;
 	}
 
 	public String getWorkUser() {

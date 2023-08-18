@@ -7,7 +7,7 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Program")
+@Table(name = "PROGRAM")
 public class Program implements Serializable {
 	private static final long serialVersionUID = 1L;
 

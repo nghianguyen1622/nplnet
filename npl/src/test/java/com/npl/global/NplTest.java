@@ -81,15 +81,17 @@ public class NplTest {
 	@Test
 	public void testCreateCom() {
 		Company com = new Company();
-		com.setComId("NVN");
-		com.setComCd("NVN");
+		com.setComId("LXL");
+		com.setComCd("LXL");
 		com.setTel("0368023380");
 		com.setWorkDate(new Date());
 		com.setComTaxNo("9725421");
-		com.setAddr1("NVN building");
-		com.setComOwner("NVN Technology");
-		com.setComName("NVN Technology");
-		com.seteMail("nghiaiter@gmail.com");
+		com.setAddr1("LXL building");
+		com.setComOwner("LXL Technology");
+		com.setComName("LXL Technology");
+		com.seteMail("LXL@gmail.com");
+		com.setWorkUser("LXL");
+		com.setAddrMap("tphcm");
 		repoCom.save(com);
 	}
 	
@@ -130,7 +132,7 @@ public class NplTest {
 	public void testCreateU() {
 		String thispass = "npl123";
 		
-		Company company = repoCom.findByComId("NVN");
+		Company company = repoCom.findByComId("LXL");
 		Role roleAdmin = entityManager.find(Role.class, 2);
 		
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -138,18 +140,22 @@ public class NplTest {
 		String checkpass = repoU.encryptPass(thispass);
 		
 		User u = new User();
-		u.setId(company.getComId() + "00002");
+		u.setUserId(company.getComId() + "00003");
 		u.addRole(roleAdmin);
-		u.setUsername("nvntech");
+		u.setUsername("lxltech");
 		u.setPassword(pass);
 		u.setCheckPass(checkpass);
-		u.setEmail("nvntech@gmail.com");
+		u.setEmail("lxltech@gmail.com");
 		u.setEnabled(true);
-		u.setCreatedTime("2023-08-15");
-		u.setUpdatedTime("2023-08-15");
+		u.setCreatedTime(new Date());
+		u.setUpdatedTime(new Date());
 		u.setPhone("0368023380");
-		u.setWorkUser("nghia");
+		u.setWorkUser("lxltech");
 		u.setCompany(company);
+		u.setDelYN("N");
+		u.setFlag("5");
+		u.setLogTime(new Date());
+		
 		repoU.save(u);
 	}
 	
@@ -157,13 +163,13 @@ public class NplTest {
 	public void testCreateNo() {
 		Company company = repoCom.findByComId("NPL");
 		Notice n = new Notice();
-		n.setId("NT00001");
+		n.setNtId("NT00001");
 		n.setCompany(company);
 		n.setTitle("Đây là tin thử nghiệm 1");
 		n.setContent("test");
-		n.setStartDate("2023-08-15");
+		n.setStartDate(new Date());
 		n.setEnabled("Y");
-		n.setEndDate("2023-08-15");
+		n.setEndDate(new Date());
 		n.setWorkUser("NPL");
 		
 		repoNo.save(n);

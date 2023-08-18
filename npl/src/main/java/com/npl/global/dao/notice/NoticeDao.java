@@ -12,7 +12,7 @@ import com.npl.global.model.notice.NoticeModel;
 public interface NoticeDao extends PagingAndSortingRepository<Notice, Integer> {
 
 	
-	@Query(value=" SELECT id  as id                                       "
+	@Query(value=" SELECT NT_ID  as id                                       "
 			+"      , TITLE  as title                                     "
 			+"      , CONTENT as content                                  "
 			+"      , NUM_VIEW as numViews                                "
@@ -40,7 +40,7 @@ public interface NoticeDao extends PagingAndSortingRepository<Notice, Integer> {
 			+"      , WORK_USER AS workUser                              "
 			+"   FROM notice                                             "
 			+"  WHERE COM_ID = :comId                                    "
-			+"        ID = :id                                        "
+			+"        NT_ID = :id                                        "
 			, nativeQuery = true)
 	NoticeModel findById(String comId, String id);
 

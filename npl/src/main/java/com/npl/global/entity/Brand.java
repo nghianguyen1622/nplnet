@@ -5,13 +5,14 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "brands")
+@Table(name = "BRANDS")
 public class Brand extends AbstractEntity {
 	
 	/**
@@ -19,14 +20,30 @@ public class Brand extends AbstractEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@Column(name = "BRAND_ID" , nullable = false)
+	private String brandId;
+	
 	@Column(name="NAME")
 	private String name;
 	
 	@Column(name="LOGO")
 	private String logo;
+
+	@Column(name = "ENABLED")
+	private String enabled;
 	
-	private boolean editYN;
-	private boolean delYN;
+	@Column(name = "EDIT_YN")
+	private String editYN;
+	
+	@Column(name = "DEL_YN")
+	private String delYN;
+	
+	@Column(name = "USE_YN")
+	private String useYN;
+	
+	@Column(name = "FLAG")
+	private String flag;
 	
 	@ManyToMany
 	@JoinTable(name = "brands_categories",
@@ -34,6 +51,7 @@ public class Brand extends AbstractEntity {
 				inverseJoinColumns = @JoinColumn(name = "CAT_ID"))
 	private Set<Category> categories = new HashSet<>();
 	
+	@Column(name = "LENGHT")
 	private int lengthcategory;
 
 	public Brand() {
@@ -64,20 +82,52 @@ public class Brand extends AbstractEntity {
 		this.logo = logo;
 	}
 
-	public boolean isEditYN() {
+	public String getBrandId() {
+		return brandId;
+	}
+
+	public void setBrandId(String brandId) {
+		this.brandId = brandId;
+	}
+
+	public String getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(String enabled) {
+		this.enabled = enabled;
+	}
+
+	public String getEditYN() {
 		return editYN;
 	}
 
-	public void setEditYN(boolean editYN) {
+	public void setEditYN(String editYN) {
 		this.editYN = editYN;
 	}
 
-	public boolean isDelYN() {
+	public String getDelYN() {
 		return delYN;
 	}
 
-	public void setDelYN(boolean delYN) {
+	public void setDelYN(String delYN) {
 		this.delYN = delYN;
+	}
+
+	public String getUseYN() {
+		return useYN;
+	}
+
+	public void setUseYN(String useYN) {
+		this.useYN = useYN;
+	}
+
+	public String getFlag() {
+		return flag;
+	}
+
+	public void setFlag(String flag) {
+		this.flag = flag;
 	}
 
 	public Set<Category> getCategories() {

@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -12,13 +13,17 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "categories")
+@Table(name = "CATEGORIES")
 public class Category extends AbstractEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@Column(name = "CAT_ID" , nullable = false)
+	private String catId;
 
 	@Column(name = "NAME")
 	private String name;
@@ -28,11 +33,21 @@ public class Category extends AbstractEntity {
 	
 	@Column(name = "LOGO")
 	private String logo;
+
+	@Column(name = "ENABLED")
+	private String enabled;
 	
-	private boolean enabled;
+	@Column(name = "EDIT_YN")
+	private String editYN;
 	
-	private boolean editYN;
-	private boolean delYN;
+	@Column(name = "DEL_YN")
+	private String delYN;
+	
+	@Column(name = "USE_YN")
+	private String useYN;
+	
+	@Column(name = "FLAG")
+	private String flag;
 	
 	@Column(name = "ALL_PARENT_IDS")
 	private String allParentIds;
@@ -88,28 +103,52 @@ public class Category extends AbstractEntity {
 		this.logo = logo;
 	}
 
-	public boolean isEnabled() {
+	public String getCatId() {
+		return catId;
+	}
+
+	public void setCatId(String catId) {
+		this.catId = catId;
+	}
+
+	public String getEnabled() {
 		return enabled;
 	}
 
-	public void setEnabled(boolean enabled) {
+	public void setEnabled(String enabled) {
 		this.enabled = enabled;
 	}
 
-	public boolean isEditYN() {
+	public String getEditYN() {
 		return editYN;
 	}
 
-	public void setEditYN(boolean editYN) {
+	public void setEditYN(String editYN) {
 		this.editYN = editYN;
 	}
 
-	public boolean isDelYN() {
+	public String getDelYN() {
 		return delYN;
 	}
 
-	public void setDelYN(boolean delYN) {
+	public void setDelYN(String delYN) {
 		this.delYN = delYN;
+	}
+
+	public String getUseYN() {
+		return useYN;
+	}
+
+	public void setUseYN(String useYN) {
+		this.useYN = useYN;
+	}
+
+	public String getFlag() {
+		return flag;
+	}
+
+	public void setFlag(String flag) {
+		this.flag = flag;
 	}
 
 	public String getAllParentIds() {

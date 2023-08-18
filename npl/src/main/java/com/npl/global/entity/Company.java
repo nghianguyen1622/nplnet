@@ -6,7 +6,7 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Company")
+@Table(name = "COMPANY")
 public class Company implements Serializable {
 
 	/**

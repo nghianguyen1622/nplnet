@@ -10,6 +10,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -18,27 +19,31 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name = "users")
+@Table(name = "USERS")
 public class User extends AbstractEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@Column(name = "USER_ID" , nullable = false)
+	private String userId;
 
-	@Column(length = 128)
+	@Column(name = "EMAIL")
 	private String email;
 
-	@Column(name = "ADDR", length = 128)
+	@Column(name = "ADDR")
 	private String adress;
 
-	@Column(length = 64, nullable = false)
+	@Column(name = "PASSWD", nullable = false)
 	private String password;
 	
-	@Column(name = "CHECK_PASS",length = 64, nullable = false)
+	@Column(name = "CHECK_PASS", nullable = false)
 	private String checkPass;
 
-	@Column(name = "USER_NAME", length = 45, nullable = false)
+	@Column(name = "USER_NAME", nullable = false)
 	private String username;
 
 	@Column(name = "PHONE")
@@ -56,6 +61,18 @@ public class User extends AbstractEntity {
 	@Column(name = "LOGTIME")
 	private Date logTime;
 	
+	@Column(name = "EDIT_YN")
+	private String editYN;
+	
+	@Column(name = "DEL_YN")
+	private String delYN;
+	
+	@Column(name = "USE_YN")
+	private String useYN;
+	
+	@Column(name = "FLAG")
+	private String flag;
+	
 	private boolean enabled;
 
 	@ManyToMany(fetch = FetchType.EAGER)
@@ -66,6 +83,46 @@ public class User extends AbstractEntity {
 	private List<UserMenu> userMenus;
 
 	public User() {
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getEditYN() {
+		return editYN;
+	}
+
+	public void setEditYN(String editYN) {
+		this.editYN = editYN;
+	}
+
+	public String getDelYN() {
+		return delYN;
+	}
+
+	public void setDelYN(String delYN) {
+		this.delYN = delYN;
+	}
+
+	public String getUseYN() {
+		return useYN;
+	}
+
+	public void setUseYN(String useYN) {
+		this.useYN = useYN;
+	}
+
+	public String getFlag() {
+		return flag;
+	}
+
+	public void setFlag(String flag) {
+		this.flag = flag;
 	}
 
 	public String getEmail() {

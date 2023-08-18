@@ -3,9 +3,13 @@ package com.npl.global.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "UserMenu")
+@Table(name = "USERMENU")
 public class UserMenu extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@Column(name = "MENU_ID" , nullable = false)
+	private String menuId;
 
 	@Column(name = "DELETE_YN")
 	private String deleteYn;
@@ -31,6 +35,14 @@ public class UserMenu extends AbstractEntity {
 	private User user;
 
 	public UserMenu() {
+	}
+
+	public String getMenuId() {
+		return menuId;
+	}
+
+	public void setMenuId(String menuId) {
+		this.menuId = menuId;
 	}
 
 	public String getDeleteYn() {

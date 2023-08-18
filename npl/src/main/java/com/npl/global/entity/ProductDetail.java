@@ -2,18 +2,25 @@ package com.npl.global.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "product_detail")
+@Table(name = "PRODUCT_DETAILS")
 public class ProductDetail extends AbstractEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer Id;
 
 	@Column(name = "NAME")
 	private String name;
@@ -32,6 +39,14 @@ public class ProductDetail extends AbstractEntity {
 		this.name = name;
 		this.value = value;
 		this.product = product;
+	}
+
+	public Integer getId() {
+		return Id;
+	}
+
+	public void setId(Integer id) {
+		Id = id;
 	}
 
 	public String getName() {
