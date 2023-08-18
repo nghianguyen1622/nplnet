@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="vn" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="page_head(title, remove)" th:remove="${remove}">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>NPL | [[${title}]]</title>
+
+<meta name="keywords" content="Nguyễn Văn Nghĩa, nguyễn văn nghĩa, NVN tech, nvn tech, thiết kế website, website giá rẻ, web giá rẻ" />
+<meta name="description" content="Hệ thống quản trị Website NVN TECH, chuyên thiết kế Website thương mại giá rẻ" />
+<meta property="og:title" content="admin.nvntech.io.vn - Hệ thống quản lý website" />
+<meta property="og:description" content="Hệ thống quản trị Website NVN TECH, chuyên thiết kế Website thương mại giá rẻ" />
+<link rel="canonical" href="https://admin.nvntech.io.vn/" />
+<meta property="og:image" content="./images/slides/14.PNG" />
+
+
+<meta content="INDEX,FOLLOW" name="robots" />
+<meta name="viewport" content="width=device-width" />
+<meta name="copyright" content="Nguyễn Văn Nghĩa" />
+<meta name="author" content="Nguyễn Văn Nghĩa" />
+<meta http-equiv="audience" content="General" />
+<meta name="resource-type" content="Document" />
+<meta name="distribution" content="Global" />
+<meta name="revisit-after" content="1 days" />
+<meta name="GENERATOR" content="Nguyễn Văn Nghĩ" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+<link rel="shortcut icon" href="./images/panico.png">
+<meta property="og:site_name" content="admin.nvntech.io.vn" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="vi_VN" />
+<!-- Fav Icon  -->
+<!-- StyleSheets  -->
+<link rel="stylesheet" th:href="@{/css/dashlite.css?ver=3.2.0}">
+<link id="skin-default" rel="stylesheet" th:href="@{/css/theme.css?ver=3.2.0}">
+<link rel="stylesheet" th:href="@{/css/skins/theme-blue.css}">
+
+<link rel="stylesheet" th:href="@{/css/modelstyle.css}">
+<script th:src="@{/js/jquery-3.5.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+
+<link rel="stylesheet" th:href="@{/css/editors/summernote.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/css/fixedColumns.dataTables.min.css}">
+
+<script type="text/javascript">
+	contextPath = "[[@{/}]]";
+</script>
+
+</head>
+<body>
+	<!-- sort link -->
+	<th th:fragment="column_link(fieldName, columnLabel, removeTag)"
+		th:remove="${removeTag}"><a
+		th:href="@{${moduleURL} + '/page/' + ${currentPage} + '?sortField=' + ${fieldName} + '&sortDir=' + ${sortField != fieldName ? sortDir : reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''} + ${categoryId != null  ? '&categoryId=' + categoryId : ''}}">
+			[[${columnLabel}]] </a> <span th:if="${sortField == fieldName}"
+		th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
+	</th>
+	<!-- end sort link -->
+
+	<!-- page-link -->
+	<a th:fragment="page_link(pageNum, label)" class="page-link"
+		th:href="@{${moduleURL} + '/page/' + ${pageNum} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}  + ${keyword != null ? '&keyword=' + keyword : ''} + ${categoryId != null  ? '&categoryId=' + categoryId : ''}}">[[${label}]]</a>
+	<!-- end page-link -->
+
+	<!-- enabled status -->
+	<div th:fragment="status(enabled, entityName, entityURL)"
+		th:remove="tag">
+		<a th:if="${enabled == true}" class="btn btn-icon"
+			style="color: #3ed900" th:href="@{${entityURL} + '/enabled/false'}"
+			th:title="'Khóa ' + ${entityName}"><em class="icon ni ni-unlock"></em></a>
+		<a th:if="${enabled == false}" class="btn btn-icon"
+			style="color: #ff0000" th:href="@{${entityURL} + '/enabled/true'}"
+			th:title="'Mở ' + ${entityName}"><em class="icon ni ni-lock-alt"></em></a>
+	</div>
+	<!-- enabled for shipping rates -->
+	<div th:fragment="statusForShip"
+		th:remove="tag">
+		<a th:if="${rate.codSupported}" class="btn btn-trigger btn-icon"
+			style="color: #3ed900" th:href="@{'/shipping_rates/cod/' + ${rate.id} + '/enabled/false'}"
+			title="Tắt giao hàng khu vực này"><em class="icon ni ni-truck"></em></a>
+		<a th:unless="${rate.codSupported}" class="btn btn-trigger btn-icon"
+			style="color: #ff0000" th:href="@{'/shipping_rates/cod/' + ${rate.id} + '/enabled/true'}"
+			title="Mở giao hàng khu vực này"><em class="icon ni ni-report-fill"></em></a>
+	</div>
+
+	<!-- end enabled status -->
+
+	<!-- actions -->
+	<div th:fragment="delete(entityName, entityId, deleteURL, visible)"
+		th:remove="tag">
+		<th:block th:if="${visible}">
+			<a class="link-delete btn btn-icon remove-color"
+				th:href="@{${deleteURL}}" th:entityId="${entityId}" th:attr="data-entityName=${entityName}"
+				th:title="'Xóa ' + ${entityName}"> <em
+				class="icon ni ni-trash-alt"></em></a>
+		</th:block>
+	</div>
+
+	<div th:fragment="edit(entityName, editURL)" th:remove="tag">
+		<a th:href="@{${editURL}}" class="btn btn-icon edit-color"
+			data-bs-toggle="tooltip" data-bs-placement="top"
+			th:title="'Sửa thông tin ' + ${entityName}"> <em
+			class="icon ni ni-pen2"></em>
+		</a>
+	</div>
+
+	<!-- end actions -->
+
+	<div th:fragment="pagination(entityName)" th:remove="tag">
+
+		<div class="text-center" th:if="${totalItems > 0}">
+			<span>Hiển thị [[${entityName}]] [[${startCount}]] đến
+				[[${endCount}]] trên [[${totalItems}]]</span>
+		</div>
+		<div class="text-center" th:unless="${totalItems > 0}">
+			<span>Không tìm thấy thông tin [[${entityName}]]</span>
+		</div>
+		<div th:if="${totalPages > 1}">
+			<nav>
+				<ul class="pagination justify-content-center">
+					<li
+						th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+						<a th:replace="fragments :: page_link(1, 'Trang đầu')"></a>
+					</li>
+					<li
+						th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+						<a th:replace="fragments :: page_link(${currentPage - 1}, 'Lui')"></a>
+					</li>
+					<li
+						th:class="${currentPage != i ? 'page-item' : 'page-item active'}"
+						th:each="i : ${#numbers.sequence(1, totalPages)}"><a
+						th:replace="fragments :: page_link(${i}, ${i})"></a></li>
+					<li
+						th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+						<a th:replace="fragments :: page_link(${currentPage + 1}, 'Tới')"></a>
+					</li>
+					<li
+						th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+						<a
+						th:replace="fragments :: page_link(${totalPages}, 'Trang cuối')"></a>
+					</li>
+
+				</ul>
+			</nav>
+
+		</div>
+	</div>
+
+
+	<div th:fragment="search_form()" class="col-auto row fl-right"
+		style="margin-left: auto;">
+		<form th:action="@{${moduleURL} + '/page/1'}" class="form-inline "
+			style="display: flex;">
+			<input type="hidden" name="sortField" th:value="${sortField}"></input>
+			<input type="hidden" name="sortDir" th:value="${sortDir}"></input>
+			&nbsp; &nbsp; <input style="height: 32px" type="search"
+				name="keyword" th:value="${keyword}" class="form-control"
+				placeholder="Nhập từ khóa" aria-label="Search"
+				aria-describedby="search-addon" />
+
+			<button type="submit" class="btn btn-secondary">
+				<i class="fas fa-search"></i>
+			</button>
+			&nbsp;
+			<button type="button" class="btn btn-secondary"
+				onclick="clearFilter()">
+				<i class="fas fa-eraser"></i>
+			</button>
+		</form>
+	</div>
+	
+	<div th:fragment="message">
+		<div th:if="${message != null}" class="is-hidden" id="messageAlert">[[${message}]]</div>
+	</div>
+
+
+	<div th:fragment="currency_input(amount)" th:remove="tag">
+		<input type="text" readonly class="form-control"
+			th:value="${(CURRENCY_SYMBOL_POSITION == 'Before price' ? CURRENCY_SYMBOL : '') + #numbers.formatDecimal(amount, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE) + (CURRENCY_SYMBOL_POSITION == 'After price' ? CURRENCY_SYMBOL : '')}">
+	</div>
+
+	<div th:fragment="format_currency(amount)" th:remove="tag">
+		<span th:if="${CURRENCY_SYMBOL_POSITION == 'Before price'}"
+			th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>[[${#numbers.formatDecimal(amount,
+		1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]<span
+			th:if="${CURRENCY_SYMBOL_POSITION == 'After price'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>
+	</div>
+
+	<div th:fragment="format_time(dateTime)" th:remove="tag">
+		<span th:text="${#dates.format(dateTime, 'dd-MM-yyyy | HH:mm:ss')}"></span>
+	</div>
+
+
+</body>
+</html>

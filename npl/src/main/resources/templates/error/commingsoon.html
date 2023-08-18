@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="vn" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<!-- Main Head -->
+<head th:replace="fragments :: page_head('Comming soon', 'none')"></head>
+<!-- End Head -->
+
+<body class="nk-body bg-lighter npc-general has-sidebar ">
+    <div class="nk-app-root">
+        <!-- main @s -->
+        <div class="nk-main ">
+            <!-- wrap @s -->
+            <div th:replace="fragments/header :: menu"></div>
+            <div class="nk-wrap">
+                <!-- content @s -->
+                <div th:replace="fragments/header :: header-top"></div>
+                <div class="nk-content ">
+                    <div class="nk-block nk-block-middle wide-md mx-auto">
+                        <div class="nk-block-content nk-error-ld text-center">
+                            <h1 class="nk-error-head">COMMING SOON</h1>
+                            <h3 class="nk-error-title">Hệ thống đang được cải tiến!</h3>
+                            <p class="nk-error-text">Chúng tôi đang thực hiện nâng cấp dịch vụ, bạn vui lòng quay lại sau. Xin cảm ơn.</p>
+                        </div>
+                    </div><!-- .nk-block -->
+                </div>
+                <!-- wrap @e -->
+            </div>
+            <!-- content @e -->
+        </div>
+        <!-- main @e -->
+    </div>
+
+</body>
+
+</html>

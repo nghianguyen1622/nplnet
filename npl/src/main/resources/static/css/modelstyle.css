@@ -1,0 +1,83 @@
+@media ( min-width : 992px) {
+	.datatable-init-export tr:first-child {
+		background: linear-gradient(to bottom, #f8f8f8, #eee);
+	}
+	.dataTables_scrollBody{
+		max-height: 581px;
+	}
+	.fillerCat{
+		min-width: 294px
+	}
+}
+@media ( min-width : 768px) and (max-width: 921px) {
+	.dataTables_scrollBody {
+		max-height: 327px;
+	}
+	.fillerCat{
+		min-width: 194px
+	}
+}
+.is-hidden{
+	display: none;
+}
+.tableCodeFalse{
+	color: #e85347;
+}
+.note-group-select-from-files{
+	display: none;
+}
+#myfileupload #fileImage {
+  display: none;
+}
+
+/* ===== Icon VED =========*/
+.edit-color{
+	color: #3279a4;
+}
+.remove-color{
+	color: #ed7e1c;
+}
+.link-detail, .linkOrderDetail{
+	color: #1f6d58;
+}
+/* ===== E-Icon VED =========*/
+
+/* ===== table =========*/
+
+td.nk-tb-col:not(:last-child) {
+    border-right: 1px solid #dbdfea;
+}
+.nk-tb-col .user-card span{
+	margin: auto;
+}
+.nk-tb-col span{
+	font-size: 13px
+}
+
+/* ===== E-Table =========*/
+
+.formatNumber{
+	font-size: 15px;
+	font-weight: bold;
+}
+
+/* ===== login =========*/
+.pg-auth .nk-block-title {
+	background: -webkit-linear-gradient(#0971fe, #0f45a4);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	font-size: 50px;
+	font-weight: bold;
+	padding: 5px;
+}
+
+.nk-split {
+	background-image: url(../images/bglogin.jpg);
+}
+
+.nk-auth-body {
+	background: #fff;
+	border-radius: 20px;
+	box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+}
+/* ===== E-login =========*/

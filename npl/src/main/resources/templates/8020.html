@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="vn" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<!-- Main Head -->
+<head th:replace="fragments :: page_head(${pageTitle}, 'none')"></head>
+<!-- End Head -->
+
+<body class="nk-body bg-lighter npc-general has-sidebar ">
+    <div class="nk-app-root">
+        <!-- main @s -->
+        <div class="nk-main ">
+            <!-- sidebar @s -->
+            	<div th:replace="common/header :: menu"></div>
+            <!-- sidebar @e -->
+            <!-- wrap @s -->
+            <div class="nk-wrap ">
+                <!-- main header @s -->
+                	<div th:replace="common/header :: header-top"></div>
+                <!-- main header @e -->
+                <!-- content @s -->
+                <div class="nk-content ">
+                    <div class="container-fluid">
+                        <div class="nk-content-inner">
+                            <div class="nk-content-body">
+                            <div th:replace="fragments :: message"></div>
+                            <div class="components-preview wide-md mx-auto">
+                                <div class="nk-block-head nk-block-head-sm">
+                                    <div class="nk-block-between">
+                                        <div class="nk-block-head-content">
+                                            <h3 class="nk-block-title page-title">Danh sách thông báo</h3>
+                                            <div class="nk-block-des text-soft">
+                                                <p> Hiện có <span th:text="${countRows}">0</span> thông báo.</p>
+                                            </div>
+                                        </div><!-- .nk-block-head-content -->
+                                        <div class="nk-block-head-content">
+                                            <div class="toggle-wrap nk-block-tools-toggle">
+                                                <a href="#" class="btn btn-icon btn-trigger toggle-expand me-n1" data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
+                                                <div class="toggle-expand-content" data-content="pageMenu">
+                                                    <ul class="nk-block-tools g-3">
+                                                        <li class="nk-block-tools-opt">
+                                                            <div class="drodown">
+                                                                <a href="#" class="dropdown-toggle btn btn-icon btn-primary" data-bs-toggle="dropdown"><em class="icon ni ni-plus"></em></a>
+                                                                <div class="dropdown-menu dropdown-menu-end">
+                                                                    <ul class="link-list-opt no-bdr">
+                                                                        <li><a th:href="@{/notice/new}"><span>Tạo tin</span></a></li>
+                                                                        <li><a href="#"><span>Thông báo đã hết hạn</span></a></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div><!-- .toggle-wrap -->
+                                        </div><!-- .nk-block-head-content -->
+                                    </div><!-- .nk-block-between -->
+                                </div><!-- .nk-block-head -->
+                                <div class="nk-block nk-block-lg">
+                                        <div class="card card-bordered card-preview">
+                                            <div class="card-inner">
+												<table class="datatable-init-export nowrap table" data-auto-responsive="true" data-export-title="Export">
+												</table>
+											</div>
+                                        </div><!-- .card-preview -->
+                                    </div><!-- .nk-block -->
+                            </div>
+                        	</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- content @e -->
+            </div>
+
+			<!-- wrap @e -->
+        </div>
+        <!-- main @e -->
+    </div>
+    <!-- app-root @e -->
+    <!-- select region modal -->
+    
+    <!-- .modal -->
+    <!-- JavaScript -->
+    <script th:src="@{/js/bundle.js?ver=3.2.0}"></script>
+    <script th:src="@{/js/scripts.js?ver=3.2.0}"></script>
+	<script th:src="@{/js/libs/datatable-btns.js?ver=3.2.0}"></script>
+    <script th:src="@{/js/example-sweetalert.js}"></script>
+
+	<script th:src="@{/js/dataTables.fixedColumns.min.js}"></script>
+	<script th:src="@{/js/commom-list.js}"></script>
+	
+	<script type="text/javascript">
+		moduleURL = "[[@{/notice}]]";
+		
+		$(document).ready(function() {
+			deleteRow();
+			loadata();
+		});
+		
+		
+		function deleteRow() {
+			$(document).on("click", ".link-delete", function(e) {
+				e.preventDefault();
+				var entityName = $(this).attr("data-entityName");
+				showDeleteConfirm($(this), entityName, moduleURL);
+			});
+		}
+		
+		function loadata() {
+			var dataTableOptions = {
+		            responsive: {
+		                details: false
+		            },
+		            
+		            buttons: [
+		                {
+		                    extend: 'print',
+		                    exportOptions: {
+		                        columns: ':visible:not(:lt(1))'
+		                    }
+		                },
+		                {
+		                    extend: 'excel',
+		                    exportOptions: {
+		                        columns: ':visible:not(:lt(1))'
+		                    }
+		                },
+		                {
+		                    extend: 'colvis',
+		                    exportOptions: {
+		                        columns: ':visible:not(:lt(1))'
+		                    }
+		                },
+		            ],
+		            fixedColumns: {
+						leftColumns: 2
+					}
+		        };
+			var mergedOptions = Object.assign({}, mergedOptions, dataTableOptions);
+
+			
+			var arr = [ {title:"Action", field:null, className: "text-center"},
+						{title:"Name", field:"name", url:"/path/", id:"id"},
+						{title:"Image", field:"mainImage", img: true, path: "/images/product/", className: "text-center"},
+						{title:"Alias", field:"alias"},
+						{title:"Category", field:"categoryID"},
+						{title:"Brand", field:"brandID"},
+						{title:"Cost", field:"cost"},
+						{title:"Price", field:"price"},
+						{title:"Discount Percent", field:"disPer" , className: "text-warning"},
+						{title:"Length", field:"length"},
+						{title:"Width", field:"width"},
+						{title:"Height", field:"height"},
+						{title:"Weight", field:"weight"},
+						{title:"Short Description", field:"shortDes"},
+						{title:"Full Description", field:"fullDes"},
+						{title:"Status", field:"isEnabled", status: true, url: "/product/enable/", className: "text-center"},
+						{title:"Created Time", field:"createdTime"},
+						{title:"Updated Time", field:"updatedTime"}
+						];
+			var arrURL = {api: "/product/8020", urlInfo: "/product/detail/", urlEdit: "/product/edit/", urlDel: "/product/delete/"};
+			NioApp.DataTable.initWithUrlAndArr('.datatable-init-export', arrURL, arr, mergedOptions);
+				
+			}
+		
+	</script>
+
+</body>
+
+</html>

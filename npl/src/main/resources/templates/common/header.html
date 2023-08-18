@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="vn" xmlns:th="http://www.thymeleaf.org">
+	<!-- Sidebar menu-->
+	<div class="nk-sidebar nk-sidebar-fixed is-dark " th:fragment="menu"
+		data-content="sidebarMenu">
+		<div class="nk-sidebar-element nk-sidebar-head">
+			<div class="nk-menu-trigger">
+				<a href="#" class="nk-nav-toggle nk-quick-nav-icon d-xl-none"
+					data-target="sidebarMenu"><em class="icon ni ni-arrow-left"></em></a>
+				<a href="#"
+					class="nk-nav-compact nk-quick-nav-icon d-none d-xl-inline-flex"
+					data-target="sidebarMenu"><em class="icon ni ni-menu"></em></a>
+			</div>
+			<div class="nk-sidebar-brand">
+				<a th:href="@{/}" class="logo-link nk-sidebar-logo"> <img
+					class="logo-light logo-img" th:src="@{/images/logoCnB.png}"> <img
+					class="logo-dark logo-img" th:src="@{/images/logoDnB.png}">
+				</a>
+			</div>
+		</div>
+
+	
+
+	<!-- .nk-sidebar-element -->
+		<div class="nk-sidebar-element nk-sidebar-body">
+			<div class="nk-sidebar-content">
+				<div class="nk-sidebar-menu" data-simplebar>
+				<ul class="nk-menu">
+					<li class="nk-menu-heading">
+						<h6 class="overline-title text-primary-alt">Nhân sự</h6>
+					</li>
+					<!-- .nk-menu-item -->
+					<li class="nk-menu-item"><a th:href="@{/users}" title="Quản lý nhân viên"
+						class="nk-menu-link"> <span class="nk-menu-icon"><em
+								class="icon ni ni-user-list-fill"></em></span> <span
+							class="nk-menu-text">Nhân viên</span>
+					</a></li>
+					<!-- .nk-menu-item -->
+					<li class="nk-menu-item"><a href="#" title="Quản lý quỹ lương"
+						class="nk-menu-link"> <span class="nk-menu-icon"><em class="icon ni ni-sign-usdc-alt"></em></span> <span class="nk-menu-text">Quỹ
+								lương</span>
+					</a></li>
+					<!-- .nk-menu-item -->
+					<li class="nk-menu-heading">
+						<h6 class="overline-title text-primary-alt">Bán hàng</h6>
+					</li>
+					<!-- .nk-menu-item -->
+					<li class="nk-menu-item"><a th:href="@{/brands}" title="Quản lý thương hiệu"
+						class="nk-menu-link"> <span class="nk-menu-icon"><em class="icon ni ni-offer"></em></span> <span class="nk-menu-text">Thương
+								hiệu</span>
+					</a></li>
+					<!-- .nk-menu-item -->
+					<li class="nk-menu-item"><a th:href="@{/categories}" title="Quản lý danh mục"
+						class="nk-menu-link"> <span class="nk-menu-icon"><em
+								class="icon ni ni-grid-alt"></em></span> <span class="nk-menu-text">Danh
+								mục</span>
+					</a></li>
+					<!-- .nk-menu-heading -->
+					<li class="nk-menu-item has-sub"><a href="#" title="Quản lý sản phẩm"
+						class="nk-menu-link nk-menu-toggle"> <span
+							class="nk-menu-icon"><em class="icon ni ni-card-view"></em></span>
+							<span class="nk-menu-text">Sản phẩm</span>
+					</a>
+						<ul class="nk-menu-sub">
+							<li class="nk-menu-item"><a th:href="@{/products}"
+								class="nk-menu-link"><span class="nk-menu-text">Danh
+										sách</span></a></li>
+							<li class="nk-menu-item"><a href="html/project-card.html"
+								class="nk-menu-link"><span class="nk-menu-text">Tồn
+										kho</span></a></li>
+							<li class="nk-menu-item"><a href="html/project-list.html"
+								class="nk-menu-link"><span class="nk-menu-text">Hết
+										hàng</span></a></li>
+							<li class="nk-menu-item"><a href="html/project-list.html"
+								class="nk-menu-link"><span class="nk-menu-text">Đã
+										xóa</span></a></li>
+						</ul> <!-- .nk-menu-sub --></li>
+					<!-- .nk-menu-item -->
+					<li class="nk-menu-item"><a th:href="@{/slider}" title="Quản lý Poster quảng cáo"
+						class="nk-menu-link"> <span class="nk-menu-icon"><em
+								class="icon ni ni-growth"></em></span> <span class="nk-menu-text">Quảng
+								cáo</span>
+					</a></li>
+					<!-- .nk-menu-item -->
+					<li class="nk-menu-item"><a th:href="@{/customers}" title="Quản lý khách hàng"
+						class="nk-menu-link"> <span class="nk-menu-icon"><em
+								class="icon ni ni-users-fill"></em></span> <span class="nk-menu-text">Khách
+								hàng</span>
+					</a></li>
+
+					<!-- .nk-menu-item -->
+					<li class="nk-menu-heading">
+						<h6 class="overline-title text-primary-alt">Doanh số</h6>
+					</li>
+
+					<!-- .nk-menu-item -->
+					<li class="nk-menu-item"><a th:href="@{/orders}" title="Quản lý đơn hàng"
+						class="nk-menu-link"> <span class="nk-menu-icon"><em
+								class="icon ni ni-layers"></em></span> <span class="nk-menu-text">Đơn
+								hàng</span>
+					</a></li>
+					<!-- .nk-menu-item -->
+					<li class="nk-menu-item"><a th:href="@{/reports}" title="Thống kê doanh số"
+						class="nk-menu-link"> <span class="nk-menu-icon"><em
+								class="icon ni ni-pie"></em></span> <span class="nk-menu-text">Thống
+								kê</span>
+					</a></li>
+
+					<!-- .nk-menu-item -->
+					<li class="nk-menu-heading">
+						<h6 class="overline-title text-primary-alt">Chiến lược</h6>
+					</li>
+
+					<!-- .nk-menu-item -->
+					<li class="nk-menu-item"><a th:href="@{/board}" title="Quản lý tin tức"
+						class="nk-menu-link"> <span class="nk-menu-icon"><em
+								class="icon ni ni-file-docs"></em></span> <span class="nk-menu-text">Tin
+								tức</span>
+					</a></li>
+					<!-- .nk-menu-item -->
+					<li class="nk-menu-item"><a th:href="@{/notice}" title="Thông báo"
+						class="nk-menu-link"> <span class="nk-menu-icon"><em
+								class="icon ni ni-vol"></em></span> <span class="nk-menu-text">Thông
+								báo</span>
+					</a></li>
+
+					<!-- .nk-menu-item -->
+					<li class="nk-menu-heading">
+						<h6 class="overline-title text-primary-alt">Hệ thống</h6>
+					</li>
+
+					<!-- .nk-menu-item -->
+					<li class="nk-menu-item"><a th:href="@{/shipping_rates}" title="Quản lý khu vực giao hàng"
+						class="nk-menu-link"> <span class="nk-menu-icon"> <em
+								class="icon ni ni-map"></em></span> <span class="nk-menu-text">Khu
+								vực</span>
+					</a></li>
+					<!-- .nk-menu-item -->
+					<li class="nk-menu-item"><a th:href="@{/settings}" title="Cài đặt hệ thống"
+						class="nk-menu-link"> <span class="nk-menu-icon"><em
+								class="icon ni ni-setting"></em></span> <span class="nk-menu-text">Cài
+								đặt</span>
+					</a></li>
+				</ul>
+
+				<!-- .nk-menu -->
+				</div>
+				<!-- .nk-sidebar-menu -->
+			</div>
+			<!-- .nk-sidebar-content -->
+		</div>
+		<!-- .nk-sidebar-element -->
+	</div>
+	
+	
+	<!-- main header @s -->
+                <div class="nk-header nk-header-fixed is-light"  th:fragment="header-top">
+                    <div class="container-fluid">
+                        <div class="nk-header-wrap">
+                            <div class="nk-menu-trigger d-xl-none ms-n1">
+                                <a href="#" class="nk-nav-toggle nk-quick-nav-icon" data-target="sidebarMenu"><em class="icon ni ni-menu"></em></a>
+                            </div>
+                            <div class="nk-header-brand d-xl-none">
+                                <a th:href="@{/}" class="logo-link">
+                                    <img class="logo-light logo-img" th:src="@{/images/logo.png}"  alt="logo">
+                                    <img class="logo-dark logo-img" th:src="@{/images/logoDnB.png}" alt="logo-dark">
+                                </a>
+                            </div><!-- .nk-header-brand -->
+                            <div class="nk-header-news d-none d-xl-block">
+                                <div class="nk-news-list">
+                                    <a class="nk-news-item" href="#">
+                                        <div class="nk-news-icon">
+                                            <em class="icon ni ni-card-view"></em>
+                                        </div>
+                                        <div class="nk-news-text">
+                                            <p>Đã có bản cập nhật mới!<span> Hãy kết nối để xem thông tin chi tiết</span></p>
+                                            <em class="icon ni ni-external"></em>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div><!-- .nk-header-news -->
+                            
+                            <form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm">
+									<input type="submit"/>
+							</form>
+                            
+                            <div class="nk-header-tools">
+                                <ul class="nk-quick-nav">
+                                    <!-- .dropdown -->
+                                    <li class="dropdown user-dropdown">
+                                        <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
+                                            <div class="user-toggle">
+                                                <div class="user-avatar sm">
+                                                    <span sec:authentication="principal.AbbrName"></span>
+                                                </div>
+                                                <div class="user-info d-none d-md-block">
+                                                    <div class="user-name dropdown-indicator" sec:authentication="principal.username"></div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-md dropdown-menu-end dropdown-menu-s1">
+                                            <div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
+                                                <div class="user-card">
+                                                    <div class="user-avatar">
+                                                        <span sec:authentication="principal.AbbrName"></span>
+                                                    </div>
+                                                    <div class="user-info">
+                                                        <span class="lead-text" sec:authentication="principal.Comname"></span>
+                                                        <span class="sub-text" sec:authentication="principal.username"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="dropdown-inner">
+                                                <ul class="link-list">
+                                                    <li><a th:href="@{/account}"><em class="icon ni ni-user-alt"></em><span>Tôi</span></a></li>
+                                                    <li><a href="#"><em class="icon ni ni-setting-alt"></em><span>Setting</span></a></li>
+                                                    <li><a href="#"><em class="icon ni ni-activity-alt"></em><span>Thông tin đăng nhập</span></a></li>
+                                                    <li><a class="dark-switch" href="#"><em class="icon ni ni-moon"></em><span>Chế độ sáng/tối</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="dropdown-inner">
+                                                <ul class="link-list">
+                                                    <li><a href="#" id="logoutlink"><em class="icon ni ni-signout"></em><span>Đăng xuất</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li><!-- .dropdown -->
+                                    <li class="dropdown notification-dropdown me-n1">
+                                        <a href="#" class="dropdown-toggle nk-quick-nav-icon" data-bs-toggle="dropdown">
+                                            <div class="icon-status icon-status-info"><em class="icon ni ni-bell"></em></div>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-xl dropdown-menu-end dropdown-menu-s1">
+                                            <div class="dropdown-head">
+                                                <span class="sub-title nk-dropdown-title">Thông báo</span>
+                                                <a href="#">Đánh dấu tất cả là đã đọc</a>
+                                            </div>
+                                            <div class="dropdown-body">
+                                                <div class="nk-notification">
+                                                    <div class="nk-notification-item dropdown-inner">
+                                                        <div class="nk-notification-icon">
+                                                            <em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
+                                                        </div>
+                                                        <div class="nk-notification-content">
+                                                            <div class="nk-notification-text">Bạn có đơn hàng mới <span>Nghĩa</span></div>
+                                                            <div class="nk-notification-time">2 giờ trước</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="nk-notification-item dropdown-inner">
+                                                        <div class="nk-notification-icon">
+                                                            <em class="icon icon-circle bg-success-dim ni ni-curve-down-left"></em>
+                                                        </div>
+                                                        <div class="nk-notification-content">
+                                                            <div class="nk-notification-text">Thư đã được gửi tới Hiếu</div>
+                                                            <div class="nk-notification-time">1 phút trước</div>
+                                                        </div>
+                                                    </div>
+                                                </div><!-- .nk-notification -->
+                                            </div><!-- .nk-dropdown-body -->
+                                            <div class="dropdown-foot center">
+                                                <a href="#">Xem tất cả</a>
+                                            </div>
+                                        </div>
+                                    </li><!-- .dropdown -->
+                                </ul><!-- .nk-quick-nav -->
+                            </div><!-- .nk-header-tools -->
+                        </div><!-- .nk-header-wrap -->
+                    </div><!-- .container-fliud -->
+                </div>
+                <!-- main header @e -->
+
+</html>
