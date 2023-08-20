@@ -34,8 +34,8 @@ public class NoticeDaoExtend {
 		query.registerStoredProcedureParameter(Constant.SP_RETCODE,       String.class, ParameterMode.OUT);
 		query.registerStoredProcedureParameter(Constant.SP_RETSTR,        String.class, ParameterMode.OUT);
 	
-		if (noticeDto.getId() != null) {
-		    query.setParameter("p_id", noticeDto.getId());
+		if (noticeDto.getNtId() != null) {
+		    query.setParameter("p_id", noticeDto.getNtId());
 		} else {
 		    query.setParameter("p_id", "");
 		}

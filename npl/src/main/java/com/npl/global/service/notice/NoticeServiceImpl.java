@@ -29,24 +29,12 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public ResultProcDto saveAddNotice(NoticeDto NoticeAddSave) throws Exception {
 		// TODO Auto-generated method stub
-		if(NoticeAddSave.getsDate() != null) {
-			NoticeAddSave.getsDate().replaceAll("-", "");	
-		}
-		if(NoticeAddSave.geteDate() != null) {
-			NoticeAddSave.geteDate().replaceAll("-", "");	
-		}
 		return this.noticeDaoExtends.callNoticeAdd(NoticeAddSave);
 	}
 
 	@Override
 	public ResultProcDto updNotice(NoticeDto NoticeAddSave) throws Exception {
 		// TODO Auto-generated method stub
-		if(NoticeAddSave.getsDate() != null) {
-			NoticeAddSave.getsDate().replaceAll("-", "");	
-		}
-		if(NoticeAddSave.geteDate() != null) {
-			NoticeAddSave.geteDate().replaceAll("-", "");	
-		}
 		return this.noticeDaoExtends.callNoticeAdd(NoticeAddSave);
 	}
 

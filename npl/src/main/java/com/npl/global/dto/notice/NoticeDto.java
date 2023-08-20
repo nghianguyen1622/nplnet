@@ -1,7 +1,7 @@
 package com.npl.global.dto.notice;
 
 public class NoticeDto {
-	private String id;
+	private String ntId;
 	private String title;
 	private String content;
 	private String sDate;
@@ -10,11 +10,12 @@ public class NoticeDto {
 	private String popup;
 	private String comId;
 	private String wokUser;
-	public String getId() {
-		return id;
+	
+	public String getNtId() {
+		return ntId;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setNtId(String ntId) {
+		this.ntId = ntId;
 	}
 	public String getTitle() {
 		return title;

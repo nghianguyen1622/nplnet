@@ -223,11 +223,11 @@ public class NplTest {
 //		n.setId("NT00005"); //truyen id neu update
 		n.setTitle("test update title 1");
 		n.setContent("test 123");
-		n.setsDate("2023-08-15");
+		n.setsDate("2023-08-08");
 		n.setEnable("Y");
 		n.setPopup("Y");
-		n.seteDate("2023-08-15");
-		n.setComId("NPL");
+		n.seteDate("2023-08-08");
+		n.setComId("LXL");
 		n.setWokUser("loi");
 		
 		repoNoExtent.callNoticeAdd(n);
