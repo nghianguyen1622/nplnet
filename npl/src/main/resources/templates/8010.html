@@ -39,15 +39,8 @@
                                                 <div class="toggle-expand-content" data-content="pageMenu">
                                                     <ul class="nk-block-tools g-3">
                                                         <li class="nk-block-tools-opt">
-                                                            <div class="drodown">
-                                                                <a href="#" class="dropdown-toggle btn btn-icon btn-primary" data-bs-toggle="dropdown"><em class="icon ni ni-plus"></em></a>
-                                                                <div class="dropdown-menu dropdown-menu-end">
-                                                                    <ul class="link-list-opt no-bdr">
-                                                                        <li><a th:href="@{/notice/new}"><span>Tạo tin</span></a></li>
-                                                                        <li><a href="#"><span>Thông báo đã hết hạn</span></a></li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
+                                                            <a href="#" data-target="addProduct" class="toggle btn btn-icon btn-primary d-md-none"><em class="icon ni ni-plus"></em></a>
+                                                            <a href="#" data-target="addProduct" class="toggle btn btn-primary d-none d-md-inline-flex"><em class="icon ni ni-plus"></em><span>Add Notice</span></a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -56,13 +49,79 @@
                                     </div><!-- .nk-block-between -->
                                 </div><!-- .nk-block-head -->
                                 <div class="nk-block nk-block-lg">
-                                        <div class="card card-bordered card-preview">
-                                            <div class="card-inner">
-												<table id="myDataTable" class="datatable-init-export nowrap table" data-auto-responsive="true" data-export-title="Export">
-												</table>
+                                       <div class="card card-bordered card-preview">
+                                           <div class="card-inner">
+											<table id="myDataTable" class="datatable-init-export nowrap table" data-auto-responsive="true" data-export-title="Export">
+											</table>
 											</div>
-                                        </div><!-- .card-preview -->
+                                       </div><!-- .card-preview -->
+                                   </div><!-- .nk-block -->
+                                   
+                                   <div class="nk-add-product toggle-slide toggle-slide-right" data-content="addProduct" data-toggle-screen="any" data-toggle-overlay="true" data-toggle-body="true" data-simplebar>
+                                    <div class="nk-block-head">
+                                        <div class="nk-block-head-content">
+                                            <h5 class="nk-block-title">New Product</h5>
+                                            <div class="nk-block-des">
+                                                <p>Add information and add new product.</p>
+                                            </div>
+                                        </div>
+                                    </div><!-- .nk-block-head -->
+                                    <div class="nk-block">
+                                        <div class="row g-3">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="product-title">Title</label>
+                                                    <div class="form-control-wrap">
+                                                        <input type="text" class="form-control" id="title">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="product-title">Content</label>
+                                                    <div class="form-control-wrap">
+                                                        <input type="text" class="form-control" id="content">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="regular-price">Start Date</label>
+                                                    <div class="form-control-wrap">
+                                                        <input type="text" class="form-control" id="sdate">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="sale-price">End Date</label>
+                                                    <div class="form-control-wrap">
+                                                        <input type="text" class="form-control" id="edate">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">Enable</label>
+                                                    <div class="form-control-wrap">
+                                                        <input type="checkbox" id="enabled">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">poppup</label>
+                                                    <div class="form-control-wrap">
+                                                        <input type="checkbox"  id="poppup">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <button class="btn btn-primary" id="btn-submit"><em class="icon ni ni-plus"></em><span>Add New</span></button>
+                                            </div>
+                                        </div>
                                     </div><!-- .nk-block -->
+                                </div>
                             </div>
                         	</div>
                         </div>
@@ -85,44 +144,6 @@
 	<script th:src="@{/js/libs/datatable-btns.js?ver=3.2.0}"></script>
     <script th:src="@{/js/example-sweetalert.js}"></script>
 
-<script type="text/javascript">
-    /* NioApp.DataTable.init = function() {
-        function isScreenWidthLessThan(size) {
-            return window.innerWidth < size;
-        }
-        
-        var myExternalOptions = {
-            paginate: true,
-        };
-
-        var dataTableOptions = {
-            responsive: {
-                details: true
-            },
-            
-            buttons: [
-                {
-                    extend: 'print',
-                    exportOptions: {
-                        columns: ':visible:not(:lt(1))'
-                    }
-                },
-                {
-                    extend: 'colvis',
-                    exportOptions: {
-                        columns: ':visible:not(:lt(1))'
-                    }
-                },
-            ],
-            fixedColumns: {
-				leftColumns: 1
-			}
-        };
-        var mergedOptions = Object.assign({}, myExternalOptions, dataTableOptions);
-        NioApp.DataTable('.datatable-init-export', mergedOptions);
-    }; */
-</script>
-
 	<script th:src="@{/js/dataTables.fixedColumns.min.js}"></script>
 	
 	<script th:src="@{/js/commom-list.js}"></script>
@@ -130,6 +151,21 @@
 		moduleURL = "[[@{/notice}]]";
 		
 		$(document).ready(function() {
+			$( "#sdate" ).datepicker();
+			$( "#edate" ).datepicker();
+			
+			$("#btn-submit").click(function () {
+				var data = {
+						title: $("#title").val(),
+						content: $("#content").val(),
+						sDate: $("#sdate").val(),
+						eDate: $("#edate").val(),
+						enable: "Y",
+						popup: "Y"
+				};
+				save("/board/save", data);
+			});
+			
 			$(document).on("click", ".link-delete", function(e) {
 				e.preventDefault();
 				var entityName = $(this).attr("data-entityName");
@@ -171,8 +207,8 @@
 			var arr = [ {title:"Action", field: null, className: "text-center", name:"title"},
 						{title:"Title", field:"title"},
 						{title:"Content", field:"content"},
-						{title:"Created Time", field:"createdTime", className: "text-center"},
-						{title:"Start Date", field:"startDate"}];
+						{title:"Start Date", field:"startDate"},
+						{title:"End Date", field:"endDate"}];
 			var arrURL = {api: "/notice/8010", urlInfo: "/8010/", urlEdit: "/8010/", urlDel: "/8010/delete/"};
 			NioApp.DataTable.initWithUrlAndArr('.datatable-init-export', arrURL, arr, mergedOptions);
 		});

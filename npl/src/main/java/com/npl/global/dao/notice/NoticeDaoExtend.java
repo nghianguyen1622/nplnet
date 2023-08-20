@@ -64,7 +64,7 @@ public class NoticeDaoExtend {
 	
 	public ResultProcDto callNoticeDel(String id) throws Exception{
 
-		final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("public.aa_func_notice_del");
+		final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("public.proc_notice_del");
 		
 		query.registerStoredProcedureParameter("p_id",    String.class, ParameterMode.IN);
 		
