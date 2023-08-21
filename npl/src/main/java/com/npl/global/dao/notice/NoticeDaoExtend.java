@@ -19,7 +19,7 @@ public class NoticeDaoExtend {
 	
 	public ResultProcDto callNoticeAdd(NoticeDto noticeDto){
 
-		final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("public.proc_notice");
+		final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("public.prc_notice_callupin");
 		
 		query.registerStoredProcedureParameter("p_id",              String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_title",           String.class,         ParameterMode.IN);
@@ -64,7 +64,7 @@ public class NoticeDaoExtend {
 	
 	public ResultProcDto callNoticeDel(String id) throws Exception{
 
-		final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("public.proc_notice_del");
+		final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("public.prc_notice_del");
 		
 		query.registerStoredProcedureParameter("p_id",    String.class, ParameterMode.IN);
 		
