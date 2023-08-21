@@ -86,17 +86,17 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="regular-price">Start Date</label>
+                                                    <label class="form-label">Start Date</label>
                                                     <div class="form-control-wrap">
-                                                        <input type="text" class="form-control" id="sdate">
+                                                        <input type="text" class="form-control date" id="sdate">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="sale-price">End Date</label>
+                                                    <label class="form-label">End Date</label>
                                                     <div class="form-control-wrap">
-                                                        <input type="text" class="form-control" id="edate">
+                                                        <input type="text" class="form-control date" id="edate">
                                                     </div>
                                                 </div>
                                             </div>
@@ -151,8 +151,7 @@
 		moduleURL = "[[@{/notice}]]";
 		
 		$(document).ready(function() {
-			$( "#sdate" ).datepicker();
-			$( "#edate" ).datepicker();
+			$( ".date" ).datepicker({format: 'dd-mm-yyyy' });
 			
 			$("#btn-submit").click(function () {
 				var data = {
@@ -160,8 +159,8 @@
 						content: $("#content").val(),
 						sDate: $("#sdate").val(),
 						eDate: $("#edate").val(),
-						enable: "Y",
-						popup: "Y"
+						enable: ($("#enabled").is(":checked")?  "Y":"N"),
+						popup: ($("#poppup").is(":checked")?  "Y":"N")
 				};
 				save("/board/save", data);
 			});

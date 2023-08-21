@@ -44,8 +44,8 @@ public class NoticeDaoExtend {
 		query.setParameter("p_content",                  noticeDto.getContent());
 		query.setParameter("p_s_date",                   noticeDto.getsDate());
 		query.setParameter("p_e_date",                   noticeDto.geteDate());
-		query.setParameter("p_enabled",                  "Y");
-		query.setParameter("p_popup",                    "Y");
+		query.setParameter("p_enabled",                  noticeDto.getEnable());
+		query.setParameter("p_popup",                    noticeDto.getPopup());
 		query.setParameter("p_work_user",                noticeDto.getWokUser());
 		
 		query.execute();
