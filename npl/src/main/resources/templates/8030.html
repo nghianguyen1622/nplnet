@@ -28,7 +28,7 @@
                                 <div class="nk-block-head nk-block-head-sm">
                                     <div class="nk-block-between">
                                         <div class="nk-block-head-content">
-                                            <h3 class="nk-block-title page-title">Danh sách thông báo</h3>
+                                            <h3 class="nk-block-title page-title">[[${pageTitle}]]</h3>
                                             <div class="nk-block-des text-soft">
                                                 <p> Hiện có <span th:text="${countRows}">0</span> thông báo.</p>
                                             </div>
@@ -78,14 +78,13 @@
     </div>
     <!-- app-root @e -->
     <!-- select region modal -->
-    <div class="modal fade" tabindex="-1" role="dialog" id="newModal" data-backdrop="static">
+    <div class="modal fade" tabindex="-1" role="dialog" id="newModal">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
 				<div class="modal-body modal-body-md">
 					<h4 class="title">Tạo mới tin tức</h4>
 					<form action="#" class="form-validate is-alter">
-						<input type='hidden' id="nt_id"/>
 						<ul class="nk-nav nav nav-tabs">
 							<li class="nav-item"><a class="nav-link active"
 								data-bs-toggle="tab" href="#tabItem1">Thông tin cơ bản</a></li>
@@ -110,14 +109,13 @@
 									<label class="form-label">Communication</label>
 									<ul class="custom-control-group g-3 align-center">
 										<li>
-											<div class="custom-control custom-switch">
-												<input type="checkbox" class="custom-control-input"
-													id="enable"> <label
-													class="custom-control-label" for="enable">Switch</label>
+											<div class="custom-control custom-control-sm custom-checkbox">
+												<input type="checkbox" class="custom-control-input" id="enable">
+												<label class="custom-control-label" for="enable">Enable</label>
 											</div>
 										</li>
 										<li>
-											<div class="custom-control custom-control-sm custom-checkbox poppup">
+											<div class="custom-control custom-control-sm custom-checkbox">
 												<input type="checkbox" class="custom-control-input" id="poppup">
 												<label class="custom-control-label" for="poppup">Poppup</label>
 											</div>
@@ -148,7 +146,6 @@
 						</div>
 						<div class="form-group mt-1 text-center">
 							<a type="submit" id="btn-submit" class="btn btn-lg btn-primary">Lưu</a>
-							<a href="#" id="cancelButton" class="btn btn-lg btn-warning" data-bs-dismiss="modal">Hủy</a>
 						</div>
 					</form>
 				</div>
@@ -167,59 +164,30 @@
 	<script th:src="@{/js/commom-list.js}"></script>
 	<script type="text/javascript">
 		moduleURL = "[[@{/notice}]]";
-		contextPath = "[[@{/}]]";
 		
-		function fetchDataById(id, callback){
-			var url = contextPath+ "8010/"+id.toString();
-			$.ajax({
-				type: "Get",
-				url: url,
-				dataType: 'json',
-				beforeSend: function(xhr) {
-					// Lấy token CSRF từ trang và bao gồm nó trong yêu cầu
-					var token = $("meta[name='_csrf']").attr("content");
-					var header = $("meta[name='_csrf_header']").attr("content");
-					xhr.setRequestHeader(header, token);
-				},
-				success: function(response) {
-					callback(response);
-				},
-				error: function(xhr, status, error) {
-					Swal.fire({icon: 'error', title: xhr.responseText});
-				}
+		$(document).ready(function() {
+			$('#content').summernote({
+				minHeight : 150,
 			});
-		}
-		
-		document.getElementById("cancelButton").addEventListener("click", function () {
-		    // Xóa dữ liệu trong các trường nhập liệu của modal
-		    document.getElementById("title").value = "";
-		    $("#content").summernote('code', '');
-		    document.getElementById("sdate").value = "";
-		    document.getElementById("edate").value = "";
-		    document.getElementById("enable").checked = false;
-		    document.getElementById("poppup").checked = false;
-		});
-		
-		function openEditModal(id) {
-			$("#nt_id").val(id)
-			fetchDataById(id, function (dataToEdit) {
-				if (dataToEdit.enable === "Y") {
-				    $(".custom-control-input").addClass("checked");
-				} else {
-				    $(".custom-control-input").removeClass("checked");
-				}
-			$("#title").val(dataToEdit.title);
-			$("#content").summernote('code', dataToEdit.content)
-			$("#sdate").val(dataToEdit.startDate);
-			$("#edate").val(dataToEdit.endDate);
-			//$("#enable").prop("checked", dataToEdit.enable === "Y");
-			//$("#poppup").prop("checked", dataToEdit.popup === "Y");
-	
-			$("#newModal").modal("show");
+			$( ".date" ).datepicker({format: 'dd-mm-yyyy' });
+			
+			$("#btn-submit").click(function () {
+				var data = {
+						title: $("#title").val(),
+						content: $("#content").val(),
+						sDate: $("#sdate").val(),
+						eDate: $("#edate").val(),
+						enable: ($("#enable").is(":checked")?  "Y":"N"),
+						popup: ($("#poppup").is(":checked")?  "Y":"N")
+				};
+				save("/board/save", data);
 			});
-		}
-		
-		function loaddata(){
+			
+			$(document).on("click", ".link-delete", function(e) {
+				e.preventDefault();
+				var entityName = $(this).attr("data-entityName");
+				showDeleteConfirm($(this), entityName, moduleURL);
+			});
 			
 			var dataTableOptions = {
 		            responsive: {
@@ -253,44 +221,12 @@
 			var mergedOptions = Object.assign({}, mergedOptions, dataTableOptions);
 
 			
-			var arr = [ {title:"Action", field: null, className: "text-center", name:"title"},
-						{title:"Title", field:"title"},
-						{title:"Content", field:"content"},
-						{title:"Start Date", field:"startDate"},
-						{title:"End Date", field:"endDate"}];
-			var arrURL = {api: "/notice/8010", urlInfo: "/8010/", urlEdit: "/8010/", urlDel: "/8010/delete/"};
+			var arr = [ {title:"Action", field: null, className: "text-center", name:"name"},
+						{title:"Name", field:"title"},
+						{title:"Alias", field:"content"},
+						{title:"Logo", field:"logo"}];
+			var arrURL = {api: "/category/8030", urlInfo: "/8010/", urlEdit: "/8010/", urlDel: "/8010/delete/"};
 			NioApp.DataTable.initWithUrlAndArr('.datatable-init-export', arrURL, arr, mergedOptions);
-			}
-		
-		$(document).ready(function() {
-			$('#content').summernote({
-				minHeight : 150,
-			});
-			$( ".date" ).datepicker({format: 'dd-mm-yyyy' });
-			
-			$("#btn-submit").click(function () {
-				var data = {
-						ntId: $("#nt_id").val(),
-						title: $("#title").val(),
-						content: $("#content").val(),
-						sDate: $("#sdate").val(),
-						eDate: $("#edate").val(),
-						enable: ($("#enable").is(":checked")?  "Y":"N"),
-						popup: ($("#poppup").is(":checked")?  "Y":"N")
-				};
-				
-				save("/board/save", data);
-			});
-			
-			loaddata();
-			
-			$(document).on("click", ".link-delete", function(e) {
-				e.preventDefault();
-				var entityName = $(this).attr("data-entityName");
-				showDeleteConfirm($(this), entityName, moduleURL);
-				
-			});
-			
 		});
 		
 	</script>

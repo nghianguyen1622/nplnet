@@ -623,7 +623,7 @@
 										<em class="icon ni ni-eye"></em></a>`;
 							}
 							if(arrURL.urlEdit){
-								action += `<a href="${arrURL.urlEdit + row.id}" class="btn btn-icon edit-color" th:title="Sửa thông tin ${row[columnInfo.name]}">
+								action += `<a href="#" onclick="openEditModal('${row.id}')" class="btn btn-icon edit-color" th:title="Sửa thông tin ${row[columnInfo.name]}">
 										<em class="icon ni ni-edit"></em></a>`;
 							}
 							if(arrURL.urlDel){

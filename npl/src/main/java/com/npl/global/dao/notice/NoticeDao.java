@@ -40,7 +40,7 @@ public interface NoticeDao extends PagingAndSortingRepository<Notice, Integer> {
 			+"      , WORK_USER AS workUser                              "
 			+"   FROM notice                                             "
 			+"  WHERE COM_ID = :comId                                    "
-			+"        NT_ID = :id                                        "
+			+"    AND NT_ID = :id                                        "
 			, nativeQuery = true)
 	NoticeModel findById(String comId, String id);
 

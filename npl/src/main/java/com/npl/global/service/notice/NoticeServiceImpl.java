@@ -33,12 +33,6 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public ResultProcDto updNotice(NoticeDto NoticeAddSave) throws Exception {
-		// TODO Auto-generated method stub
-		return this.noticeDaoExtends.callNoticeAdd(NoticeAddSave);
-	}
-
-	@Override
 	public ResultProcDto delNotice(String id) throws Exception {
 		// TODO Auto-generated method stub
 		return this.noticeDaoExtends.callNoticeDel(id);

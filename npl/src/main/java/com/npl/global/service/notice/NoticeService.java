@@ -13,7 +13,6 @@ public interface NoticeService {
 	public NoticeModel noticeInfo(String comId, String id);
 
 	public ResultProcDto saveAddNotice(NoticeDto NoticeAddSave) throws Exception;
-	public ResultProcDto updNotice(NoticeDto NoticeAddSave) throws Exception;
 	public ResultProcDto delNotice(String id) throws Exception;
 	
 	
