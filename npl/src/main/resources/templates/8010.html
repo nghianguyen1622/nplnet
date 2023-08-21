@@ -39,8 +39,15 @@
                                                 <div class="toggle-expand-content" data-content="pageMenu">
                                                     <ul class="nk-block-tools g-3">
                                                         <li class="nk-block-tools-opt">
-                                                            <a href="#" data-target="addProduct" class="toggle btn btn-icon btn-primary d-md-none"><em class="icon ni ni-plus"></em></a>
-                                                            <a href="#" data-target="addProduct" class="toggle btn btn-primary d-none d-md-inline-flex"><em class="icon ni ni-plus"></em><span>Add Notice</span></a>
+                                                            <div class="drodown">
+                                                                <a href="#" class="dropdown-toggle btn btn-icon btn-primary" data-bs-toggle="dropdown"><em class="icon ni ni-plus"></em></a>
+                                                                <div class="dropdown-menu dropdown-menu-end">
+                                                                    <ul class="link-list-opt no-bdr">
+                                                                        <li><a href="#" data-bs-toggle="modal" data-bs-target="#newModal"><span>Tạo tin</span></a></li>
+                                                                        <li><a href="#"><span>Thông báo đã hết hạn</span></a></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -57,71 +64,6 @@
                                        </div><!-- .card-preview -->
                                    </div><!-- .nk-block -->
                                    
-                                   <div class="nk-add-product toggle-slide toggle-slide-right" data-content="addProduct" data-toggle-screen="any" data-toggle-overlay="true" data-toggle-body="true" data-simplebar>
-                                    <div class="nk-block-head">
-                                        <div class="nk-block-head-content">
-                                            <h5 class="nk-block-title">New Product</h5>
-                                            <div class="nk-block-des">
-                                                <p>Add information and add new product.</p>
-                                            </div>
-                                        </div>
-                                    </div><!-- .nk-block-head -->
-                                    <div class="nk-block">
-                                        <div class="row g-3">
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="product-title">Title</label>
-                                                    <div class="form-control-wrap">
-                                                        <input type="text" class="form-control" id="title">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="product-title">Content</label>
-                                                    <div class="form-control-wrap">
-                                                        <input type="text" class="form-control" id="content">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label">Start Date</label>
-                                                    <div class="form-control-wrap">
-                                                        <input type="text" class="form-control date" id="sdate">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label">End Date</label>
-                                                    <div class="form-control-wrap">
-                                                        <input type="text" class="form-control date" id="edate">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label">Enable</label>
-                                                    <div class="form-control-wrap">
-                                                        <input type="checkbox" id="enabled">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label">poppup</label>
-                                                    <div class="form-control-wrap">
-                                                        <input type="checkbox"  id="poppup">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                                <button class="btn btn-primary" id="btn-submit"><em class="icon ni ni-plus"></em><span>Add New</span></button>
-                                            </div>
-                                        </div>
-                                    </div><!-- .nk-block -->
-                                </div>
                             </div>
                         	</div>
                         </div>
@@ -136,7 +78,98 @@
     </div>
     <!-- app-root @e -->
     <!-- select region modal -->
-    
+    <div class="modal fade" tabindex="-1" role="dialog" id="newModal">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+				<div class="modal-body modal-body-md">
+					<h4 class="title">Tạo mới tin tức</h4>
+					<form action="#" class="form-validate is-alter">
+						<ul class="nk-nav nav nav-tabs">
+							<li class="nav-item"><a class="nav-link active"
+								data-bs-toggle="tab" href="#tabItem1">Thông tin cơ bản</a></li>
+							<li class="nav-item"><a class="nav-link"
+								data-bs-toggle="tab" href="#tabItem2">Nội dung</a></li>
+						</ul>
+						<div class="tab-content">
+							<div class="tab-pane active" id="tabItem1">
+								<div class="form-group">
+									<label class="form-label" for="full-name">Full Name</label>
+									<div class="form-control-wrap">
+										<input type="text" class="form-control" id="full-name"
+											required>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="form-label" for="email-address">Email
+										address</label>
+									<div class="form-control-wrap">
+										<input type="text" class="form-control" id="email-address"
+											required>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="form-label" for="phone-no">Phone No</label>
+									<div class="form-control-wrap">
+										<input type="text" class="form-control" id="phone-no">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="form-label">Communication</label>
+									<ul class="custom-control-group g-3 align-center">
+										<li>
+											<div class="custom-control custom-control-sm custom-checkbox">
+												<input type="checkbox" class="custom-control-input"
+													id="com-email"> <label class="custom-control-label"
+													for="com-email">Email</label>
+											</div>
+										</li>
+										<li>
+											<div class="custom-control custom-control-sm custom-checkbox">
+												<input type="checkbox" class="custom-control-input"
+													id="com-sms"> <label class="custom-control-label"
+													for="com-sms">SMS</label>
+											</div>
+										</li>
+										<li>
+											<div class="custom-control custom-control-sm custom-checkbox">
+												<input type="checkbox" class="custom-control-input"
+													id="com-phone"> <label class="custom-control-label"
+													for="com-phone">Phone</label>
+											</div>
+										</li>
+									</ul>
+								</div>
+								<div class="form-group">
+									<label class="form-label" for="pay-amount">Amount</label>
+									<div class="form-control-wrap">
+										<input type="text" class="form-control" id="pay-amount">
+									</div>
+								</div>
+								
+							</div>
+							<div class="tab-pane" id="tabItem2">
+								<div class="ccc">
+									<div class="m-2">
+										<label class="tableCodeFalse">Tiêu đề</label>
+										<textarea class="form-control" rows="5"></textarea>
+									</div>
+									<div class="m-2">
+										<label>Nội dung</label>
+										<textarea class="summernote1" id="Description"
+											rows="5"> </textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group mt-1 text-center">
+							<button type="submit" class="btn btn-lg btn-primary">Lưu</button>
+						</div>
+					</form>
+				</div>
+			</div>
+        </div>
+    </div>
     <!-- .modal -->
     <!-- JavaScript -->
     <script th:src="@{/js/bundle.js?ver=3.2.0}"></script>
@@ -212,6 +245,13 @@
 			NioApp.DataTable.initWithUrlAndArr('.datatable-init-export', arrURL, arr, mergedOptions);
 		});
 		
+	</script>
+	
+	<script th:src="@{/js/libs/editors/summernote.js}"></script>
+	<script type="text/javascript">
+		$('#Description').summernote({
+			minHeight : 150,
+		});
 	</script>
 
 </body>
