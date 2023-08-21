@@ -94,24 +94,15 @@
 						<div class="tab-content">
 							<div class="tab-pane active" id="tabItem1">
 								<div class="form-group">
-									<label class="form-label" for="full-name">Full Name</label>
+									<label class="form-label" for="full-name">Title</label>
 									<div class="form-control-wrap">
-										<input type="text" class="form-control" id="full-name"
-											required>
+										<textarea class="form-control" rows="5" id="title"></textarea>
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="form-label" for="email-address">Email
-										address</label>
+									<label class="form-label" for="full-name">Content</label>
 									<div class="form-control-wrap">
-										<input type="text" class="form-control" id="email-address"
-											required>
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="form-label" for="phone-no">Phone No</label>
-									<div class="form-control-wrap">
-										<input type="text" class="form-control" id="phone-no">
+									<textarea class="summernote1" id="content" rows="5"> </textarea>
 									</div>
 								</div>
 								<div class="form-group">
@@ -119,34 +110,28 @@
 									<ul class="custom-control-group g-3 align-center">
 										<li>
 											<div class="custom-control custom-control-sm custom-checkbox">
-												<input type="checkbox" class="custom-control-input"
-													id="com-email"> <label class="custom-control-label"
-													for="com-email">Email</label>
+												<input type="checkbox" class="" id="enable">
+												<label class="custom-control-label">Enable</label>
 											</div>
 										</li>
 										<li>
 											<div class="custom-control custom-control-sm custom-checkbox">
-												<input type="checkbox" class="custom-control-input"
-													id="com-sms"> <label class="custom-control-label"
-													for="com-sms">SMS</label>
-											</div>
-										</li>
-										<li>
-											<div class="custom-control custom-control-sm custom-checkbox">
-												<input type="checkbox" class="custom-control-input"
-													id="com-phone"> <label class="custom-control-label"
-													for="com-phone">Phone</label>
+												<input type="checkbox" class="" id="poppup">
+												<label class="custom-control-label">Poppup</label>
 											</div>
 										</li>
 									</ul>
 								</div>
-								<div class="form-group">
-									<label class="form-label" for="pay-amount">Amount</label>
-									<div class="form-control-wrap">
-										<input type="text" class="form-control" id="pay-amount">
+								<div class="row form-group">
+									<div class="col-md-6">
+										<label class="form-label">Start Date</label>
+										<input type="text" class="date form-control" id="sdate">
+									</div>
+									<div class="col-md-6">
+										<label class="form-label">End Date</label>
+										<input type="text" class="date form-control" id="edate">
 									</div>
 								</div>
-								
 							</div>
 							<div class="tab-pane" id="tabItem2">
 								<div class="ccc">
@@ -163,7 +148,7 @@
 							</div>
 						</div>
 						<div class="form-group mt-1 text-center">
-							<button type="submit" class="btn btn-lg btn-primary">Lưu</button>
+							<a type="submit" id="btn-submit" class="btn btn-lg btn-primary">Lưu</a>
 						</div>
 					</form>
 				</div>
@@ -184,6 +169,9 @@
 		moduleURL = "[[@{/notice}]]";
 		
 		$(document).ready(function() {
+			$('#content').summernote({
+				minHeight : 150,
+			});
 			$( ".date" ).datepicker({format: 'dd-mm-yyyy' });
 			
 			$("#btn-submit").click(function () {
