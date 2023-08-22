@@ -56,7 +56,7 @@ public class UserRestController {
 		}
 	}
 	
-	@PostMapping(value = "/board/save")
+	@PostMapping(value = "/1010/save")
 	public @ResponseBody ResultProcDto save(@RequestBody UserDto userSave) {
 		try {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
