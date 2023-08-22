@@ -89,8 +89,6 @@
 						<ul class="nk-nav nav nav-tabs">
 							<li class="nav-item"><a class="nav-link active"
 								data-bs-toggle="tab" href="#tabItem1">Thông tin cơ bản</a></li>
-							<li class="nav-item"><a class="nav-link"
-								data-bs-toggle="tab" href="#tabItem2">Nội dung</a></li>
 						</ul>
 						<div class="tab-content">
 							<div class="tab-pane active" id="tabItem1">
@@ -103,24 +101,20 @@
 								<div class="form-group">
 									<label class="form-label" for="full-name">Content</label>
 									<div class="form-control-wrap">
-									<textarea class="summernote1" id="content" rows="5"> </textarea>
+										<textarea class="summernote1" id="content" rows="5"> </textarea>
+										<div id="contentHidden"></div>
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="form-label">Communication</label>
 									<ul class="custom-control-group g-3 align-center">
 										<li>
-											<div class="custom-control custom-switch">
-												<input type="checkbox" class="custom-control-input"
-													id="enable"> <label
-													class="custom-control-label" for="enable">Switch</label>
-											</div>
+											<input type="checkbox" class="" id="enable">
+											<label class="">Enable</label>
 										</li>
 										<li>
-											<div class="custom-control custom-control-sm custom-checkbox poppup">
-												<input type="checkbox" class="custom-control-input" id="poppup">
-												<label class="custom-control-label" for="poppup">Poppup</label>
-											</div>
+											<input type="checkbox" class="" id="poppup">
+											<label class="">Poppup</label>
 										</li>
 									</ul>
 								</div>
@@ -133,16 +127,6 @@
 										<label class="form-label">End Date</label>
 										<input type="text" class="date form-control" id="edate">
 									</div>
-								</div>
-							</div>
-							<div class="tab-pane" id="tabItem2">
-								<div class="m-2">
-									<label class="tableCodeFalse">Tiêu đề</label>
-									<textarea class="form-control" rows="5"></textarea>
-								</div>
-								<div class="m-2">
-									<label>Nội dung</label>
-									<textarea class="summernote1" id="Description" rows="5"> </textarea>
 								</div>
 							</div>
 						</div>
@@ -176,7 +160,6 @@
 				url: url,
 				dataType: 'json',
 				beforeSend: function(xhr) {
-					// Lấy token CSRF từ trang và bao gồm nó trong yêu cầu
 					var token = $("meta[name='_csrf']").attr("content");
 					var header = $("meta[name='_csrf_header']").attr("content");
 					xhr.setRequestHeader(header, token);
@@ -190,77 +173,103 @@
 			});
 		}
 		
-		document.getElementById("cancelButton").addEventListener("click", function () {
-		    // Xóa dữ liệu trong các trường nhập liệu của modal
-		    document.getElementById("title").value = "";
-		    $("#content").summernote('code', '');
-		    document.getElementById("sdate").value = "";
-		    document.getElementById("edate").value = "";
-		    document.getElementById("enable").checked = false;
-		    document.getElementById("poppup").checked = false;
+		$("#cancelButton").click(function () {
+			$( ".date" ).datepicker({format: 'dd-mm-yyyy' });
+			$("#title").prop("readonly", false);
+			$("#contentHidden").html("");
+			$("#sdate").prop("readonly", false);
+			$("#edate").prop("readonly", false);
+			$("#enable").prop( "disabled", false );
+			$("#poppup").prop( "disabled", false);
+			
+			$(".title").text("Tạo mới tin tức");
+			$("#title").val("");
+			$("#content").summernote('code', '');
+			$("#sdate").val("");
+			$("#edate").val("");
+			$("#enable").prop("checked", false);
+			$("#poppup").prop("checked", false);
 		});
 		
 		function openEditModal(id) {
+			$(".title").text("Chỉnh sửa thông báo");
 			$("#nt_id").val(id)
 			fetchDataById(id, function (dataToEdit) {
-				if (dataToEdit.enable === "Y") {
-				    $(".custom-control-input").addClass("checked");
-				} else {
-				    $(".custom-control-input").removeClass("checked");
-				}
-			$("#title").val(dataToEdit.title);
-			$("#content").summernote('code', dataToEdit.content)
-			$("#sdate").val(dataToEdit.startDate);
-			$("#edate").val(dataToEdit.endDate);
-			//$("#enable").prop("checked", dataToEdit.enable === "Y");
-			//$("#poppup").prop("checked", dataToEdit.popup === "Y");
-	
-			$("#newModal").modal("show");
+				$("#title").val(dataToEdit.title);
+				$("#content").summernote('code', dataToEdit.content)
+				$("#sdate").datepicker("setDate", new Date(dataToEdit.startDate));
+				$("#edate").datepicker("setDate", new Date(dataToEdit.startDate));
+				$("#enable").prop("checked", dataToEdit.isEnabled === "Y");
+				$("#poppup").prop("checked", dataToEdit.isPoppup === "Y");
+				
+				$("#newModal").modal("show");
+			});
+		}
+		
+		function openInfoModal(id) {
+			$(".title").text("Chi tiết thông báo");
+			$("#nt_id").val(id)
+			fetchDataById(id, function (dataToEdit) {
+				$("#title").val(dataToEdit.title);
+				$("#contentHidden").html(dataToEdit.content);
+				$("#sdate").datepicker("setDate", new Date(dataToEdit.startDate));
+				$("#edate").datepicker("setDate", new Date(dataToEdit.startDate));
+				$("#enable").prop("checked", dataToEdit.isEnabled === "Y");
+				$("#poppup").prop("checked", dataToEdit.isPoppup === "Y");
+				
+				$("#title").prop("readonly", true);
+				$("#content").summernote('destroy');
+				$("#content").css("display", "none");
+				$("#sdate").datepicker("destroy");
+				$("#edate").datepicker("destroy");
+				$("#enable").prop( "disabled", true );
+				$("#poppup").prop( "disabled", true );
+				
+				$("#newModal").modal("show");
 			});
 		}
 		
 		function loaddata(){
 			
 			var dataTableOptions = {
-		            responsive: {
-		                details: false
-		            },
-		            
-		            buttons: [
-		                {
-		                    extend: 'print',
-		                    exportOptions: {
-		                        columns: ':visible:not(:lt(1))'
-		                    }
-		                },
-		                {
-		                    extend: 'excel',
-		                    exportOptions: {
-		                        columns: ':visible:not(:lt(1))'
-		                    }
-		                },
-		                {
-		                    extend: 'colvis',
-		                    exportOptions: {
-		                        columns: ':visible:not(:lt(1))'
-		                    }
-		                },
-		            ],
-		            fixedColumns: {
+						responsive: {
+							details: false
+						},
+						
+						buttons: [
+							{
+								extend: 'print',
+								exportOptions: {
+									columns: ':visible:not(:lt(1))'
+								}
+							},
+							{
+								extend: 'excel',
+								exportOptions: {
+									columns: ':visible:not(:lt(1))'
+								}
+							},
+							{
+								extend: 'colvis',
+								exportOptions: {
+								columns: ':visible:not(:lt(1))'
+								}
+							},
+						],
+						fixedColumns: {
 						leftColumns: 2
 					}
-		        };
+		 	};
 			var mergedOptions = Object.assign({}, mergedOptions, dataTableOptions);
-
 			
-			var arr = [ {title:"Action", field: null, className: "text-center", name:"title"},
+			var arr = [ {title:"Action", field: null, delEdit: true, className: "text-center", name:"title"},
 						{title:"Title", field:"title"},
 						{title:"Content", field:"content"},
 						{title:"Start Date", field:"startDate"},
 						{title:"End Date", field:"endDate"}];
-			var arrURL = {api: "/notice/8010", urlInfo: "/8010/", urlEdit: "/8010/", urlDel: "/8010/delete/"};
+			var arrURL = {api: "/notice/8010", urlDel: "/8010/delete/"};
 			NioApp.DataTable.initWithUrlAndArr('.datatable-init-export', arrURL, arr, mergedOptions);
-			}
+		}
 		
 		$(document).ready(function() {
 			$('#content').summernote({
@@ -290,17 +299,11 @@
 				showDeleteConfirm($(this), entityName, moduleURL);
 				
 			});
-			
 		});
 		
 	</script>
 	
 	<script th:src="@{/js/libs/editors/summernote.js}"></script>
-	<script type="text/javascript">
-		$('#Description').summernote({
-			minHeight : 150,
-		});
-	</script>
 
 </body>
 

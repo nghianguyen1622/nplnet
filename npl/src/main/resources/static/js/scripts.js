@@ -617,16 +617,11 @@
 							}
 						}else{
 						}
-							var action='';
-							if(arrURL.urlInfo){
-								action += `<a href="${arrURL.urlInfo + row.id}" class="btn btn-icon edit-color" th:title="Thông tin chi tiểt ${row[columnInfo.name]}">
-										<em class="icon ni ni-eye"></em></a>`;
-							}
-							if(arrURL.urlEdit){
+							var action= `<a href="#" onclick="openInfoModal('${row.id}')" class="btn btn-icon edit-color" th:title="Thông tin chi tiểt ${row[columnInfo.name]}">
+											<em class="icon ni ni-eye"></em></a>`;
+							if(columnInfo.delEdit){
 								action += `<a href="#" onclick="openEditModal('${row.id}')" class="btn btn-icon edit-color" th:title="Sửa thông tin ${row[columnInfo.name]}">
 										<em class="icon ni ni-edit"></em></a>`;
-							}
-							if(arrURL.urlDel){
 								action += `<a href="${arrURL.urlDel + row.id}" class="link-delete btn btn-icon remove-color" entityId="${row.id}" data-entityName="${row[columnInfo.name]}" title="Xóa ${row[columnInfo.name]}"> 
 										<em class="icon ni ni-trash"></em></a>`;
 							}
