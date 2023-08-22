@@ -1,9 +1,13 @@
 package com.npl.global.service.user;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.npl.global.dao.user.UserDao;
+import com.npl.global.dto.ResultProcDto;
+import com.npl.global.dto.user.UserDto;
 import com.npl.global.entity.User;
 import com.npl.global.model.user.UserModel;
 
@@ -37,6 +41,27 @@ public class UserServiceImpl implements UserService {
 	public void saveLogtime(User user) {
 		userDao.save(user);
 		
+	}
+
+
+	@Override
+	public List<UserModel> findAll(String comId) {
+		// TODO Auto-generated method stub
+		return userDao.findAll(comId);
+	}
+
+
+	@Override
+	public ResultProcDto saveUser(UserDto userSave) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public ResultProcDto delUser(String userId) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

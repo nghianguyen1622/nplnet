@@ -24,7 +24,7 @@ public class CustomLoginFailHandler implements AuthenticationFailureHandler {
 		UserModel smUser = userService.findUserName(request.getParameter("username"));
 		if (smUser != null) {
 			try {
-				userService.findUserNameParam(smUser.getUsername());
+				userService.findUserNameParam(smUser.getUserName());
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

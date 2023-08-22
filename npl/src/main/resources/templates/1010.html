@@ -263,11 +263,19 @@
 			var mergedOptions = Object.assign({}, mergedOptions, dataTableOptions);
 			
 			var arr = [ {title:"Action", field: null, delEdit: true, className: "text-center", name:"title"},
-						{title:"Title", field:"title"},
-						{title:"Content", field:"content"},
-						{title:"Start Date", field:"startDate"},
-						{title:"End Date", field:"endDate"}];
-			var arrURL = {api: "/notice/8010", urlDel: "/8010/delete/"};
+						{title:"User Id", field:"userId"},
+						{title:"User Name", field:"userName"},
+						{title:"Img", field:"img"},
+						{title:"Email", field:"email"},
+						{title:"Adress", field:"adress"},
+						{title:"Phone", field:"phone"},
+						{title:"Bith Day", field:"birthDay"},
+						{title:"Status", field:"enabled"},
+						{title:"Work User", field:"workUser"},
+						{title:"Update Time", field:"updatedTime"},
+						{title:"Create Time", field:"createdTime"},
+						];
+			var arrURL = {api: "/1010", urlDel: "/8010/delete/"};
 			NioApp.DataTable.initWithUrlAndArr('.datatable-init-export', arrURL, arr, mergedOptions);
 		}
 		

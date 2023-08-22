@@ -22,8 +22,10 @@ import com.npl.global.dao.settings.ProgramDao;
 import com.npl.global.dao.settings.RoleDao;
 import com.npl.global.dao.settings.UserMenuDao;
 import com.npl.global.dao.user.UserDao;
+import com.npl.global.dao.user.UserDaoExtend;
 import com.npl.global.dto.ResultProcDto;
 import com.npl.global.dto.notice.NoticeDto;
+import com.npl.global.dto.user.UserDto;
 import com.npl.global.entity.Company;
 import com.npl.global.entity.Notice;
 import com.npl.global.entity.Program;
@@ -55,6 +57,9 @@ public class NplTest {
 	
 	@Autowired
 	private NoticeDaoExtend repoNoExtent;
+	
+	@Autowired
+	private UserDaoExtend repoUserExtent;
 	
 	@Autowired
 	private UserMenuDao repoUM;
@@ -157,6 +162,35 @@ public class NplTest {
 		u.setLogTime(new Date());
 		
 		repoU.save(u);
+	}
+	
+	@Test
+	public void testCreateUser() {
+		String thispass = "npl123";
+		
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String pass = passwordEncoder.encode(thispass);
+		String checkpass = repoU.encryptPass(thispass);
+		
+		UserDto u = new UserDto();
+		u.setRoleId(2);;
+		u.setUserName("lxltech1");
+		u.setPasswd(pass);
+		u.setCheckPw(checkpass);
+		u.setEmail("lxl@gmail.com");
+		u.setImg("");
+		u.setBirtDay("");
+		u.setAddr("");
+		u.setIdenCard("");
+		u.setEnable(true);
+		u.setPhone("0368023380");
+		u.setWorkUser("lxltech");
+		u.setComId("LXL");
+		u.setDelYN("N");
+		u.setEditYN("N");
+		u.setUseYN("N");
+		
+		repoUserExtent.callSaveUser(u);
 	}
 	
 	@Test

@@ -1,5 +1,7 @@
 package com.npl.global.dao.user;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
@@ -13,26 +15,45 @@ public interface UserDao extends PagingAndSortingRepository<User, String>{
 	@Query("SELECT u FROM User u WHERE u.username = :username")
 	public User getUserByUserName(String username);
 
-	@Query(value=" SELECT id  as Id                                           "
-			+"      , CREATED_TIME  as createdTime                            "
-			+"      , UPDATE_TIME as updatedTime                              "
-			+"      , WORK_USER as workUser                                   "
-			+"      , COM_ID as  comId                                        "
-			+"      , email as  email                                         "
-			+"      , ADDR AS adress                                          "
-			+"      , USER_NAME AS username                                   "
-			+"      , PHONE AS phone                                          "
-			+"      , password AS password                                    "
-			+"      , CHECK_PASS AS checkPass                                 "
-			+"      , IMG AS img                                              "
-			+"      , IDENTITY_CARD AS identity                               "
-			+"      , BIRTH_DAY AS birthDay                                   "
-			+"      , enabled AS enabled                                      "
-			+"      , userMenus AS userMenus                                  "
-			+"   FROM users                                                   "
-			+"  WHERE username = :username                                    "
+	@Query(value=" SELECT user_id  as userId                                      "
+			+"          , CREATED_TIME  as createdTime                            "
+			+"          , UPDATE_TIME as updatedTime                              "
+			+"          , WORK_USER as workUser                                   "
+			+"          , COM_ID as  comId                                        "
+			+"          , email as  email                                         "
+			+"          , ADDR AS adress                                          "
+			+"          , USER_NAME AS username                                   "
+			+"          , PHONE AS phone                                          "
+			+"          , passwd AS passwd                                        "
+			+"          , CHECK_PASS AS checkPass                                 "
+			+"          , IMG AS img                                              "
+			+"          , IDENTITY_CARD AS identity                               "
+			+"          , BIRTH_DAY AS birthDay                                   "
+			+"          , enabled AS enabled                                      "
+			+"       FROM users                                                   "
+			+"      WHERE username = :username                                    "
 			, nativeQuery = true)
 	public UserModel findUserName(String username);
+	
+	@Query(value=" SELECT user_id  as userId                                      "
+			+"          , CREATED_TIME  as createdTime                            "
+			+"          , UPDATE_TIME as updatedTime                              "
+			+"          , WORK_USER as workUser                                   "
+			+"          , COM_ID as  comId                                        "
+			+"          , email as  email                                         "
+			+"          , ADDR AS adress                                          "
+			+"          , USER_NAME AS userName                                   "
+			+"          , PHONE AS phone                                          "
+			+"          , passwd AS passwd                                        "
+			+"          , CHECK_PASS AS checkPass                                 "
+			+"          , IMG AS img                                              "
+			+"          , IDENTITY_CARD AS identity                               "
+			+"          , BIRTH_DAY AS birthDay                                   "
+			+"          , enabled AS enabled                                      "
+			+"       FROM users                                                   "
+			+"      WHERE com_id = :comId                                    "
+			, nativeQuery = true)
+	public List<UserModel> findAll(String comId);
 	
 	
 
