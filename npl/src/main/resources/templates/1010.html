@@ -78,65 +78,174 @@
     </div>
     <!-- app-root @e -->
     <!-- select region modal -->
-    <div class="modal fade" tabindex="-1" role="dialog" id="newModal" data-backdrop="static">
-        <div class="modal-dialog modal-lg" role="document">
+    <div class="modal fade" id="newModal">
+        <div class="modal-dialog modal-lg modal-md" role="document">
             <div class="modal-content">
-                <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
-				<div class="modal-body modal-body-md">
-					<h4 class="title">Tạo mới tin tức</h4>
-					<form action="#" class="form-validate is-alter">
-						<input type='hidden' id="nt_id"/>
-						<ul class="nk-nav nav nav-tabs">
-							<li class="nav-item"><a class="nav-link active"
-								data-bs-toggle="tab" href="#tabItem1">Thông tin cơ bản</a></li>
-						</ul>
-						<div class="tab-content">
-							<div class="tab-pane active" id="tabItem1">
+                <div class="modal-header">
+                    <h5 class="modal-title">Customer Info</h5>
+                    <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <em class="icon ni ni-cross"></em>
+                    </a>
+                </div>
+                <div class="modal-body modal-body-lg modal-body-md">
+					<form action="#" class="form-validate is-alter" enctype="multipart/form-data"
+						onsubmit="return checkEmailUnique(this);">
+						<input type="hidden" /> 
+						<div class="row g-4">
+							<div class="col-lg-6">
 								<div class="form-group">
-									<label class="form-label" for="full-name">Title</label>
+									<label class="form-label" for="fullname">Họ Tên</label>
 									<div class="form-control-wrap">
-										<textarea class="form-control" rows="5" id="title"></textarea>
+										<input type="text" class="form-control" required id="fullname">
 									</div>
 								</div>
+							</div>
+							<div class="col-lg-6">
 								<div class="form-group">
-									<label class="form-label" for="full-name">Content</label>
+									<label class="form-label" for="email">Tên đăng nhập</label>
 									<div class="form-control-wrap">
-										<textarea class="summernote1" id="content" rows="5"> </textarea>
-										<div id="contentHidden"></div>
+										<input class="form-control" type="text" id="email"
+											required>
 									</div>
 								</div>
+							</div>
+							<div class="col-lg-6">
 								<div class="form-group">
-									<label class="form-label">Communication</label>
-									<ul class="custom-control-group g-3 align-center">
-										<li>
-											<input type="checkbox" class="" id="enable">
-											<label class="">Enable</label>
-										</li>
-										<li>
-											<input type="checkbox" class="" id="poppup">
-											<label class="">Poppup</label>
-										</li>
-									</ul>
+									<label class="form-label" for="phone">Số điện
+										thoại</label>
+									<div class="form-control-wrap">
+										<input class="form-control" type="number" id="phone">
+									</div>
 								</div>
-								<div class="row form-group">
-									<div class="col-md-6">
-										<label class="form-label">Start Date</label>
-										<input type="text" class="date form-control" id="sdate">
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label class="form-label" for="birthday">Ngày sinh</label>
+									<div class="form-control-wrap">
+										<div class="form-icon form-icon-left">
+											<em class="icon ni ni-calendar"></em>
+										</div>
+										<input type="text" class="form-control date-picker"
+											id="birthday" data-date-format="yyyy-mm-dd">
 									</div>
-									<div class="col-md-6">
-										<label class="form-label">End Date</label>
-										<input type="text" class="date form-control" id="edate">
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label class="form-label" for="adress">Địa chỉ</label>
+									<div class="form-control-wrap">
+										<input type="text" class="form-control" id="adress">
 									</div>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label class="form-label" for="idencard">Số
+										CMND/CCCD</label>
+									<div class="form-control-wrap">
+										<input class="form-control" type="number"
+											id="idencard">
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label class="form-label" for="daterange">Ngày cấp</label>
+									<div class="form-control-wrap">
+										<div class="form-icon form-icon-left">
+											<em class="icon ni ni-calendar"></em>
+										</div>
+										<input type="text" class="form-control date-picker"
+											id="daterange" data-date-format="yyyy-mm-dd">
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label class="form-label" for="issuedby">Nơi cấp</label>
+									<div class="form-control-wrap">
+										<input type="text" class="form-control"
+											id="issuedby">
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label class="form-label" for="sexs">Giới tính</label>
+									<div class="form-control-wrap">
+										<select class="form-select js-select2" id="sexs">
+											<option value="S01" >Nam</option>
+											<option value="S02" >Nữ</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label class="form-label" for="degrees">Học vấn</label>
+									<div class="form-control-wrap">
+										<select class="form-select js-select2" id="degrees">
+											<option value="E01">Đại học/Cao đẳng</option>
+											<option value="E02">Trung cấp</option>
+											<option value="E03">Tốt nghệp phổ thông</option>
+											<option value="E04">Khác</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label class="form-label" for="roles">Chức vụ</label>
+									<div class="form-control-wrap">
+										<select class="form-select js-select2" id="roles">
+											<option >admin</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label class="form-label" for="maritals">Tình trạng hôn nhân</label>
+									<div class="form-control-wrap">
+										<select class="form-select js-select2" id="maritals">
+											<option value="U01" >Độc thân</option>
+											<option value="U02" >Đã kết hôn</option>
+											<option value="U03" >Góa</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-6 row">
+								<div class="m-2">
+									<img id="thumbnail" alt="Main image preview" class="img-fluid"
+										width="200px" src="">
+								</div>
+								<div id="myfileupload">
+									<label for="fileImage" class="custom-file-upload btn btn-sm btn-dim btn-light">Chọn ảnh</label> 
+									<input type="file" id="fileImage" name="fileImage"
+										onchange="checkFileSize(this)"
+										
+										accept="image/png , image/jpeg" />
+								</div>
+								<input type="hidden" id="photos" />
+							</div>
+							<div class="col-lg-12">
+								<div class="custom-control custom-switch">
+									<input type="checkbox" class="custom-control-input"
+										id="enabled"> <label
+										class="custom-control-label" for="enabled">Kích
+										hoạt tài khoản</label>
 								</div>
 							</div>
 						</div>
 						<div class="form-group mt-1 text-center">
 							<a type="submit" id="btn-submit" class="btn btn-lg btn-primary">Lưu</a>
-							<a href="#" id="cancelButton" class="btn btn-lg btn-warning" data-bs-dismiss="modal">Hủy</a>
+							<a href="#" id="cancelButton" class="btn btn-lg btn-warning"
+								data-bs-dismiss="modal">Hủy</a>
 						</div>
 					</form>
 				</div>
-			</div>
+            </div>
         </div>
     </div>
     <!-- .modal -->
@@ -149,39 +258,50 @@
 	<script th:src="@{/js/dataTables.fixedColumns.min.js}"></script>
 	
 	<script th:src="@{/js/commom-list.js}"></script>
+	<script th:src="@{/js/commom-form.js}"></script>
 	<script type="text/javascript">
 		moduleURL = "[[@{/notice}]]";
 		contextPath = "[[@{/}]]";
+		MAX_FILE_SIZE = 10485760;
 		
-		function fetchDataById(id, callback){
-			var url = contextPath+ "8010/"+id.toString();
-			$.ajax({
-				type: "Get",
-				url: url,
-				dataType: 'json',
-				beforeSend: function(xhr) {
-					var token = $("meta[name='_csrf']").attr("content");
-					var header = $("meta[name='_csrf_header']").attr("content");
-					xhr.setRequestHeader(header, token);
-				},
-				success: function(response) {
-					callback(response);
-				},
-				error: function(xhr, status, error) {
-					Swal.fire({icon: 'error', title: xhr.responseText});
-				}
-			});
+		defaultImageThumbnailSrc = "[[@{/images/default-image.jpg}]]";
+
+		function fetchDataById(id, callback) {
+			var url = contextPath + "8010/" + id.toString();
+			$
+					.ajax({
+						type : "Get",
+						url : url,
+						dataType : 'json',
+						beforeSend : function(xhr) {
+							var token = $("meta[name='_csrf']").attr("content");
+							var header = $("meta[name='_csrf_header']").attr(
+									"content");
+							xhr.setRequestHeader(header, token);
+						},
+						success : function(response) {
+							callback(response);
+						},
+						error : function(xhr, status, error) {
+							Swal.fire({
+								icon : 'error',
+								title : xhr.responseText
+							});
+						}
+					});
 		}
-		
-		$("#cancelButton").click(function () {
-			$( ".date" ).datepicker({format: 'dd-mm-yyyy' });
+
+		$("#cancelButton").click(function() {
+			$(".date").datepicker({
+				format : 'dd-mm-yyyy'
+			});
 			$("#title").prop("readonly", false);
 			$("#contentHidden").html("");
 			$("#sdate").prop("readonly", false);
 			$("#edate").prop("readonly", false);
-			$("#enable").prop( "disabled", false );
-			$("#poppup").prop( "disabled", false);
-			
+			$("#enable").prop("disabled", false);
+			$("#poppup").prop("disabled", false);
+
 			$(".title").text("Tạo mới tin tức");
 			$("#title").val("");
 			$("#content").summernote('code', '');
@@ -190,129 +310,155 @@
 			$("#enable").prop("checked", false);
 			$("#poppup").prop("checked", false);
 		});
-		
+
 		function openEditModal(id) {
 			$(".title").text("Chỉnh sửa thông báo");
 			$("#nt_id").val(id)
-			fetchDataById(id, function (dataToEdit) {
+			fetchDataById(id, function(dataToEdit) {
 				$("#title").val(dataToEdit.title);
-				$("#content").summernote('code', dataToEdit.content)
-				$("#sdate").datepicker("setDate", new Date(dataToEdit.startDate));
-				$("#edate").datepicker("setDate", new Date(dataToEdit.startDate));
+				$("#sdate").datepicker("setDate",
+						new Date(dataToEdit.startDate));
+				$("#edate").datepicker("setDate",
+						new Date(dataToEdit.startDate));
 				$("#enable").prop("checked", dataToEdit.isEnabled === "Y");
 				$("#poppup").prop("checked", dataToEdit.isPoppup === "Y");
-				
+
 				$("#newModal").modal("show");
 			});
 		}
-		
+
 		function openInfoModal(id) {
 			$(".title").text("Chi tiết thông báo");
 			$("#nt_id").val(id)
-			fetchDataById(id, function (dataToEdit) {
+			fetchDataById(id, function(dataToEdit) {
 				$("#title").val(dataToEdit.title);
 				$("#contentHidden").html(dataToEdit.content);
-				$("#sdate").datepicker("setDate", new Date(dataToEdit.startDate));
-				$("#edate").datepicker("setDate", new Date(dataToEdit.startDate));
+				$("#sdate").datepicker("setDate",
+						new Date(dataToEdit.startDate));
+				$("#edate").datepicker("setDate",
+						new Date(dataToEdit.startDate));
 				$("#enable").prop("checked", dataToEdit.isEnabled === "Y");
 				$("#poppup").prop("checked", dataToEdit.isPoppup === "Y");
-				
+
 				$("#title").prop("readonly", true);
-				$("#content").summernote('destroy');
 				$("#content").css("display", "none");
 				$("#sdate").datepicker("destroy");
 				$("#edate").datepicker("destroy");
-				$("#enable").prop( "disabled", true );
-				$("#poppup").prop( "disabled", true );
-				
+				$("#enable").prop("disabled", true);
+				$("#poppup").prop("disabled", true);
+
 				$("#newModal").modal("show");
 			});
 		}
-		
-		function loaddata(){
-			
+
+		function loaddata() {
+
 			var dataTableOptions = {
-						responsive: {
-							details: false
-						},
-						
-						buttons: [
-							{
-								extend: 'print',
-								exportOptions: {
-									columns: ':visible:not(:lt(1))'
-								}
-							},
-							{
-								extend: 'excel',
-								exportOptions: {
-									columns: ':visible:not(:lt(1))'
-								}
-							},
-							{
-								extend: 'colvis',
-								exportOptions: {
-								columns: ':visible:not(:lt(1))'
-								}
-							},
-						],
-						fixedColumns: {
-						leftColumns: 2
+				responsive : {
+					details : false
+				},
+
+				buttons : [ {
+					extend : 'print',
+					exportOptions : {
+						columns : ':visible:not(:lt(1))'
 					}
-		 	};
-			var mergedOptions = Object.assign({}, mergedOptions, dataTableOptions);
-			
-			var arr = [ {title:"Action", field: null, delEdit: true, className: "text-center", name:"title"},
-						{title:"User Id", field:"userId"},
-						{title:"User Name", field:"userName"},
-						{title:"Img", field:"img"},
-						{title:"Email", field:"email"},
-						{title:"Adress", field:"adress"},
-						{title:"Phone", field:"phone"},
-						{title:"Bith Day", field:"birthDay"},
-						{title:"Status", field:"enabled"},
-						{title:"Work User", field:"workUser"},
-						{title:"Update Time", field:"updatedTime"},
-						{title:"Create Time", field:"createdTime"},
-						];
-			var arrURL = {api: "/1010", urlDel: "/8010/delete/"};
-			NioApp.DataTable.initWithUrlAndArr('.datatable-init-export', arrURL, arr, mergedOptions);
+				}, {
+					extend : 'excel',
+					exportOptions : {
+						columns : ':visible:not(:lt(1))'
+					}
+				}, {
+					extend : 'colvis',
+					exportOptions : {
+						columns : ':visible:not(:lt(1))'
+					}
+				}, ],
+				fixedColumns : {
+					leftColumns : 2
+				}
+			};
+			var mergedOptions = Object.assign({}, mergedOptions,
+					dataTableOptions);
+
+			var arr = [ {
+				title : "Action",
+				field : null,
+				delEdit : true,
+				className : "text-center",
+				name : "title"
+			}, {
+				title : "User Id",
+				field : "userId"
+			}, {
+				title : "User Name",
+				field : "userName"
+			}, {
+				title : "Img",
+				field : "img"
+			}, {
+				title : "Email",
+				field : "email"
+			}, {
+				title : "Adress",
+				field : "adress"
+			}, {
+				title : "Phone",
+				field : "phone"
+			}, {
+				title : "Bith Day",
+				field : "birthDay"
+			}, {
+				title : "Status",
+				field : "enabled"
+			}, {
+				title : "Work User",
+				field : "workUser"
+			}, {
+				title : "Update Time",
+				field : "updatedTime"
+			}, {
+				title : "Create Time",
+				field : "createdTime"
+			}, ];
+			var arrURL = {
+				api : "/1010",
+				urlDel : "/8010/delete/"
+			};
+			NioApp.DataTable.initWithUrlAndArr('.datatable-init-export',
+					arrURL, arr, mergedOptions);
 		}
-		
+
 		$(document).ready(function() {
-			$('#content').summernote({
-				minHeight : 150,
+			$(".date").datepicker({
+				format : 'dd-mm-yyyy'
 			});
-			$( ".date" ).datepicker({format: 'dd-mm-yyyy' });
-			
-			$("#btn-submit").click(function () {
+
+			$("#btn-submit").click(function() {
 				var data = {
-						ntId: $("#nt_id").val(),
-						title: $("#title").val(),
-						content: $("#content").val(),
-						sDate: $("#sdate").val(),
-						eDate: $("#edate").val(),
-						enable: ($("#enable").is(":checked")?  "Y":"N"),
-						popup: ($("#poppup").is(":checked")?  "Y":"N")
+					ntId : $("#nt_id").val(),
+					title : $("#title").val(),
+					content : $("#content").val(),
+					sDate : $("#sdate").val(),
+					eDate : $("#edate").val(),
+					enable : ($("#enable").is(":checked") ? "Y" : "N"),
+					popup : ($("#poppup").is(":checked") ? "Y" : "N")
 				};
-				
+
 				save("/board/save", data);
 			});
-			
+
 			loaddata();
-			
+
 			$(document).on("click", ".link-delete", function(e) {
 				e.preventDefault();
 				var entityName = $(this).attr("data-entityName");
 				showDeleteConfirm($(this), entityName, moduleURL);
-				
+
 			});
 		});
-		
 	</script>
 	
-	<script th:src="@{/js/libs/editors/summernote.js}"></script>
-
 </body>
 
 </html>
