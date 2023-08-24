@@ -12,9 +12,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.util.StringUtils;
 
+import com.npl.global.common.FileUploadUtil;
 import com.npl.global.dto.ResultProcDto;
 import com.npl.global.dto.user.UserDto;
 import com.npl.global.model.user.UserModel;
@@ -57,19 +61,35 @@ public class UserRestController {
 	}
 	
 	@PostMapping(value = "/1010/save")
-	public @ResponseBody ResultProcDto save(@RequestBody UserDto userSave) {
+	public @ResponseBody ResultProcDto save(@RequestBody UserDto userSave,  @RequestParam("multiFile") MultipartFile multiFile) {
 		try {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			NplUserDetails loggedUser = (NplUserDetails) authentication.getPrincipal();
-	   	 	
-	   	 	
+			
+			ResultProcDto result;
+
 			String comId = loggedUser.getUser().getCompany().getComId();
 			String workUser = loggedUser.getUser().getWorkUser();
 			
 			userSave.setComId(comId);
 			userSave.setWorkUser(workUser);
-	   	    ResultProcDto result = this.service.saveUser(userSave);
-	   	
+			
+			
+			if(!multiFile.isEmpty()) {
+				String fileName = StringUtils.cleanPath(multiFile.getOriginalFilename());
+				userSave.setImg(fileName);
+				result = this.service.saveUser(userSave);
+				
+				String uploadDir = "fileupload/users/" + userSave.getUserId();
+				
+				FileUploadUtil.clearDir(uploadDir);
+				FileUploadUtil.saveFile(uploadDir, fileName, multiFile);
+			}else {
+				if (userSave.getImg().isEmpty()) 
+					userSave.setImg("ImageDefault.png");
+				result = this.service.saveUser(userSave);
+			}
+			
 			return result;
 		} catch (Exception e) {
 			//logger.error(e.getMessage());
