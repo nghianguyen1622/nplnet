@@ -153,6 +153,9 @@
 		moduleURL = "[[@{/notice}]]";
 		contextPath = "[[@{/}]]";
 		
+		var csrfHeaderName = "[[${_csrf.headerName}]]";
+		var csrfValue = "[[${_csrf.token}]]";
+		
 		function fetchDataById(id, callback){
 			var url = contextPath+ "8010/"+id.toString();
 			$.ajax({
@@ -160,9 +163,7 @@
 				url: url,
 				dataType: 'json',
 				beforeSend: function(xhr) {
-					var token = $("meta[name='_csrf']").attr("content");
-					var header = $("meta[name='_csrf_header']").attr("content");
-					xhr.setRequestHeader(header, token);
+					xhr.setRequestHeader(csrfHeaderName, csrfValue);
 				},
 				success: function(response) {
 					callback(response);
@@ -173,23 +174,7 @@
 			});
 		}
 		
-		$("#cancelButton").click(function () {
-			$( ".date" ).datepicker({format: 'dd-mm-yyyy' });
-			$("#title").prop("readonly", false);
-			$("#contentHidden").html("");
-			$("#sdate").prop("readonly", false);
-			$("#edate").prop("readonly", false);
-			$("#enable").prop( "disabled", false );
-			$("#poppup").prop( "disabled", false);
-			
-			$(".title").text("Tạo mới tin tức");
-			$("#title").val("");
-			$("#content").summernote('code', '');
-			$("#sdate").val("");
-			$("#edate").val("");
-			$("#enable").prop("checked", false);
-			$("#poppup").prop("checked", false);
-		});
+
 		
 		function openEditModal(id) {
 			$(".title").text("Chỉnh sửa thông báo");
@@ -271,36 +256,52 @@
 			NioApp.DataTable.initWithUrlAndArr('.datatable-init-export', arrURL, arr, mergedOptions);
 		}
 		
+		
+	
+			
+		$(document).on('click', '#cancelButton', function() { 
+			$("#newModal").trigger('reset'); 
+		});
+
+		function removeTable() {
+			$('#myDataTable').DataTable().destroy();
+			$('#newModal').on('hidden.bs.modal', function() {
+			});
+
+			loaddata();
+		}
+
 		$(document).ready(function() {
 			$('#content').summernote({
 				minHeight : 150,
 			});
-			$( ".date" ).datepicker({format: 'dd-mm-yyyy' });
-			
-			$("#btn-submit").click(function () {
+			$(".date").datepicker({
+				format : 'dd-mm-yyyy'
+			});
+
+			$("#btn-submit").click(function() {
 				var data = {
-						ntId: $("#nt_id").val(),
-						title: $("#title").val(),
-						content: $("#content").val(),
-						sDate: $("#sdate").val(),
-						eDate: $("#edate").val(),
-						enable: ($("#enable").is(":checked")?  "Y":"N"),
-						popup: ($("#poppup").is(":checked")?  "Y":"N")
+					ntId : $("#nt_id").val(),
+					title : $("#title").val(),
+					content : $("#content").val(),
+					sDate : $("#sdate").val(),
+					eDate : $("#edate").val(),
+					enable : ($("#enable").is(":checked") ? "Y" : "N"),
+					popup : ($("#poppup").is(":checked") ? "Y" : "N")
 				};
-				
+
 				save("/board/save", data);
 			});
-			
+
 			loaddata();
-			
+
 			$(document).on("click", ".link-delete", function(e) {
 				e.preventDefault();
 				var entityName = $(this).attr("data-entityName");
 				showDeleteConfirm($(this), entityName, moduleURL);
-				
+
 			});
 		});
-		
 	</script>
 	
 	<script th:src="@{/js/libs/editors/summernote.js}"></script>

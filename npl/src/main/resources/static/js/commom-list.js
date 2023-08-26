@@ -18,7 +18,7 @@ function showDeleteConfirm(link, entityName, moduleURL) {
 				success: function(data) {
 					var message = "Đã xóa thành công " + entityName;
 					Swal.fire('Thông báo!', message, 'success').then(() => {
-						window.location.href = moduleURL;
+						removeTable();
 					});
 				},
 				error: function() {
@@ -38,10 +38,7 @@ function save(url, data){
 		data: JSON.stringify(data),
 		contentType: "application/json",
 		beforeSend: function(xhr) {
-			// Lấy token CSRF từ trang và bao gồm nó trong yêu cầu
-			var token = $("meta[name='_csrf']").attr("content");
-			var header = $("meta[name='_csrf_header']").attr("content");
-			xhr.setRequestHeader(header, token);
+			xhr.setRequestHeader(csrfHeaderName, csrfValue);
 		},
 		success: function(response) {
 			if(response){
@@ -50,13 +47,13 @@ function save(url, data){
 						Swal.fire(response.retStr + '\n NO ' + response.keyValue, 'success')
 						.then((result) => {
 							if (result.isConfirmed) {
-								window.location.reload();
+								removeTable();
 							}
 						});;
 					} else {
 						Swal.fire('Thông báo!', response.retStr, 'success').then((result) => {
 							if (result.isConfirmed) {
-								window.location.reload();
+								removeTable();
 							}
 						});;
 					}	
