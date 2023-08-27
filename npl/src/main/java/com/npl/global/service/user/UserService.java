@@ -18,6 +18,7 @@ public interface UserService {
 	public ResultProcDto saveUserImage(UserDto user) throws Exception;
 	
 	public List<RoleModel> findRole();
+	public UserModel findFileName(String userId);
 	
 	// pass
 	public String encryptPass(String passwd);

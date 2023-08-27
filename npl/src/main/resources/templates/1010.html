@@ -357,7 +357,7 @@
 				field : null,
 				delEdit : true,
 				className : "text-center",
-				name : "title"
+				name : "userId"
 			}, {
 				title : "User Id",
 				field : "userId"
@@ -394,7 +394,7 @@
 			}, ];
 			var arrURL = {
 				api : "/1010",
-				urlDel : "/8010/delete/"
+				urlDel : "/1010/delete/"
 			};
 			NioApp.DataTable.initWithUrlAndArr('.datatable-init-export',
 					arrURL, arr, mergedOptions);
@@ -424,19 +424,6 @@
 				})], {
 						type: "application/json"
 					}));
-
-				/* formData.append("userName", $("#userName").val());
-				formData.append("passwd", $("#passwd").val());
-				formData.append("email", $("#email").val());
-				formData.append("birtDay", $("#birtDay").val());
-				formData.append("addr", $("#addr").val());
-				formData.append("phone", $("#phone").val());
-				formData.append("idenCard", $("#idenCard").val());
-				formData.append("delYN", "Y");
-				formData.append("editYN", "Y");
-				formData.append("enable", ($("#enable").is(":checked") ? "Y" : "N"));
-				formData.append("useYN", "Y");
-				formData.append("roleId", $("#roles").val()); */
 
 				var fileInput = document.getElementById("fileImage");
 				formData.append("fileImage", fileInput.files[0]);

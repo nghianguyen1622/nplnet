@@ -22,18 +22,15 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDaoExtend userDaoExtend;
 
-
 	@Override
 	public UserModel findUserName(String username) {
 		return this.userDao.findUserName(username);
 	}
 
-
 	@Override
 	public User findUserNameParam(String username) {
 		return this.userDao.getUserByUserName(username);
 	}
-
 
 	@Override
 	public String encryptPass(String passwd) {
@@ -41,13 +38,11 @@ public class UserServiceImpl implements UserService {
 		return this.userDao.encryptPass(passwd);
 	}
 
-
 	@Override
 	public void saveLogtime(User user) {
 		userDao.save(user);
 		
 	}
-
 
 	@Override
 	public List<UserModel> findAll(String comId) {
@@ -55,20 +50,17 @@ public class UserServiceImpl implements UserService {
 		return userDao.findAll(comId);
 	}
 
-
 	@Override
 	public ResultProcDto saveUser(UserDto userSave) throws Exception {
 		// TODO Auto-generated method stub
 		return userDaoExtend.callSaveUser(userSave);
 	}
 
-
 	@Override
 	public ResultProcDto delUser(String userId) throws Exception {
 		// TODO Auto-generated method stub
 		return userDaoExtend.callDellUser(userId);
 	}
-
 
 	@Override
 	public List<RoleModel> findRole() {
@@ -83,5 +75,10 @@ public class UserServiceImpl implements UserService {
 		return userDaoExtend.callUserImage(user);
 	}
 
+	@Override
+	public UserModel findFileName(String userId) {
+		// TODO Auto-generated method stub
+		return userDao.findFileName(userId);
+	}
 
 }

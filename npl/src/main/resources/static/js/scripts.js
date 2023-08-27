@@ -622,7 +622,7 @@
 							if(columnInfo.delEdit){
 								action += `<a href="#" onclick="openEditModal('${row.id}')" class="btn btn-icon edit-color" th:title="Sửa thông tin ${row[columnInfo.name]}">
 										<em class="icon ni ni-edit"></em></a>`;
-								action += `<a href="${arrURL.urlDel + row.id}" class="link-delete btn btn-icon remove-color" entityId="${row.id}" data-entityName="${row[columnInfo.name]}" title="Xóa ${row[columnInfo.name]}"> 
+								action += `<a href="${arrURL.urlDel + row[columnInfo.name]}" class="link-delete btn btn-icon remove-color" entityId="${row.id}" data-entityName="${row[columnInfo.name]}" title="Xóa ${row[columnInfo.name]}"> 
 										<em class="icon ni ni-trash"></em></a>`;
 							}
 							return action;

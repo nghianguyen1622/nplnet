@@ -32,13 +32,14 @@ function showDeleteConfirm(link, entityName, moduleURL) {
 }
 
 function save(url, data){
-	$.ajax({
+	var ajaxOptions = {
 		type: "POST",
 		url: url,
-		data: JSON.stringify(data),
-		contentType: "application/json",
+		data: data ,
 		beforeSend: function(xhr) {
-			xhr.setRequestHeader(csrfHeaderName, csrfValue);
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+			xhr.setRequestHeader(header, token);
 		},
 		success: function(response) {
 			if(response){
@@ -70,7 +71,17 @@ function save(url, data){
 		error: function(xhr, status, error) {
 			Swal.fire({icon: 'error', title: xhr.responseText});
 		}
-	});
+	};
+	if (data instanceof FormData) {
+		ajaxOptions.enctype = 'multipart/form-data';
+		ajaxOptions.processData = false;
+		ajaxOptions.contentType = false;
+	} else {
+		ajaxOptions.data = JSON.stringify(data);
+		ajaxOptions.contentType = "application/json";
+	}
+
+	$.ajax(ajaxOptions);
 }
 
 

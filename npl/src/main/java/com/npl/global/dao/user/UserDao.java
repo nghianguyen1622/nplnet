@@ -51,10 +51,18 @@ public interface UserDao extends PagingAndSortingRepository<User, String>{
 			+"          , IDENTITY_CARD AS identity                               "
 			+"          , BIRTH_DAY AS birthDay                                   "
 			+"          , enabled AS enabled                                      "
-			+"       FROM users a                                                  "
+			+"       FROM users a                                                 "
 			+"      WHERE com_id = :comId                                         "
 			, nativeQuery = true)
 	public List<UserModel> findAll(String comId);
+
+	@Query(value=" SELECT file_name  as fileName                                  "
+			+"          , file_name_org  as fileNameOrg                           "
+			+"          , file_path  as filePath                                  "
+			+"       FROM user_image                                              "
+			+"      WHERE user_id = :userId                                       "
+			, nativeQuery = true)
+	public UserModel findFileName(String userId);
 	
 	@Query(value=" SELECT id as roleId       "
 			+"          , name as name       "
