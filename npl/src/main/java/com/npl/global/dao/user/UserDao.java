@@ -7,6 +7,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.npl.global.entity.User;
+import com.npl.global.model.user.RoleModel;
 import com.npl.global.model.user.UserModel;
 
 public interface UserDao extends PagingAndSortingRepository<User, String>{
@@ -46,14 +47,21 @@ public interface UserDao extends PagingAndSortingRepository<User, String>{
 			+"          , PHONE AS phone                                          "
 			+"          , passwd AS passwd                                        "
 			+"          , CHECK_PASS AS checkPass                                 "
-			+"          , IMG AS img                                              "
+			+"          , (select file_name from user_image where user_id= a.user_id ) as fileName    "
 			+"          , IDENTITY_CARD AS identity                               "
 			+"          , BIRTH_DAY AS birthDay                                   "
 			+"          , enabled AS enabled                                      "
-			+"       FROM users                                                   "
-			+"      WHERE com_id = :comId                                    "
+			+"       FROM users a                                                  "
+			+"      WHERE com_id = :comId                                         "
 			, nativeQuery = true)
 	public List<UserModel> findAll(String comId);
+	
+	@Query(value=" SELECT id as roleId       "
+			+"          , name as name       "
+			+"     FROM roles                "
+			+"     WHERE id <> 1             "
+			, nativeQuery = true)
+	public List<RoleModel> findRole();
 	
 	
 

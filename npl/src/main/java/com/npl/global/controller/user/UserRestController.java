@@ -5,30 +5,45 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.util.StringUtils;
 
+import com.npl.global.common.Constant;
 import com.npl.global.common.FileUploadUtil;
+import com.npl.global.dao.user.UserDao;
 import com.npl.global.dto.ResultProcDto;
 import com.npl.global.dto.user.UserDto;
 import com.npl.global.model.user.UserModel;
 import com.npl.global.security.NplUserDetails;
+import com.npl.global.service.system.StorageService;
 import com.npl.global.service.user.UserService;
 
 @RestController
 public class UserRestController {
 
 	@Autowired private UserService service;
+	
+	@Autowired
+	private StorageService storageService;
+	
+	@Autowired
+	private UserDao userDao;
 	
 	private Logger logger = LoggerFactory.getLogger(UserController.class);
 	
@@ -60,8 +75,8 @@ public class UserRestController {
 		}
 	}
 	
-	@PostMapping(value = "/1010/save")
-	public @ResponseBody ResultProcDto save(@RequestBody UserDto userSave,  @RequestParam("multiFile") MultipartFile multiFile) {
+	@PostMapping(value = "/1010/save", consumes = { "multipart/form-data" }, produces = { "application/json", "application/xml" })
+	public @ResponseBody ResultProcDto save(@RequestPart UserDto userSave, @RequestPart("fileImage") MultipartFile multipartFile) {
 		try {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			NplUserDetails loggedUser = (NplUserDetails) authentication.getPrincipal();
@@ -70,29 +85,50 @@ public class UserRestController {
 
 			String comId = loggedUser.getUser().getCompany().getComId();
 			String workUser = loggedUser.getUser().getWorkUser();
+			String comCd = loggedUser.getUser().getCompany().getComCd();
 			
 			userSave.setComId(comId);
 			userSave.setWorkUser(workUser);
 			
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			String pass = passwordEncoder.encode(userSave.getPasswd());
+			String checkpass = userDao.encryptPass(userSave.getPasswd());
 			
-			if(!multiFile.isEmpty()) {
-				String fileName = StringUtils.cleanPath(multiFile.getOriginalFilename());
-				userSave.setImg(fileName);
-				result = this.service.saveUser(userSave);
+			userSave.setPasswd(pass);
+			userSave.setCheckPw(checkpass);
+			
+			result = this.service.saveUser(userSave);
+			
+			if(!multipartFile.isEmpty()) {
+				String fileName = storageService.store(multipartFile, "user");
+//				String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+				userSave.setFileName(fileName);
+				userSave.setFileNameOrg(fileName);
+				userSave.setKindCD(comCd + "u10");
+				userSave.setUserId(result.getKeyValue());
 				
 				String uploadDir = "fileupload/users/" + userSave.getUserId();
+				userSave.setFilePath(uploadDir);
 				
-				FileUploadUtil.clearDir(uploadDir);
-				FileUploadUtil.saveFile(uploadDir, fileName, multiFile);
+				ResultProcDto result1 = this.service.saveUserImage(userSave);
+				if(!result1.getRetCode().equals(Constant.RETCODE_OK)) {
+					return result1;
+				}
+				
+//				FileUploadUtil.clearDir(uploadDir);
+//				FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 			}else {
-				if (userSave.getImg().isEmpty()) 
-					userSave.setImg("ImageDefault.png");
-				result = this.service.saveUser(userSave);
+				if(!userSave.getFileName().equals("")) {
+					storageService.delete(userSave.getFileName(), "user");
+				}
+				userSave.setFilePath("");
+				userSave.setFileName("");
+				userSave.setFileNameOrg("");
 			}
 			
 			return result;
 		} catch (Exception e) {
-			//logger.error(e.getMessage());
+			logger.error(e.getMessage());
 			
 			return null;
 		}

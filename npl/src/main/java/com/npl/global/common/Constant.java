@@ -2,7 +2,7 @@ package com.npl.global.common;
 
 public class Constant {
 	//result
-	public static final String SP_KEYVALUE = "SP_KeyValue";
+	public static final String SP_KEYVALUE = "p_KeyValue";
 	public static final String SP_RETCODE = "P_RetCode";
 	public static final String SP_RETSTR = "P_RetStr";
 	public static final String RETCODE_OK = "OK";

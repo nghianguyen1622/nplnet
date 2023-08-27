@@ -14,6 +14,7 @@ public interface UserModel {
 	public String getUserName();
 	public String getPhone();
 	public String getImg();
+	public String getFileName();
 	public String getIdentity();
 	public String getBirthDay();
 	public String getEnabled();

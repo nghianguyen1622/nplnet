@@ -49,9 +49,6 @@ public class User extends AbstractEntity {
 	@Column(name = "PHONE")
 	private String phone;
 
-	@Column(name = "IMG", length = 64)
-	private String img;
-
 	@Column(name = "IDENTITY_CARD")
 	private String identity_card;
 
@@ -171,14 +168,6 @@ public class User extends AbstractEntity {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
-
-	public String getImg() {
-		return img;
-	}
-
-	public void setImg(String img) {
-		this.img = img;
 	}
 
 	public String getIdentity_card() {

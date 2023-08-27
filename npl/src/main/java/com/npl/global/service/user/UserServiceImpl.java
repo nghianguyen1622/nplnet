@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.npl.global.dao.user.UserDao;
+import com.npl.global.dao.user.UserDaoExtend;
 import com.npl.global.dto.ResultProcDto;
 import com.npl.global.dto.user.UserDto;
 import com.npl.global.entity.User;
+import com.npl.global.model.user.RoleModel;
 import com.npl.global.model.user.UserModel;
 
 @Service
@@ -16,6 +18,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	private UserDaoExtend userDaoExtend;
 
 
 	@Override
@@ -54,14 +59,28 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public ResultProcDto saveUser(UserDto userSave) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return userDaoExtend.callSaveUser(userSave);
 	}
 
 
 	@Override
 	public ResultProcDto delUser(String userId) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return userDaoExtend.callDellUser(userId);
+	}
+
+
+	@Override
+	public List<RoleModel> findRole() {
+		// TODO Auto-generated method stub
+		return userDao.findRole();
+	}
+
+
+	@Override
+	public ResultProcDto saveUserImage(UserDto user) throws Exception {
+		// TODO Auto-generated method stub
+		return userDaoExtend.callUserImage(user);
 	}
 
 

@@ -165,10 +165,6 @@ public class NplUserDetails implements UserDetails {
 		this.user.setUsername(username);
 	}
 	
-	public String getPhoto() {
-		return this.user.getImg();
-	}
-	
 	public String getComname() {
 		return this.user.getCompany().getComName();
 	}

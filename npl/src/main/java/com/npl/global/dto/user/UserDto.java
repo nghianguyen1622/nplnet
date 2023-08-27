@@ -1,10 +1,13 @@
 package com.npl.global.dto.user;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class UserDto {
 	private String userId;
 	private String userName;
 	private String passwd;
 	private String checkPw;
+	private MultipartFile fileImage;
 	private String img;
 	private String email;
 	private String birtDay;
@@ -19,6 +22,11 @@ public class UserDto {
 	private String comId;
 	private String workUser;
 	private int roleId;
+	
+	private String kindCD;
+	private String filePath;
+	private String fileName;
+	private String fileNameOrg;
 	
 	public String getUserId() {
 		return userId;
@@ -43,6 +51,13 @@ public class UserDto {
 	}
 	public void setCheckPw(String checkPw) {
 		this.checkPw = checkPw;
+	}
+	
+	public MultipartFile getFileImage() {
+		return fileImage;
+	}
+	public void setFileImage(MultipartFile fileImage) {
+		this.fileImage = fileImage;
 	}
 	public String getImg() {
 		return img;
@@ -127,6 +142,30 @@ public class UserDto {
 	}
 	public void setRoleId(int roleId) {
 		this.roleId = roleId;
+	}
+	public String getKindCD() {
+		return kindCD;
+	}
+	public void setKindCD(String kindCD) {
+		this.kindCD = kindCD;
+	}
+	public String getFilePath() {
+		return filePath;
+	}
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	public String getFileNameOrg() {
+		return fileNameOrg;
+	}
+	public void setFileNameOrg(String fileNameOrg) {
+		this.fileNameOrg = fileNameOrg;
 	}
 	
 }

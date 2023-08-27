@@ -24,7 +24,6 @@ public class UserDaoExtend {
 		query.registerStoredProcedureParameter("p_user_name",       String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_passwd",          String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_check_pass",      String.class,         ParameterMode.IN);
-		query.registerStoredProcedureParameter("p_img",             String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_email",           String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_birth_day",       String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_addr",            String.class,         ParameterMode.IN);
@@ -40,6 +39,7 @@ public class UserDaoExtend {
 
 		query.registerStoredProcedureParameter(Constant.SP_RETCODE,       String.class, ParameterMode.OUT);
 		query.registerStoredProcedureParameter(Constant.SP_RETSTR,        String.class, ParameterMode.OUT);
+		query.registerStoredProcedureParameter(Constant.SP_KEYVALUE,      String.class, ParameterMode.OUT);
 	
 		if (userDto.getUserId() != null) {
 		    query.setParameter("p_user_id", userDto.getUserId());
@@ -49,7 +49,6 @@ public class UserDaoExtend {
 		query.setParameter("p_user_name",                   userDto.getUserName());
 		query.setParameter("p_passwd",                      userDto.getPasswd());
 		query.setParameter("p_check_pass",                  userDto.getCheckPw());
-		query.setParameter("p_img",                         userDto.getImg());
 		query.setParameter("p_email",                       userDto.getEmail());
 		query.setParameter("p_birth_day",                   userDto.getBirtDay());
 		query.setParameter("p_addr",                        userDto.getAddr());
@@ -71,6 +70,9 @@ public class UserDaoExtend {
 		}
 		if(query.getOutputParameterValue(Constant.SP_RETSTR) != null) {
 			resultProcDto.setRetStr(query.getOutputParameterValue(Constant.SP_RETSTR).toString());
+		}
+		if (query.getOutputParameterValue(Constant.SP_KEYVALUE) != null) {
+			resultProcDto.setKeyValue(query.getOutputParameterValue(Constant.SP_KEYVALUE).toString());
 		}
 		
 		return resultProcDto;
@@ -100,4 +102,42 @@ public class UserDaoExtend {
 		
 		return resultProcDto;
 	}
+	
+	public ResultProcDto callUserImage(UserDto userDto){
+		
+		final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("public.prc_user_image");
+		
+		query.registerStoredProcedureParameter("p_user_id",         String.class,         ParameterMode.IN);
+		query.registerStoredProcedureParameter("p_com_id",          String.class,         ParameterMode.IN);
+		query.registerStoredProcedureParameter("p_kind_cd",         String.class,         ParameterMode.IN);
+		query.registerStoredProcedureParameter("p_file_path",       String.class,         ParameterMode.IN);
+		query.registerStoredProcedureParameter("p_file_name",       String.class,         ParameterMode.IN);
+		query.registerStoredProcedureParameter("p_file_name_org",   String.class,         ParameterMode.IN);
+		query.registerStoredProcedureParameter("p_work_user",       String.class,         ParameterMode.IN);
+		
+		query.registerStoredProcedureParameter(Constant.SP_RETCODE,       String.class, ParameterMode.OUT);
+		query.registerStoredProcedureParameter(Constant.SP_RETSTR,        String.class, ParameterMode.OUT);
+		
+		query.setParameter("p_user_id",                     userDto.getUserId());
+		query.setParameter("p_com_id",                      userDto.getComId());
+		query.setParameter("p_kind_cd",                     userDto.getKindCD());
+		query.setParameter("p_file_path",                   userDto.getFilePath());
+		query.setParameter("p_file_name",                   userDto.getFileName());
+		query.setParameter("p_file_name_org",               userDto.getFileNameOrg());
+		query.setParameter("p_work_user",                   userDto.getWorkUser());
+		
+		query.execute();
+		
+		ResultProcDto resultProcDto = new ResultProcDto();
+		if(query.getOutputParameterValue(Constant.SP_RETCODE) != null) {
+			resultProcDto.setRetCode(query.getOutputParameterValue(Constant.SP_RETCODE).toString());
+		}
+		if(query.getOutputParameterValue(Constant.SP_RETSTR) != null) {
+			resultProcDto.setRetStr(query.getOutputParameterValue(Constant.SP_RETSTR).toString());
+		}
+		
+		return resultProcDto;
+		
+	}
+	
 }

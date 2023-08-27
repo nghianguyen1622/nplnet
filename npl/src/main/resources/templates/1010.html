@@ -88,7 +88,7 @@
                     </a>
                 </div>
                 <div class="modal-body modal-body-lg modal-body-md">
-					<form action="#" class="form-validate is-alter">
+					<form action="#" class="form-validate is-alter" enctype="multipart/form-data">
 						<input type="hidden" /> 
 						<div class="row g-4">
 							<div class="col-lg-6">
@@ -103,7 +103,25 @@
 								<div class="form-group">
 									<label class="form-label" for="email">Tên đăng nhập</label>
 									<div class="form-control-wrap">
-										<input class="form-control" type="text" id="email"
+										<input class="form-control" type="text" id=userName
+											required>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label class="form-label" for="passwd">Mật khẩu</label>
+									<div class="form-control-wrap">
+										<input class="form-control" type="password" id=passwd
+											required>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label class="form-label" for="email">Email</label>
+									<div class="form-control-wrap">
+										<input class="form-control" type="text" id=email
 											required>
 									</div>
 								</div>
@@ -124,8 +142,8 @@
 										<div class="form-icon form-icon-left">
 											<em class="icon ni ni-calendar"></em>
 										</div>
-										<input type="text" class="form-control date-picker"
-											id="birthday" data-date-format="yyyy-mm-dd">
+										<input type="text" class="form-control date"
+											id="birtDay" data-date-format="yyyy-mm-dd">
 									</div>
 								</div>
 							</div>
@@ -133,7 +151,7 @@
 								<div class="form-group">
 									<label class="form-label" for="adress">Địa chỉ</label>
 									<div class="form-control-wrap">
-										<input type="text" class="form-control" id="adress">
+										<input type="text" class="form-control" id="addr">
 									</div>
 								</div>
 							</div>
@@ -143,52 +161,7 @@
 										CMND/CCCD</label>
 									<div class="form-control-wrap">
 										<input class="form-control" type="number"
-											id="idencard">
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label class="form-label" for="daterange">Ngày cấp</label>
-									<div class="form-control-wrap">
-										<div class="form-icon form-icon-left">
-											<em class="icon ni ni-calendar"></em>
-										</div>
-										<input type="text" class="form-control date-picker"
-											id="daterange" data-date-format="yyyy-mm-dd">
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label class="form-label" for="issuedby">Nơi cấp</label>
-									<div class="form-control-wrap">
-										<input type="text" class="form-control"
-											id="issuedby">
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label class="form-label" for="sexs">Giới tính</label>
-									<div class="form-control-wrap">
-										<select class="form-select js-select2" id="sexs">
-											<option value="S01" >Nam</option>
-											<option value="S02" >Nữ</option>
-										</select>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label class="form-label" for="degrees">Học vấn</label>
-									<div class="form-control-wrap">
-										<select class="form-select js-select2" id="degrees">
-											<option value="E01">Đại học/Cao đẳng</option>
-											<option value="E02">Trung cấp</option>
-											<option value="E03">Tốt nghệp phổ thông</option>
-											<option value="E04">Khác</option>
-										</select>
+											id="idenCard">
 									</div>
 								</div>
 							</div>
@@ -197,19 +170,9 @@
 									<label class="form-label" for="roles">Chức vụ</label>
 									<div class="form-control-wrap">
 										<select class="form-select js-select2" id="roles">
-											<option >admin</option>
-										</select>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label class="form-label" for="maritals">Tình trạng hôn nhân</label>
-									<div class="form-control-wrap">
-										<select class="form-select js-select2" id="maritals">
-											<option value="U01" >Độc thân</option>
-											<option value="U02" >Đã kết hôn</option>
-											<option value="U03" >Góa</option>
+											<th:block th:each:="role : ${listRole}">
+												 <option th:each="role : ${listRole}" th:value="${role.roleId}" th:text="${role.name}"></option>
+											</th:block>
 										</select>
 									</div>
 								</div>
@@ -222,7 +185,6 @@
 								<div id="myfileupload">
 									<label for="fileImage" class="custom-file-upload btn btn-sm btn-dim btn-light">Chọn ảnh</label> 
 									<input type="file" id="fileImage" name="fileImage"
-										onchange="checkFileSize(this)"
 										
 										accept="image/png , image/jpeg" />
 								</div>
@@ -231,8 +193,8 @@
 							<div class="col-lg-12">
 								<div class="custom-control custom-switch">
 									<input type="checkbox" class="custom-control-input"
-										id="enabled"> <label
-										class="custom-control-label" for="enabled">Kích
+										id="enable"> <label
+										class="custom-control-label" for="enable">Kích
 										hoạt tài khoản</label>
 								</div>
 							</div>
@@ -264,6 +226,16 @@
 		MAX_FILE_SIZE = 10485760;
 		
 		defaultImageThumbnailSrc = "[[@{/images/default-image.jpg}]]";
+		
+		function checkFileSize(input) {
+		    const file = input.files[0];
+		    const maxSize = 5 * 1024 * 1024; // 5 MB
+
+		    if (file && file.size > maxSize) {
+		        alert("Kích thước tệp tin quá lớn. Vui lòng chọn tệp tin nhỏ hơn 5MB.");
+		        input.value = ''; // Xóa tệp tin đã chọn
+		    }
+		}
 
 		function fetchDataById(id, callback) {
 			var url = contextPath + "8010/" + id.toString();
@@ -394,7 +366,7 @@
 				field : "userName"
 			}, {
 				title : "Img",
-				field : "img"
+				field : "fileName"
 			}, {
 				title : "Email",
 				field : "email"
@@ -434,17 +406,43 @@
 			});
 
 			$("#btn-submit").click(function() {
-				var data = {
-					ntId : $("#nt_id").val(),
-					title : $("#title").val(),
-					content : $("#content").val(),
-					sDate : $("#sdate").val(),
-					eDate : $("#edate").val(),
-					enable : ($("#enable").is(":checked") ? "Y" : "N"),
-					popup : ($("#poppup").is(":checked") ? "Y" : "N")
-				};
+				var formData = new FormData();
+				
+				formData.append('userSave', new Blob([JSON.stringify({
+					"userName" : $("#userName").val(),
+					"passwd"   : $("#passwd").val(),
+					"email"    : $("#email").val(),
+					"birtDay"  : $("#birtDay").val(),
+					"addr"     : $("#addr").val(),
+					"phone"    : $("#phone").val(),  
+					"idenCard" : $("#idenCard").val(),
+					"delYN"    : "Y",
+					"editYN"   : "Y",
+					"enable"   : $("#enable").is(":checked"),
+					"useYN"    : "Y",
+					"roleId"   : $("#roles").val()
+				})], {
+						type: "application/json"
+					}));
 
-				save("/board/save", data);
+				/* formData.append("userName", $("#userName").val());
+				formData.append("passwd", $("#passwd").val());
+				formData.append("email", $("#email").val());
+				formData.append("birtDay", $("#birtDay").val());
+				formData.append("addr", $("#addr").val());
+				formData.append("phone", $("#phone").val());
+				formData.append("idenCard", $("#idenCard").val());
+				formData.append("delYN", "Y");
+				formData.append("editYN", "Y");
+				formData.append("enable", ($("#enable").is(":checked") ? "Y" : "N"));
+				formData.append("useYN", "Y");
+				formData.append("roleId", $("#roles").val()); */
+
+				var fileInput = document.getElementById("fileImage");
+				formData.append("fileImage", fileInput.files[0]);
+				console.log(formData)
+
+				save("/1010/save", formData);
 			});
 
 			loaddata();
