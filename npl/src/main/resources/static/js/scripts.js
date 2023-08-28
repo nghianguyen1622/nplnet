@@ -1002,12 +1002,17 @@
 
   // Picker Init @v1.0
   NioApp.Picker.init = function () {
+	$.fn.datepicker.dates['en'].months = ["Tháng 1","Tháng 2","Tháng 3","Tháng 4","Tháng 5","Tháng 6","Tháng 7","Tháng 8","Tháng 9","Tháng 10","Tháng 11","Tháng 12"];
+	$.fn.datepicker.dates['en'].monthsShort = ["Tg 1","Tg 2","Tg 3","Tg 4","Tg 5","Tg 6","Tg 7","Tg 8","Tg 9","Tg 10","Tg 11","Tg 12"];
+	$.fn.datepicker.dates['en'].daysMin = ["CN","T2","T3","T4","T5","T6","T7"];
+	$.fn.datepicker.dates['en'].clear = "Xóa";
     NioApp.Picker.date('.date-picker');
     NioApp.Picker.dob('.date-picker-alt');
     NioApp.Picker.time('.time-picker');
     NioApp.Picker.date('.date-picker-range', {
-      todayHighlight: false,
-      autoclose: false
+      todayHighlight: true,
+      autoclose: false,
+      format: "dd/mm/yyyy",
     });
     NioApp.Picker.date('.date-picker-ym', {
       format: "mm/yy",

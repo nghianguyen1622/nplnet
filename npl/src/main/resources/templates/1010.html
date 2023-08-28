@@ -19,57 +19,108 @@
                 	<div th:replace="common/header :: header-top"></div>
                 <!-- main header @e -->
                 <!-- content @s -->
-                <div class="nk-content ">
-                    <div class="container-fluid">
-                        <div class="nk-content-inner">
-                            <div class="nk-content-body">
-                            <div th:replace="fragments :: message"></div>
-                            <div class="components-preview wide-md mx-auto">
-                                <div class="nk-block-head nk-block-head-sm">
-                                    <div class="nk-block-between">
-                                        <div class="nk-block-head-content">
-                                            <h3 class="nk-block-title page-title">[[${pageTitle}]]</h3>
-                                            <div class="nk-block-des text-soft">
-                                                <p> Hiện có <span th:text="${countRows}">0</span> thông báo.</p>
-                                            </div>
-                                        </div><!-- .nk-block-head-content -->
-                                        <div class="nk-block-head-content">
-                                            <div class="toggle-wrap nk-block-tools-toggle">
-                                                <a href="#" class="btn btn-icon btn-trigger toggle-expand me-n1" data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
-                                                <div class="toggle-expand-content" data-content="pageMenu">
-                                                    <ul class="nk-block-tools g-3">
-                                                        <li class="nk-block-tools-opt">
-                                                            <div class="drodown">
-                                                                <a href="#" class="dropdown-toggle btn btn-icon btn-primary" data-bs-toggle="dropdown"><em class="icon ni ni-plus"></em></a>
-                                                                <div class="dropdown-menu dropdown-menu-end">
-                                                                    <ul class="link-list-opt no-bdr">
-                                                                        <li><a href="#" data-bs-toggle="modal" data-bs-target="#newModal"><span>Tạo tin</span></a></li>
-                                                                        <li><a href="#"><span>Thông báo đã hết hạn</span></a></li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div><!-- .toggle-wrap -->
-                                        </div><!-- .nk-block-head-content -->
-                                    </div><!-- .nk-block-between -->
-                                </div><!-- .nk-block-head -->
-                                <div class="nk-block nk-block-lg">
-                                       <div class="card card-bordered card-preview">
-                                           <div class="card-inner">
-											<table id="myDataTable" class="datatable-init-export nowrap table" data-auto-responsive="true" data-export-title="Export">
-											</table>
+				<div class="nk-content ">
+					<div class="container-fluid">
+						<div class="nk-content-inner">
+							<div class="nk-content-body">
+								<div th:replace="fragments :: message"></div>
+								<div class="components-preview wide-md mx-auto">
+									<div class="nk-block-head nk-block-head-sm">
+										<div class="nk-block-head-content">
+											<div class="card card-bordered card-preview">
+												<div class="card-inner">
+													<div class="row gy-4">
+														<div class="col-xxl-12">
+															<h3 class="nk-block-title page-title">[[${pageTitle}]]</h3>
+														</div>
+														<div class="col-lg-10 col-xxl-10">
+															<div class="col-lg-12 col-xxl-12 row">
+																<div class="col-lg-4 col-xxl-4">
+																	<div class="form-group">
+																		<label class="form-label">Lọc dữ liệu</label>
+																		<div class="form-control-wrap">
+																			<div class="input-daterange date-picker-range input-group">
+																				<input type="text" class="form-control" readonly="readonly"/>
+																				<div class="input-group-addon">Tới</div>
+																				<input type="text" class="form-control" readonly="readonly"/>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<div class="col-lg-8 col-xxl-8">
+																	<div class="form-group">
+																		<label class="form-label">Tìm mặc định</label>
+																		<div class="form-control-wrap">
+																			<div class="btn-group">
+																				<button type="button" class="btn btn-outline-light active">H.nay</button>
+																				<button type="button" class="btn btn-outline-light">Tuần này</button>
+																				<button type="button" class="btn btn-outline-light">Thg này</button>
+																				<button type="button" class="btn btn-outline-light">3 Thg trước</button>
+																				<button type="button" class="btn btn-outline-light">Năm nay</button>
+																				<button type="button" class="btn btn-outline-light">T.cả</button>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="col-lg-2 col-xxl-2">
+															<div class="toggle-wrap nk-block-tools-toggle d-flex flex-row-reverse">
+																<a href="#"
+																	class="btn btn-icon btn-trigger toggle-expand me-n1"
+																	data-target="pageMenu"><em
+																	class="icon ni ni-menu-alt-r"></em></a>
+																<div class="toggle-expand-content"
+																	data-content="pageMenu">
+																	<ul class="nk-block-tools g-3">
+																		<li class="nk-block-tools-opt">
+																			<div class="drodown">
+																				<a href="#"
+																					class="dropdown-toggle btn btn-icon btn-primary"
+																					data-bs-toggle="dropdown"><em
+																					class="icon ni ni-plus"></em></a>
+																				<div class="dropdown-menu dropdown-menu-end">
+																					<ul class="link-list-opt no-bdr">
+																						<li><a href="#" data-bs-toggle="modal"
+																							data-bs-target="#newModal"><span>Tạo
+																									tin</span></a></li>
+																						<li><a href="#"><span>Thông báo đã
+																									hết hạn</span></a></li>
+																					</ul>
+																				</div>
+																			</div>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
 											</div>
-                                       </div><!-- .card-preview -->
-                                   </div><!-- .nk-block -->
-                                   
-                            </div>
-                        	</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- content @e -->
+											<!-- .nk-block-head-content -->
+										</div>
+										<!-- .nk-block-between -->
+									</div>
+									<!-- .nk-block-head -->
+									<div class="nk-block nk-block-lg">
+										<div class="card card-bordered card-preview">
+											<div class="card-inner">
+												<table id="myDataTable"
+													class="datatable-init-export nowrap table"
+													data-auto-responsive="true" data-export-title="Export">
+												</table>
+											</div>
+										</div>
+										<!-- .card-preview -->
+									</div>
+									<!-- .nk-block -->
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- content @e -->
             </div>
 
 			<!-- wrap @e -->

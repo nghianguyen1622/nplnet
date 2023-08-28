@@ -429,6 +429,7 @@ a.bg-primary:hover, a.bg-primary:focus, button.bg-primary:hover, button.bg-prima
 .datepicker table tr td.active.disabled.active, .datepicker table tr td.active.disabled:hover.active,
 .datepicker table tr td span:hover, .datepicker table tr td span.focused {
   background-color: #0971fe;
+  color: #fff;
 }
 
 .code-tag {
