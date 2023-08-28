@@ -37,9 +37,7 @@ function save(url, data){
 		url: url,
 		data: data ,
 		beforeSend: function(xhr) {
-			var token = $("meta[name='_csrf']").attr("content");
-			var header = $("meta[name='_csrf_header']").attr("content");
-			xhr.setRequestHeader(header, token);
+			xhr.setRequestHeader(csrfHeaderName, csrfValue);
 		},
 		success: function(response) {
 			if(response){

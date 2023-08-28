@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.npl.global.controller.notice.NoticeController;
 import com.npl.global.entity.Company;
-import com.npl.global.model.ProductModel;
+import com.npl.global.model.product.ProductModel;
 import com.npl.global.security.NplUserDetails;
 import com.npl.global.service.product.ProductService;
 

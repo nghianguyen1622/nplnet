@@ -1,4 +1,4 @@
-package com.npl.global.model;
+package com.npl.global.model.product;
 
 import java.math.BigDecimal;
 

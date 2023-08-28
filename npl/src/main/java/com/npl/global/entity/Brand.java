@@ -27,8 +27,14 @@ public class Brand extends AbstractEntity {
 	@Column(name="NAME")
 	private String name;
 	
-	@Column(name="LOGO")
-	private String logo;
+	@Column(name="FILE_NAME")
+	private String fileName;
+
+	@Column(name="FILE_NAME_ORG")
+	private String fileNameOrg;
+
+	@Column(name="FILE_PATH")
+	private String filePath;
 
 	@Column(name = "ENABLED")
 	private String enabled;
@@ -63,7 +69,9 @@ public class Brand extends AbstractEntity {
 
 	public Brand(String name, String logo) {
 		this.name = name;
-		this.logo = "brand-logo.jpg";
+		this.filePath = "";
+		this.fileName = "brand-logo.jpg";
+		this.fileNameOrg = "brand-logo.jpg";
 	}
 
 	public String getName() {
@@ -74,12 +82,28 @@ public class Brand extends AbstractEntity {
 		this.name = name;
 	}
 
-	public String getLogo() {
-		return logo;
+	public String getFileName() {
+		return fileName;
 	}
 
-	public void setLogo(String logo) {
-		this.logo = logo;
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public String getFileNameOrg() {
+		return fileNameOrg;
+	}
+
+	public void setFileNameOrg(String fileNameOrg) {
+		this.fileNameOrg = fileNameOrg;
+	}
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
 	}
 
 	public String getBrandId() {

@@ -31,8 +31,14 @@ public class Category extends AbstractEntity {
 	@Column(name="ALIAS")
 	private String alias;
 	
-	@Column(name = "LOGO")
-	private String logo;
+	@Column(name="FILE_NAME")
+	private String fileName;
+
+	@Column(name="FILE_NAME_ORG")
+	private String fileNameOrg;
+
+	@Column(name="FILE_PATH")
+	private String filePath;
 
 	@Column(name = "ENABLED")
 	private String enabled;
@@ -66,7 +72,9 @@ public class Category extends AbstractEntity {
 	public Category(String name) {
 		this.name = name;
 		this.alias = name;
-		this.logo = "default.png";
+		this.filePath = "";
+		this.fileName = "default.png";
+		this.fileNameOrg = "default.png";
 	}
 
 	public Category(String name, Category parent) {
@@ -95,12 +103,28 @@ public class Category extends AbstractEntity {
 		this.alias = alias;
 	}
 
-	public String getLogo() {
-		return logo;
+	public String getFileName() {
+		return fileName;
 	}
 
-	public void setLogo(String logo) {
-		this.logo = logo;
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public String getFileNameOrg() {
+		return fileNameOrg;
+	}
+
+	public void setFileNameOrg(String fileNameOrg) {
+		this.fileNameOrg = fileNameOrg;
+	}
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
 	}
 
 	public String getCatId() {

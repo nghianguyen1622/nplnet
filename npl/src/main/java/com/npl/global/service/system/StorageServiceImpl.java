@@ -26,6 +26,8 @@ public class StorageServiceImpl implements StorageService {
 	private final Path rootUser = Paths.get("./fileupload/users");
 	private final Path rootCompany = Paths.get("./fileupload/company");
 	private final Path rootMember = Paths.get("./fileupload/member");
+	private final Path rootCat = Paths.get("./fileupload/category");
+	private final Path rootBrand = Paths.get("./fileupload/brand");
 	
 	private Path root;
 
@@ -45,6 +47,12 @@ public class StorageServiceImpl implements StorageService {
 			break;
 		case "member":
 			root = this.rootMember;
+			break;
+		case "cat":
+			root = this.rootCat;
+			break;
+		case "brand":
+			root = this.rootBrand;
 			break;
 		}
 		return root;

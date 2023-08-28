@@ -7,7 +7,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.npl.global.entity.Company;
 import com.npl.global.entity.Product;
-import com.npl.global.model.ProductModel;
+import com.npl.global.model.product.ProductModel;
 
 public interface ProductDao extends PagingAndSortingRepository<Product, Integer> {
 

@@ -227,6 +227,9 @@
 		
 		defaultImageThumbnailSrc = "[[@{/images/default-image.jpg}]]";
 		
+		var csrfHeaderName = "[[${_csrf.headerName}]]";
+		var csrfValue = "[[${_csrf.token}]]";
+		
 		function checkFileSize(input) {
 		    const file = input.files[0];
 		    const maxSize = 5 * 1024 * 1024; // 5 MB

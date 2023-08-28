@@ -78,74 +78,70 @@
     </div>
     <!-- app-root @e -->
     <!-- select region modal -->
-    <div class="modal fade" tabindex="-1" role="dialog" id="newModal">
+    <div class="modal fade" tabindex="-1" role="dialog" id="newModal" data-backdrop="static">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
 				<div class="modal-body modal-body-md">
 					<h4 class="title">Tạo mới tin tức</h4>
-					<form action="#" class="form-validate is-alter">
-						<ul class="nk-nav nav nav-tabs">
-							<li class="nav-item"><a class="nav-link active"
-								data-bs-toggle="tab" href="#tabItem1">Thông tin cơ bản</a></li>
-							<li class="nav-item"><a class="nav-link"
-								data-bs-toggle="tab" href="#tabItem2">Nội dung</a></li>
-						</ul>
-						<div class="tab-content">
-							<div class="tab-pane active" id="tabItem1">
+					<form action="#" class="form-validate is-alter" enctype="multipart/form-data">
+						<input type="hidden" /> 
+						<div class="row g-4">
+							<div class="col-lg-6">
 								<div class="form-group">
-									<label class="form-label" for="full-name">Title</label>
+									<label class="form-label" for="fullname">Name</label>
 									<div class="form-control-wrap">
-										<textarea class="form-control" rows="5" id="title"></textarea>
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="form-label" for="full-name">Content</label>
-									<div class="form-control-wrap">
-									<textarea class="summernote1" id="content" rows="5"> </textarea>
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="form-label">Communication</label>
-									<ul class="custom-control-group g-3 align-center">
-										<li>
-											<div class="custom-control custom-control-sm custom-checkbox">
-												<input type="checkbox" class="custom-control-input" id="enable">
-												<label class="custom-control-label" for="enable">Enable</label>
-											</div>
-										</li>
-										<li>
-											<div class="custom-control custom-control-sm custom-checkbox">
-												<input type="checkbox" class="custom-control-input" id="poppup">
-												<label class="custom-control-label" for="poppup">Poppup</label>
-											</div>
-										</li>
-									</ul>
-								</div>
-								<div class="row form-group">
-									<div class="col-md-6">
-										<label class="form-label">Start Date</label>
-										<input type="text" class="date form-control" id="sdate">
-									</div>
-									<div class="col-md-6">
-										<label class="form-label">End Date</label>
-										<input type="text" class="date form-control" id="edate">
+										<input type="text" class="form-control" required id="name">
 									</div>
 								</div>
 							</div>
-							<div class="tab-pane" id="tabItem2">
-								<div class="m-2">
-									<label class="tableCodeFalse">Tiêu đề</label>
-									<textarea class="form-control" rows="5"></textarea>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label class="form-label" for="email">Alias</label>
+									<div class="form-control-wrap">
+										<input class="form-control" type="text" id=alias
+											required>
+									</div>
 								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label class="form-label" for="parentId">Parent Category</label>
+									<div class="form-control-wrap">
+										<select class="form-select js-select2" id="parentId">
+											<option value="0">[no parent]</option>
+											<th:block th:each:="cat : ${listCat}">
+												 <option th:each="cat : ${listCat}" th:value="${cat.catId}" th:text="${cat.name}"></option>
+											</th:block>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-6 row">
 								<div class="m-2">
-									<label>Nội dung</label>
-									<textarea class="summernote1" id="Description" rows="5"> </textarea>
+									<img id="thumbnail" alt="Main image preview" class="img-fluid"
+										width="200px" src="">
+								</div>
+								<div id="myfileupload">
+									<label for="fileImage" class="custom-file-upload btn btn-sm btn-dim btn-light">Chọn ảnh</label> 
+									<input type="file" id="fileImage" name="fileImage"
+										
+										accept="image/png , image/jpeg" />
+								</div>
+							</div>
+							<div class="col-lg-12">
+								<div class="custom-control custom-switch">
+									<input type="checkbox" class="custom-control-input"
+										id="enable"> <label
+										class="custom-control-label" for="enable">Kích
+										hoạt</label>
 								</div>
 							</div>
 						</div>
 						<div class="form-group mt-1 text-center">
 							<a type="submit" id="btn-submit" class="btn btn-lg btn-primary">Lưu</a>
+							<a href="#" id="cancelButton" class="btn btn-lg btn-warning"
+								data-bs-dismiss="modal">Hủy</a>
 						</div>
 					</form>
 				</div>
@@ -164,79 +160,165 @@
 	<script th:src="@{/js/commom-list.js}"></script>
 	<script type="text/javascript">
 		moduleURL = "[[@{/notice}]]";
+		contextPath = "[[@{/}]]";
 		
+		var csrfHeaderName = "[[${_csrf.headerName}]]";
+		var csrfValue = "[[${_csrf.token}]]";
+		
+		function fetchDataById(id, callback){
+			var url = contextPath+ "2020/"+id.toString();
+			$.ajax({
+				type: "Get",
+				url: url,
+				dataType: 'json',
+				beforeSend: function(xhr) {
+					xhr.setRequestHeader(csrfHeaderName, csrfValue);
+				},
+				success: function(response) {
+					callback(response);
+				},
+				error: function(xhr, status, error) {
+					Swal.fire({icon: 'error', title: xhr.responseText});
+				}
+			});
+		}
+		
+
+		
+		function openEditModal(id) {
+			$(".title").text("Chỉnh sửa thông báo");
+			$("#catId").val(id)
+			fetchDataById(id, function (dataToEdit) {
+				$("#title").val(dataToEdit.title);
+				$("#content").summernote('code', dataToEdit.content)
+				$("#sdate").datepicker("setDate", new Date(dataToEdit.startDate));
+				$("#edate").datepicker("setDate", new Date(dataToEdit.startDate));
+				$("#enable").prop("checked", dataToEdit.isEnabled === "Y");
+				$("#poppup").prop("checked", dataToEdit.isPoppup === "Y");
+				
+				$("#newModal").modal("show");
+			});
+		}
+		
+		function openInfoModal(id) {
+			$(".title").text("Chi tiết thông báo");
+			$("#catId").val(id)
+			fetchDataById(id, function (dataToEdit) {
+				$("#title").val(dataToEdit.title);
+				$("#contentHidden").html(dataToEdit.content);
+				$("#sdate").datepicker("setDate", new Date(dataToEdit.startDate));
+				$("#edate").datepicker("setDate", new Date(dataToEdit.startDate));
+				$("#enable").prop("checked", dataToEdit.isEnabled === "Y");
+				$("#poppup").prop("checked", dataToEdit.isPoppup === "Y");
+				
+				$("#title").prop("readonly", true);
+				$("#content").summernote('destroy');
+				$("#content").css("display", "none");
+				$("#sdate").datepicker("destroy");
+				$("#edate").datepicker("destroy");
+				$("#enable").prop( "disabled", true );
+				$("#poppup").prop( "disabled", true );
+				
+				$("#newModal").modal("show");
+			});
+		}
+		
+		function loaddata(){
+			
+			var dataTableOptions = {
+						responsive: {
+							details: false
+						},
+						
+						buttons: [
+							{
+								extend: 'print',
+								exportOptions: {
+									columns: ':visible:not(:lt(1))'
+								}
+							},
+							{
+								extend: 'excel',
+								exportOptions: {
+									columns: ':visible:not(:lt(1))'
+								}
+							},
+							{
+								extend: 'colvis',
+								exportOptions: {
+								columns: ':visible:not(:lt(1))'
+								}
+							},
+						],
+						fixedColumns: {
+						leftColumns: 2
+					}
+		 	};
+			var mergedOptions = Object.assign({}, mergedOptions, dataTableOptions);
+			
+			var arr = [ {title:"Action", field: null, delEdit: true, className: "text-center", name:"id"},
+						{title:"Id", field:"catId"},
+						{title:"Logo", field:"fileName"},
+						{title:"Name", field:"name"},
+						{title:"Alias", field:"alias"},
+						];
+			var arrURL = {api: "/2020", urlDel: "/2020/delete/"};
+			NioApp.DataTable.initWithUrlAndArr('.datatable-init-export', arrURL, arr, mergedOptions);
+		}
+		
+		
+	
+			
+		$(document).on('click', '#cancelButton', function() { 
+			$("#newModal").trigger('reset'); 
+		});
+
+		function removeTable() {
+			$('#myDataTable').DataTable().destroy();
+			$('#newModal').on('hidden.bs.modal', function() {
+			});
+
+			loaddata();
+		}
+
 		$(document).ready(function() {
 			$('#content').summernote({
 				minHeight : 150,
 			});
-			$( ".date" ).datepicker({format: 'dd-mm-yyyy' });
-			
-			$("#btn-submit").click(function () {
-				var data = {
-						title: $("#title").val(),
-						content: $("#content").val(),
-						sDate: $("#sdate").val(),
-						eDate: $("#edate").val(),
-						enable: ($("#enable").is(":checked")?  "Y":"N"),
-						popup: ($("#poppup").is(":checked")?  "Y":"N")
-				};
-				save("/board/save", data);
+			$(".date").datepicker({
+				format : 'dd-mm-yyyy'
 			});
-			
+
+			$("#btn-submit").click(function() {
+				var formData = new FormData();
+				formData.append('catDto', new Blob([JSON.stringify({
+					"name"   : $("#name").val(),
+					"alias"  : $("#alias").val(),
+					"parentId"  : $("#parentId").val(),
+					"enable" : ($("#enable").is(":checked") ? "Y" : "N"),
+				})], {
+					type: "application/json"
+				}));
+
+				var fileInput = document.getElementById("fileImage");
+				formData.append("fileImage", fileInput.files[0]);
+				console.log(formData)
+
+				save("/2020/save", formData);
+			});
+
+			loaddata();
+
 			$(document).on("click", ".link-delete", function(e) {
 				e.preventDefault();
 				var entityName = $(this).attr("data-entityName");
 				showDeleteConfirm($(this), entityName, moduleURL);
-			});
-			
-			var dataTableOptions = {
-		            responsive: {
-		                details: false
-		            },
-		            
-		            buttons: [
-		                {
-		                    extend: 'print',
-		                    exportOptions: {
-		                        columns: ':visible:not(:lt(1))'
-		                    }
-		                },
-		                {
-		                    extend: 'excel',
-		                    exportOptions: {
-		                        columns: ':visible:not(:lt(1))'
-		                    }
-		                },
-		                {
-		                    extend: 'colvis',
-		                    exportOptions: {
-		                        columns: ':visible:not(:lt(1))'
-		                    }
-		                },
-		            ],
-		            fixedColumns: {
-						leftColumns: 2
-					}
-		        };
-			var mergedOptions = Object.assign({}, mergedOptions, dataTableOptions);
 
-			
-			var arr = [ {title:"Action", field: null, className: "text-center", name:"name"},
-						{title:"Name", field:"title"},
-						{title:"Alias", field:"content"},
-						{title:"Logo", field:"logo"}];
-			var arrURL = {api: "/category/8030", urlInfo: "/8010/", urlEdit: "/8010/", urlDel: "/8010/delete/"};
-			NioApp.DataTable.initWithUrlAndArr('.datatable-init-export', arrURL, arr, mergedOptions);
+			});
 		});
-		
 	</script>
 	
 	<script th:src="@{/js/libs/editors/summernote.js}"></script>
-	<script type="text/javascript">
-		$('#Description').summernote({
-			minHeight : 150,
-		});
-	</script>
 
 </body>
 

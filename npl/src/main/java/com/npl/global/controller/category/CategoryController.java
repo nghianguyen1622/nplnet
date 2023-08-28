@@ -12,7 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.npl.global.model.CategoryModel;
+import com.npl.global.dto.ResultProcDto;
+import com.npl.global.model.category.CategoryModel;
 import com.npl.global.security.NplUserDetails;
 import com.npl.global.service.category.CategoryService;
 
@@ -25,21 +26,14 @@ public class CategoryController {
 	
 	@GetMapping("/categories")
 	public String viewHomePage(Model model) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		NplUserDetails loggedUser = (NplUserDetails) authentication.getPrincipal();
+		
+		String comId = loggedUser.getUser().getCompany().getComId();
+		List<CategoryModel> listCat = service.findAll(comId);
 		model.addAttribute("pageTitle", "Quản lý danh mục");
-		return "8030";
+		model.addAttribute("listCat", listCat);
+		return "2020";
 	}
 	
-	@GetMapping("/category/8030")
-	public  @ResponseBody List<CategoryModel> getAll() {
-		try {
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			NplUserDetails loggedUser = (NplUserDetails) authentication.getPrincipal();
-			String comId = loggedUser.getUser().getCompany().getComId();
-			List<CategoryModel> listNotice = service.findAll(comId);
-			return listNotice;
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-			return null;
-		}
-	}
 }

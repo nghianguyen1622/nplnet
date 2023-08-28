@@ -1,6 +1,6 @@
-package com.npl.global.model;
+package com.npl.global.model.brand;
 
-public interface CategoryModel {
+public interface BrandModel {
 	public String getId();
 	
 	
