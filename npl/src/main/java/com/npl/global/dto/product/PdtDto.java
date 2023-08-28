@@ -23,6 +23,11 @@ public class PdtDto {
 	private String BrandId;
 	private String comId;
 	private String workUser;
+	
+	private String filePath;
+	private String fileName;
+	private String fileNameOrg;
+	
 	public String getName() {
 		return name;
 	}
@@ -142,6 +147,24 @@ public class PdtDto {
 	}
 	public void setWorkUser(String workUser) {
 		this.workUser = workUser;
+	}
+	public String getFilePath() {
+		return filePath;
+	}
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	public String getFileNameOrg() {
+		return fileNameOrg;
+	}
+	public void setFileNameOrg(String fileNameOrg) {
+		this.fileNameOrg = fileNameOrg;
 	}
 	
 

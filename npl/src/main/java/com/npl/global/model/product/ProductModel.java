@@ -3,13 +3,13 @@ package com.npl.global.model.product;
 import java.math.BigDecimal;
 
 public interface ProductModel {
-	public String getId();
+	public String getPdtId();
 	
 	public String getName();
 	public String getAlias();
 	public String getShortDes();
 	public String getFullDes();
-	public boolean getIsEnabled();
+	public String getIsEnabled();
 	public float getCost();
 	public String getPrice();
 	public BigDecimal getDisPer();
