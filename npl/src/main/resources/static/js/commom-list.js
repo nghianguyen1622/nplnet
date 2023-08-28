@@ -15,11 +15,22 @@ function showDeleteConfirm(link, entityName, moduleURL) {
 			$.ajax({
 				url: link.attr("href"),
 				method: 'GET',
-				success: function(data) {
-					var message = "Đã xóa thành công " + entityName;
-					Swal.fire('Thông báo!', message, 'success').then(() => {
-						removeTable();
-					});
+				success: function(response) {
+					if(response){
+						if(response.retCode && response.retCode == 'OK') {
+							Swal.fire('Thông báo!', response.retStr, 'success').then((result) => {
+								if (result.isConfirmed) {
+									removeTable();
+								}
+							});;
+						} else {
+							if(response.retStr){
+								Swal.fire({ icon: 'error', title: response.retStr });
+							}	else {
+								removeTable();
+							}
+						}
+					}
 				},
 				error: function() {
 					Swal.fire('Lỗi', 'Đã xảy ra lỗi khi xóa ' + entityName, 'error');

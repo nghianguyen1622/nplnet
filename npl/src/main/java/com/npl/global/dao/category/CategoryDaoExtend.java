@@ -68,7 +68,7 @@ public class CategoryDaoExtend {
 	
 	public ResultProcDto callCatDel(String id) throws Exception{
 
-		final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("public.prc_cat_del");
+		final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("public.prc_category_del");
 		
 		query.registerStoredProcedureParameter("p_cat_id",    String.class, ParameterMode.IN);
 		

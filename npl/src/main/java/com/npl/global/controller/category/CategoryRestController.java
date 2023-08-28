@@ -76,7 +76,6 @@ public class CategoryRestController {
 
 			String comId = loggedUser.getUser().getCompany().getComId();
 			String workUser = loggedUser.getUser().getWorkUser();
-			String comCd = loggedUser.getUser().getCompany().getComCd();
 			
 			catDto.setComId(comId);
 			catDto.setWorkUser(workUser);
@@ -107,11 +106,15 @@ public class CategoryRestController {
 	@RequestMapping(value = "/2020/delete/{catId}")
 	public  @ResponseBody ResultProcDto  delete( @PathVariable(name = "catId") String catId) {
 		try {
-//			String fileName = this.service.findFileName(catId).getFileName();
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			NplUserDetails loggedUser = (NplUserDetails) authentication.getPrincipal();
+			
+			String comId = loggedUser.getUser().getCompany().getComId();
+			
+			String fileName = this.service.findInfo(catId, comId).getFileName();
 			ResultProcDto result = this.service.delCat(catId);
 			
-//			storageService.delete(fileName, "cat");
-			//return
+			storageService.delete(fileName, "cat");
 			return result;
 		} catch (Exception e) {
 			logger.error(e.getMessage());
