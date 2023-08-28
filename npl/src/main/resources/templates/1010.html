@@ -105,9 +105,7 @@
 									<div class="nk-block nk-block-lg">
 										<div class="card card-bordered card-preview">
 											<div class="card-inner">
-												<table id="myDataTable"
-													class="datatable-init-export nowrap table"
-													data-auto-responsive="true" data-export-title="Export">
+												<table id="myDataTable" class="datatable-init-export nowrap table" data-auto-responsive="true" data-export-title="Export">
 												</table>
 											</div>
 										</div>
@@ -193,8 +191,8 @@
 										<div class="form-icon form-icon-left">
 											<em class="icon ni ni-calendar"></em>
 										</div>
-										<input type="text" class="form-control date"
-											id="birtDay" data-date-format="yyyy-mm-dd">
+										<input type="text" class="form-control date-picker"
+											id="birtDay">
 									</div>
 								</div>
 							</div>
@@ -281,16 +279,6 @@
 		var csrfHeaderName = "[[${_csrf.headerName}]]";
 		var csrfValue = "[[${_csrf.token}]]";
 		
-		function checkFileSize(input) {
-		    const file = input.files[0];
-		    const maxSize = 5 * 1024 * 1024; // 5 MB
-
-		    if (file && file.size > maxSize) {
-		        alert("Kích thước tệp tin quá lớn. Vui lòng chọn tệp tin nhỏ hơn 5MB.");
-		        input.value = ''; // Xóa tệp tin đã chọn
-		    }
-		}
-
 		function fetchDataById(id, callback) {
 			var url = contextPath + "8010/" + id.toString();
 			$
@@ -299,10 +287,7 @@
 						url : url,
 						dataType : 'json',
 						beforeSend : function(xhr) {
-							var token = $("meta[name='_csrf']").attr("content");
-							var header = $("meta[name='_csrf_header']").attr(
-									"content");
-							xhr.setRequestHeader(header, token);
+							xhr.setRequestHeader(csrfHeaderName, csrfValue);
 						},
 						success : function(response) {
 							callback(response);
@@ -315,26 +300,6 @@
 						}
 					});
 		}
-
-		$("#cancelButton").click(function() {
-			$(".date").datepicker({
-				format : 'dd-mm-yyyy'
-			});
-			$("#title").prop("readonly", false);
-			$("#contentHidden").html("");
-			$("#sdate").prop("readonly", false);
-			$("#edate").prop("readonly", false);
-			$("#enable").prop("disabled", false);
-			$("#poppup").prop("disabled", false);
-
-			$(".title").text("Tạo mới tin tức");
-			$("#title").val("");
-			$("#content").summernote('code', '');
-			$("#sdate").val("");
-			$("#edate").val("");
-			$("#enable").prop("checked", false);
-			$("#poppup").prop("checked", false);
-		});
 
 		function openEditModal(id) {
 			$(".title").text("Chỉnh sửa thông báo");
@@ -453,11 +418,13 @@
 			NioApp.DataTable.initWithUrlAndArr('.datatable-init-export',
 					arrURL, arr, mergedOptions);
 		}
+		
+		function removeTable() {
+			$('#myDataTable').DataTable().destroy();
+			loaddata();
+		}
 
 		$(document).ready(function() {
-			$(".date").datepicker({
-				format : 'dd-mm-yyyy'
-			});
 
 			$("#btn-submit").click(function() {
 				var formData = new FormData();

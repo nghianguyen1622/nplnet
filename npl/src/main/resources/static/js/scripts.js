@@ -1006,12 +1006,17 @@
 	$.fn.datepicker.dates['en'].monthsShort = ["Tg 1","Tg 2","Tg 3","Tg 4","Tg 5","Tg 6","Tg 7","Tg 8","Tg 9","Tg 10","Tg 11","Tg 12"];
 	$.fn.datepicker.dates['en'].daysMin = ["CN","T2","T3","T4","T5","T6","T7"];
 	$.fn.datepicker.dates['en'].clear = "Xóa";
-    NioApp.Picker.date('.date-picker');
+   // NioApp.Picker.date('.date-picker');
     NioApp.Picker.dob('.date-picker-alt');
     NioApp.Picker.time('.time-picker');
     NioApp.Picker.date('.date-picker-range', {
       todayHighlight: true,
       autoclose: false,
+      format: "dd/mm/yyyy",
+    });
+    NioApp.Picker.date('.date-picker', {
+      todayHighlight: true,
+      autoclose: true,
       format: "dd/mm/yyyy",
     });
     NioApp.Picker.date('.date-picker-ym', {
