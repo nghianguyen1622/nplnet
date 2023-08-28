@@ -47,7 +47,7 @@ public class BrandRestController {
 		}
 	}
 	
-	@GetMapping("/2020/{id}")
+	@GetMapping("/2010/{id}")
 	public  @ResponseBody BrandModel getInfo(@PathVariable(name = "id") String catId) {
 		try {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -61,7 +61,7 @@ public class BrandRestController {
 		}
 	}
 	
-	@PostMapping(value = "/2020/save", consumes = { "multipart/form-data" }, produces = { "application/json", "application/xml" })
+	@PostMapping(value = "/2010/save", consumes = { "multipart/form-data" }, produces = { "application/json", "application/xml" })
 	public @ResponseBody ResultProcDto save(@RequestPart BrandDto brandDto, @RequestPart("fileImage") MultipartFile multipartFile) {
 		try {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
