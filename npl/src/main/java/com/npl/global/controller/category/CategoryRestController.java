@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -63,8 +64,8 @@ public class CategoryRestController {
 		}
 	}
 	
-	@PostMapping(value = "/2020/save", consumes = { "multipart/form-data" }, produces = { "application/json", "application/xml" })
-	public @ResponseBody ResultProcDto save(@RequestPart CategoryDto catDto, @RequestPart("fileImage") MultipartFile multipartFile) {
+	@PostMapping(value = "/2020/save")
+	public @ResponseBody ResultProcDto save(@ModelAttribute  CategoryDto catDto) {
 		try {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			NplUserDetails loggedUser = (NplUserDetails) authentication.getPrincipal();
@@ -78,8 +79,8 @@ public class CategoryRestController {
 			catDto.setWorkUser(workUser);
 			
 			
-			if(!multipartFile.isEmpty()) {
-				String fileName = storageService.store(multipartFile, "cat");
+			if(!catDto.getMultipartFile().isEmpty()) {
+				String fileName = storageService.store(catDto.getMultipartFile(), "cat");
 				
 				catDto.setFilePath("fileupload/category/" + fileName);
 				catDto.setFileName(fileName);

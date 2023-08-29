@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.npl.global.dto.ResultProcDto;
 import com.npl.global.dto.product.PdtDto;
+import com.npl.global.dto.user.UserDto;
 import com.npl.global.model.product.ProductModel;
 
 public interface ProductService {
@@ -13,4 +14,6 @@ public interface ProductService {
 	
 	public ResultProcDto savePdt(PdtDto pdtDto) throws Exception;
 	public ResultProcDto delPdt(String pdtId) throws Exception;
+	
+	public ResultProcDto savePdtImage(PdtDto pdtDto) throws Exception;
 }

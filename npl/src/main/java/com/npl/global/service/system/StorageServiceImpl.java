@@ -23,6 +23,7 @@ public class StorageServiceImpl implements StorageService {
 	private Logger logger = LoggerFactory.getLogger(StorageService.class);
 	
 	private final Path rootPdt = Paths.get("./fileupload/product");
+	private final Path rootPdtExtra = Paths.get("./fileupload/product/extra");
 	private final Path rootUser = Paths.get("./fileupload/users");
 	private final Path rootCompany = Paths.get("./fileupload/company");
 	private final Path rootMember = Paths.get("./fileupload/member");
@@ -36,8 +37,11 @@ public class StorageServiceImpl implements StorageService {
 		// TODO Auto-generated method stub
 		Path root = null;
 		switch(type) {
-		case "product":
+		case "pdt":
 			root = this.rootPdt;
+			break;
+		case "pdtExtra":
+			root = this.rootPdtExtra;
 			break;
 		case "user":
 			root = this.rootUser;

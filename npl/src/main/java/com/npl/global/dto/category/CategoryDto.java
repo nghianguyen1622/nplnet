@@ -1,5 +1,7 @@
 package com.npl.global.dto.category;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class CategoryDto {
 	private String catId;
 	private String name;
@@ -15,6 +17,8 @@ public class CategoryDto {
 	private String filePath;
 	private String fileName;
 	private String fileNameOrg;
+	
+	private MultipartFile multipartFile;
 	
 	public String getCatId() {
 		return catId;
@@ -94,6 +98,12 @@ public class CategoryDto {
 	}
 	public void setFileNameOrg(String fileNameOrg) {
 		this.fileNameOrg = fileNameOrg;
+	}
+	public MultipartFile getMultipartFile() {
+		return multipartFile;
+	}
+	public void setMultipartFile(MultipartFile multipartFile) {
+		this.multipartFile = multipartFile;
 	}
 	
 }

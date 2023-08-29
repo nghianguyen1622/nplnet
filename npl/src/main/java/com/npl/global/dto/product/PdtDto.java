@@ -2,7 +2,10 @@ package com.npl.global.dto.product;
 
 import java.math.BigDecimal;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class PdtDto {
+	private String pdtId;
 	private String name;
 	private String alias;
 	private String shortDes;
@@ -28,6 +31,19 @@ public class PdtDto {
 	private String fileName;
 	private String fileNameOrg;
 	
+	private String fileExtraPath;
+	private String fileExtraName;
+	private String fileExtraNameOrg;
+	
+	private MultipartFile fileMainImage;
+	private MultipartFile[] fileExtraImage;
+	
+	public String getPdtId() {
+		return pdtId;
+	}
+	public void setPdtId(String pdtId) {
+		this.pdtId = pdtId;
+	}
 	public String getName() {
 		return name;
 	}
@@ -165,6 +181,37 @@ public class PdtDto {
 	}
 	public void setFileNameOrg(String fileNameOrg) {
 		this.fileNameOrg = fileNameOrg;
+	}
+	
+	public String getFileExtraPath() {
+		return fileExtraPath;
+	}
+	public void setFileExtraPath(String fileExtraPath) {
+		this.fileExtraPath = fileExtraPath;
+	}
+	public String getFileExtraName() {
+		return fileExtraName;
+	}
+	public void setFileExtraName(String fileExtraName) {
+		this.fileExtraName = fileExtraName;
+	}
+	public String getFileExtraNameOrg() {
+		return fileExtraNameOrg;
+	}
+	public void setFileExtraNameOrg(String fileExtraNameOrg) {
+		this.fileExtraNameOrg = fileExtraNameOrg;
+	}
+	public MultipartFile getFileMainImage() {
+		return fileMainImage;
+	}
+	public void setFileMainImage(MultipartFile fileMainImage) {
+		this.fileMainImage = fileMainImage;
+	}
+	public MultipartFile[] getFileExtraImage() {
+		return fileExtraImage;
+	}
+	public void setFileExtraImage(MultipartFile[] fileExtraImage) {
+		this.fileExtraImage = fileExtraImage;
 	}
 	
 

@@ -291,18 +291,12 @@
 
 			$("#btn-submit").click(function() {
 				var formData = new FormData();
-				formData.append('catDto', new Blob([JSON.stringify({
-					"name"   : $("#name").val(),
-					"alias"  : $("#alias").val(),
-					"parentId"  : $("#parentId").val(),
-					"enable" : ($("#enable").is(":checked") ? "Y" : "N"),
-				})], {
-					type: "application/json"
-				}));
-
 				var fileInput = document.getElementById("fileImage");
-				formData.append("fileImage", fileInput.files[0]);
-				console.log(formData)
+				formData.append("name"   , $("#name").val());
+				formData.append("alias"  , $("#alias").val());
+				formData.append("parentId", $("#parentId").val());
+				formData.append("enable" , ($("#enable").is(":checked") ? "Y" : "N"));
+				formData.append("multipartFile", fileInput.files[0]);
 
 				save("/2020/save", formData);
 			});

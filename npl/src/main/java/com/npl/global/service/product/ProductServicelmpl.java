@@ -46,4 +46,10 @@ public class ProductServicelmpl implements ProductService {
 		return daoExtends.callPdtDel(pdtId);
 	}
 
+	@Override
+	public ResultProcDto savePdtImage(PdtDto pdtDto) throws Exception {
+		// TODO Auto-generated method stub
+		return daoExtends.callPdtImage(pdtDto);
+	}
+
 }

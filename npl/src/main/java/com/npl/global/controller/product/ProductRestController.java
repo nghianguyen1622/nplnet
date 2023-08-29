@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.npl.global.common.Constant;
 import com.npl.global.dto.ResultProcDto;
 import com.npl.global.dto.brand.BrandDto;
 import com.npl.global.dto.product.PdtDto;
@@ -47,8 +49,8 @@ public class ProductRestController {
 		}
 	}
 	
-	@PostMapping(value = "/2030/save", consumes = { "multipart/form-data" }, produces = { "application/json", "application/xml" })
-	public @ResponseBody ResultProcDto save(@RequestPart PdtDto pdtDto, @RequestPart("fileMainImage") MultipartFile fileMainImage) {
+	@PostMapping(value = "/2030/save")
+	public @ResponseBody ResultProcDto save(@ModelAttribute PdtDto pdtDto) {
 		try {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			NplUserDetails loggedUser = (NplUserDetails) authentication.getPrincipal();
@@ -62,8 +64,8 @@ public class ProductRestController {
 			pdtDto.setWorkUser(workUser);
 			
 			
-			if(!fileMainImage.isEmpty()) {
-				String fileName = storageService.store(fileMainImage, "product");
+			if(!pdtDto.getFileMainImage().isEmpty()) {
+				String fileName = storageService.store(pdtDto.getFileMainImage(), "pdt");
 				
 				pdtDto.setFilePath("fileupload/product/" + fileName);
 				pdtDto.setFileName(fileName);
@@ -74,7 +76,25 @@ public class ProductRestController {
 				pdtDto.setFileName("");
 				pdtDto.setFileNameOrg("");
 			}
+			
 			result = this.service.savePdt(pdtDto);
+			
+			if(pdtDto.getFileExtraImage().length > 0) {
+				for (MultipartFile multipartFile : pdtDto.getFileExtraImage()) {
+					if (!multipartFile.isEmpty()) {
+						String fileName = storageService.store(pdtDto.getFileMainImage(), "pdtExtra");
+						pdtDto.setFileExtraPath("fileupload/product/extra/" + fileName);
+						pdtDto.setFileExtraName(fileName);
+						pdtDto.setFileExtraNameOrg(fileName);
+						pdtDto.setPdtId(result.getKeyValue());
+						
+						ResultProcDto result1 = this.service.savePdtImage(pdtDto);
+						if(!result1.getRetCode().equals(Constant.RETCODE_OK)) {
+							return result1;
+						}
+					}
+				}
+			}
 			
 			return result;
 		} catch (Exception e) {

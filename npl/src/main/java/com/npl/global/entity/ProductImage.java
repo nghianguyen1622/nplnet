@@ -20,37 +20,61 @@ public class ProductImage extends AbstractEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer Id;
+	private int Id;
 	
-	@Column(name = "NAME")
-	private String name;
+	@Column(name = "FILE_NAME")
+	private String fileName;
+	
+	@Column(name = "FILE_NAME_ORG")
+	private String fileNameOrg;
+	
+	@Column(name = "FILE_PATH")
+	private String filePath;
 	
 	@ManyToOne
-	@JoinColumn(name = "PRODUCT_ID")
+	@JoinColumn(name = "PDT_ID")
 	private Product product;
 
 	public ProductImage() {
 	}
 
-	public ProductImage(String name, Product product) {
-		this.name = name;
+	public ProductImage(String fileName, String fileNameOrg, String filePath, Product product) {
+		this.fileName = fileName;
+		this.fileNameOrg = fileNameOrg;
+		this.filePath = filePath;
 		this.product = product;
 	}
 
-	public Integer getId() {
+	public int getId() {
 		return Id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		Id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getFileName() {
+		return fileName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public String getFileNameOrg() {
+		return fileNameOrg;
+	}
+
+	public void setFileNameOrg(String fileNameOrg) {
+		this.fileNameOrg = fileNameOrg;
+	}
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
 	}
 
 	public Product getProduct() {
@@ -60,5 +84,6 @@ public class ProductImage extends AbstractEntity {
 	public void setProduct(Product product) {
 		this.product = product;
 	}
+
 	
 }

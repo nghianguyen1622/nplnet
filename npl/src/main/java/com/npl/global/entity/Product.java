@@ -57,8 +57,14 @@ public class Product extends AbstractEntity {
 	@Column(name = "DISCOUNT_PERCENT")
 	private float discountPercent;
 	
-	@Column(name = "MAIN_IMAGE")
-	private String mainImage;
+	@Column(name = "FILE_NAME")
+	private String fileName;
+	
+	@Column(name = "FILE_NAME_ORG")
+	private String fileNameOrg;
+	
+	@Column(name = "FILE_PATH")
+	private String filePath;
 	
 	@Column(name = "CATEGORY_ID", nullable = false)
 	private String category;
@@ -186,15 +192,31 @@ public class Product extends AbstractEntity {
 	public void setDiscountPercent(float discountPercent) {
 		this.discountPercent = discountPercent;
 	}
-
-	public String getMainImage() {
-		return mainImage;
-	}
-
-	public void setMainImage(String mainImage) {
-		this.mainImage = mainImage;
-	}
 	
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public String getFileNameOrg() {
+		return fileNameOrg;
+	}
+
+	public void setFileNameOrg(String fileNameOrg) {
+		this.fileNameOrg = fileNameOrg;
+	}
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
 	public String getCategory() {
 		return category;
 	}
