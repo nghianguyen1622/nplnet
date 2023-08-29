@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="vn" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<!-- Main Head -->
+<head th:replace="fragments :: page_head(${pageTitle}, 'none')"></head>
+<!-- End Head -->
+<body class="nk-body bg-lighter npc-general has-sidebar ">
+	<div class="nk-app-root">
+		<!-- main @s -->
+		<div class="nk-main ">
+			<!-- sidebar @s -->
+			<div th:replace="common/header :: menu"></div>
+			<!-- sidebar @e -->
+			<!-- wrap @s -->
+			<div class="nk-wrap ">
+				<!-- main header @s -->
+				<div th:replace="common/header :: header-top"></div>
+				<!-- main header @e -->
+				<!-- content @s -->
+				<div class="nk-content ">
+					<div class="container-fluid">
+						<div class="nk-content-inner">
+							<div class="nk-content-body">
+								<div class="components-preview wide-md mx-auto">
+									<div class="nk-block nk-block-lg">
+										<div class="nk-block-head">
+											<div class="nk-block-head-content">
+												<h4 class="title nk-block-title" th:text="${pageTitle}"></h4>
+											</div>
+										</div>
+										<div class="card card-bordered card-preview">
+											<form action="">
+												<input type="hidden" id="pdtId" />
+												<div class="card-inner">
+													<div class="card-inner">
+														<ul class="nav nav-tabs mt-n3">
+															<li class="nav-item"><a class="nav-link active"
+																data-bs-toggle="tab" href="#tabItem5"><em
+																	class="icon ni ni-note-add"></em><span>Thông tin cơ bản</span></a></li>
+															<li class="nav-item"><a class="nav-link"
+																data-bs-toggle="tab" href="#tabItem6"><em
+																	class="icon ni ni-edit"></em><span>Nội dung</span></a></li>
+															<li class="nav-item"><a class="nav-link"
+																data-bs-toggle="tab" href="#tabItem7"><em
+																	class="icon ni ni-img"></em><span>Hình ảnh</span></a></li>
+															<li class="nav-item"><a class="nav-link"
+																data-bs-toggle="tab" href="#tabItem8"><em
+																	class="icon ni ni-property-add"></em><span>Chi tiết</span></a></li>
+														</ul>
+
+													</div>
+													<div class="tab-content">
+														<div class="tab-pane active" id="tabItem5">
+															<div class="row g-4">
+																<div class="col-lg-6">
+																	<div class="form-group">
+																		<label class="form-label" for="full-name-1">Tên
+																			sản phẩm</label>
+																		<div class="form-control-wrap">
+																			<input type="text" class="form-control" id="name" required >
+																		</div>
+																	</div>
+																</div>
+																<div class="col-lg-6">
+																	<div class="form-group">
+																		<label class="form-label" for="full-name-1">Tên định danh</label>
+																		<div class="form-control-wrap">
+																			<input type="text" class="form-control" id="alias" required >
+																		</div>
+																	</div>
+																</div>
+																<div class="col-lg-6">
+																	<div class="form-group">
+																		<label class="form-label">Thương hiệu</label>
+																		<div class="form-control-wrap">
+																			<select class="form-select js-select2" id="BrandId" required>
+																					<option ></option>
+																			</select>
+																		</div>
+																	</div>
+																</div>
+																<div class="col-lg-6">
+																	<div class="form-group">
+																		<label class="form-label">Danh mục</label>
+																		<div class="form-control-wrap">
+																			<select class="form-select js-select2" id="categoryId" required>
+																				<option></option>
+																			</select> 
+																		</div>
+																	</div>
+																</div>
+																<div class="col-lg-6">
+																	<div class="form-group">
+																		<label class="form-label" for="full-name-1">Giá nhập</label>
+																		<div class="form-control-wrap">
+																			<input type="number" class="form-control formatNumber" id="cost">
+																		</div>
+																	</div>
+																</div>
+																<div class="col-lg-6">
+																	<div class="form-group">
+																		<label class="form-label" for="full-name-1">Giá bán</label>
+																		<div class="form-control-wrap">
+																			<input type="number" class="form-control formatNumber" id="price" required="required" maxlength="8">
+																		</div>
+																	</div>
+																</div>
+																<div class="col-lg-6">
+																	<div class="form-group">
+																		<label class="form-label" for="full-name-1">Giảm giá</label>
+																		<div class="form-control-wrap">
+																			<input type="number" class="form-control formatNumber" id="disPer">
+																		</div>
+																	</div>
+																</div>
+																<div class="col-lg-6">
+																	<div class="form-group">
+																		<label class="form-label" for="full-name-1">Số lượng</label>
+																		<div class="form-control-wrap">
+																			<input type="number" class="form-control" step="1" maxlength="45" id="qty">
+																		</div>
+																	</div>
+																</div>
+																<div class="col-lg-6">
+																	<div class="form-group">
+																		<label class="form-label">Loại sản phẩm</label>
+																		<div class="form-control-wrap">
+																			<select class="form-select js-select2" id="pdtKind" >
+																				<option value="A01" >Sản phẩm thông thường</option>
+																				<option value="B01" >Sản phẩm nổi bật</option>
+																				<option value="D01" >Sản phẩm ưu tiên</option>
+																			</select>
+																		</div>
+																	</div>
+																</div>
+																<div class="col-lg-12">
+																	<div class="custom-control custom-switch">
+																		<input type="checkbox" class="custom-control-input" id="enabled"> <label
+																			class="custom-control-label" for="enabled">Mở khóa sản phẩm</label>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="tab-pane" id="tabItem6">
+															<div class="ccc">
+																<div class="m-2">
+																	<label class="tableCodeFalse">Tiêu đề</label>
+																	<textarea class="form-control" id="shortDes" rows="2"></textarea>
+																</div>
+																<div class="m-2">
+																	<label>Nội dung</label>
+																	<textarea class="summernote1" id="fullDes" rows="5"> </textarea>
+																</div>
+															</div>
+														</div>
+														<div class="tab-pane" id="tabItem7">
+															<div class="row g-4" id="divProductImages">
+																<div class="col border m-3 p-2">
+																	<div>
+																		<label class="tableCodeFalse">Ảnh đại diện:
+																			</label>
+																	</div>
+																	<div class="m-2">
+																		<img id="thumbnail" alt="Main image preview"
+																			class="img-fluid" width="200px"
+																			>
+																	</div>
+																	<div>
+																		<input type="file" id="fileImage" name="fileImage"
+																			
+																			accept="image/png , image/jpeg" />
+																	</div>
+																	<input type="hidden" id=""/>
+																</div>
+
+																	<div class="col border m-3 p-2" >
+																		<div>
+																			<label>Ảnh Chi tiết :
+																				</label> <a
+																				name="linkRemoveExtraImage"
+																				class="btn btn-trigger btn-icon"
+																				title="Xóa ảnh này"><em class="icon ni ni-cross"></em></a>
+																		</div>
+																		<div class="m-2">
+																			<img 
+																				
+																				class="img-fluid" width="200px"
+																				>
+																		</div>
+																		<div>
+																			<input type="file" name="extraImage"
+																				accept="image/png , image/jpeg" />
+																		</div>
+																		<input type="hidden" name="imageIDs"  /> 
+																		<input type="hidden" name="imageNames" />
+																	</div>
+																</th:block>
+
+
+																<div class="col border m-3 p-2" >
+																	<div >
+																		<label>Ảnh Chi tiết :</label>
+																	</div>
+																	<div class="m-2">
+																		<img  class="img-fluid" width="200px" >
+																	</div>
+																	<div>
+																		<input type="file" name="extraImage"
+																			accept="image/png , image/jpeg" />
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="tab-pane" id="tabItem8">
+															<div id="divProductDetails">
+																	<div class="form-inline" >
+																		<input type="hidden" name="detailIDs"  /> 
+																		<label class="m-3">Thuộc tính:</label> 
+																		<input type="text" class="form-control w-25"
+																			name="detailNames" maxlength="255"
+																			placeholder="vd: Ram"  /> 
+																		<label class="m-3">Dữ liệu:</label> 
+																		<input type="text" class="form-control w-25" name="detailValues"
+																			maxlength="255" placeholder="vd: 8GB"
+																			 /> 
+																		<a name="linkRemoveDetail" class="btn btn-trigger btn-icon"
+																			title="Xóa trường này"><em class="icon ni ni-cross"></em></a>
+																	</div>
+																<div class="form-inline" >
+																	<input type="hidden" name="detailIDs" value="0" /> <label
+																		class="m-3">Thuộc tính:</label> <input type="text"
+																		class="form-control w-25" name="detailNames"
+																		maxlength="255" placeholder="vd: Ram" /> <label
+																		class="m-3">Dữ liệu:</label> <input type="text"
+																		class="form-control w-25" name="detailValues"
+																		maxlength="255" placeholder="vd: 8GB" />
+																</div>
+															</div>
+														<div>
+															<input type="button" class="btn btn-primary" value="+"
+																onclick="addNextDetailSection()" />
+														</div>
+														</div>
+													</div>
+												</div>
+												<div class="col-12 text-center pb-3">
+														<button type="submit" class="btn btn-outline-primary m-1">Lưu</button>
+														<button class="btn btn-outline-light m-1">Hủy</button>
+												</div>
+											</form>
+										</div>
+										<!-- .card-preview -->
+									</div>
+									<!-- .nk-block -->
+								</div>
+								<!-- .components-preview -->
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- content @e -->
+			</div>
+			<!-- wrap @e -->
+			
+		</div>
+		<!-- main @e -->
+	</div>
+	<!-- app-root @e -->
+	<!-- JavaScript -->
+	<script th:src="@{/js/bundle.js?ver=3.2.0}"></script>
+	<script th:src="@{/js/scripts.js?ver=3.2.0}"></script>
+	<script th:src="@{/js/libs/editors/summernote.js}"></script>
+	
+	<script th:src="@{/js/commom-form.js}"></script>
+
+	<script th:src="@{/js/product_form_images.js}"></script>
+	<script th:src="@{/js/product_form_overview.js}"></script>
+	<script th:src="@{/js/product_form_details.js}"></script>
+	
+<script type="text/javascript">
+	contextPath = "[[@{/}]]";
+	MAX_FILE_SIZE = 5242880; // 5MB
+	
+	moduleURL = "[[@{/products}]]";
+	brandModuleURL = "[[@{/brands}]]";
+
+	
+	defaultImageThumbnailSrc = "[[@{/images/default-image.jpg}]]";
+	
+	checkUniqueUrl = "[[@{/products/check_unique}]]";
+	
+	
+	$('#fullDes').summernote({
+		minHeight: 150,
+	});
+</script>
+	
+</body>
+
+</html>

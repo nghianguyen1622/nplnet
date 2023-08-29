@@ -72,10 +72,10 @@ public class ProductDaoExtends {
 		query.setParameter("p_cost",                     pdtDto.getCost());
 		query.setParameter("p_price",                    pdtDto.getPrice());
 		query.setParameter("p_discount_percent",         pdtDto.getDisPer());
-		query.setParameter("p_length",                   pdtDto.getLength());
-		query.setParameter("p_width",                    pdtDto.getWidth());
-		query.setParameter("p_height",                   pdtDto.getHeight());
-		query.setParameter("p_weight",                   pdtDto.getWeight());
+//		query.setParameter("p_length",                   pdtDto.getLength());
+//		query.setParameter("p_width",                    pdtDto.getWidth());
+//		query.setParameter("p_height",                   pdtDto.getHeight());
+//		query.setParameter("p_weight",                   pdtDto.getWeight());
 		query.setParameter("p_file_name",                pdtDto.getFileName());
 		query.setParameter("p_file_name_org",            pdtDto.getFileNameOrg());
 		query.setParameter("p_file_path",                pdtDto.getFilePath());

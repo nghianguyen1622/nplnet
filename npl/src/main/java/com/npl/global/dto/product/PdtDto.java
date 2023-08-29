@@ -17,10 +17,12 @@ public class PdtDto {
 	private BigDecimal cost;
 	private BigDecimal price;
 	private BigDecimal disPer;
-	private BigDecimal length;
-	private BigDecimal width;
-	private BigDecimal height;
-	private BigDecimal weight;
+	private int qty;
+	private String pdtKind;
+//	private BigDecimal length;
+//	private BigDecimal width;
+//	private BigDecimal height;
+//	private BigDecimal weight;
 	private String mainImage;
 	private String categoryId;
 	private String BrandId;
@@ -110,30 +112,42 @@ public class PdtDto {
 	public void setDisPer(BigDecimal disPer) {
 		this.disPer = disPer;
 	}
-	public BigDecimal getLength() {
-		return length;
+	public int getQty() {
+		return qty;
 	}
-	public void setLength(BigDecimal length) {
-		this.length = length;
+	public void setQty(int qty) {
+		this.qty = qty;
 	}
-	public BigDecimal getWidth() {
-		return width;
+	public String getPdtKind() {
+		return pdtKind;
 	}
-	public void setWidth(BigDecimal width) {
-		this.width = width;
+	public void setPdtKind(String pdtKind) {
+		this.pdtKind = pdtKind;
 	}
-	public BigDecimal getHeight() {
-		return height;
-	}
-	public void setHeight(BigDecimal height) {
-		this.height = height;
-	}
-	public BigDecimal getWeight() {
-		return weight;
-	}
-	public void setWeight(BigDecimal weight) {
-		this.weight = weight;
-	}
+	//	public BigDecimal getLength() {
+//		return length;
+//	}
+//	public void setLength(BigDecimal length) {
+//		this.length = length;
+//	}
+//	public BigDecimal getWidth() {
+//		return width;
+//	}
+//	public void setWidth(BigDecimal width) {
+//		this.width = width;
+//	}
+//	public BigDecimal getHeight() {
+//		return height;
+//	}
+//	public void setHeight(BigDecimal height) {
+//		this.height = height;
+//	}
+//	public BigDecimal getWeight() {
+//		return weight;
+//	}
+//	public void setWeight(BigDecimal weight) {
+//		this.weight = weight;
+//	}
 	public String getMainImage() {
 		return mainImage;
 	}

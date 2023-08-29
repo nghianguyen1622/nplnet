@@ -158,9 +158,11 @@
 	<script th:src="@{/js/dataTables.fixedColumns.min.js}"></script>
 	
 	<script th:src="@{/js/commom-list.js}"></script>
+	<script th:src="@{/js/commom-form.js}"></script>
 	<script type="text/javascript">
 		moduleURL = "[[@{/notice}]]";
 		contextPath = "[[@{/}]]";
+		MAX_FILE_SIZE = 5000000; //5MB
 		
 		var csrfHeaderName = "[[${_csrf.headerName}]]";
 		var csrfValue = "[[${_csrf.token}]]";

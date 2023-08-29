@@ -18,4 +18,9 @@ public class ProductController {
 		return "2030";
 	}
 	
+	@GetMapping("/products/2031")
+	public String view2031(Model model) {
+		return "2031";
+	}
+	
 }

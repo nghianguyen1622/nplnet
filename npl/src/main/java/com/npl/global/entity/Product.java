@@ -54,6 +54,12 @@ public class Product extends AbstractEntity {
 	
 	private float price;
 	
+	@Column(name = "QTY")
+	private int qty;
+	
+	@Column(name = "PDT_KIND")
+	private String pdtKind;
+	
 	@Column(name = "DISCOUNT_PERCENT")
 	private float discountPercent;
 	
@@ -183,6 +189,22 @@ public class Product extends AbstractEntity {
 
 	public void setPrice(float price) {
 		this.price = price;
+	}
+
+	public int getQty() {
+		return qty;
+	}
+
+	public void setQty(int qty) {
+		this.qty = qty;
+	}
+
+	public String getPdtKind() {
+		return pdtKind;
+	}
+
+	public void setPdtKind(String pdtKind) {
+		this.pdtKind = pdtKind;
 	}
 
 	public float getDiscountPercent() {
