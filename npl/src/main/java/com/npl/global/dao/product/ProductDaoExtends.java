@@ -40,10 +40,10 @@ public class ProductDaoExtends {
 		query.registerStoredProcedureParameter("p_cost",                    BigDecimal.class,     ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_price",                   BigDecimal.class,     ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_discount_percent",        BigDecimal.class,     ParameterMode.IN);
-		query.registerStoredProcedureParameter("p_length",                  BigDecimal.class,     ParameterMode.IN);
-		query.registerStoredProcedureParameter("p_width",                   BigDecimal.class,     ParameterMode.IN);
-		query.registerStoredProcedureParameter("p_height",                  BigDecimal.class,     ParameterMode.IN);
-		query.registerStoredProcedureParameter("p_weight",                  BigDecimal.class,     ParameterMode.IN);
+//		query.registerStoredProcedureParameter("p_length",                  BigDecimal.class,     ParameterMode.IN);
+//		query.registerStoredProcedureParameter("p_width",                   BigDecimal.class,     ParameterMode.IN);
+//		query.registerStoredProcedureParameter("p_height",                  BigDecimal.class,     ParameterMode.IN);
+//		query.registerStoredProcedureParameter("p_weight",                  BigDecimal.class,     ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_file_name",               String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_file_name_org",           String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_file_path",               String.class,         ParameterMode.IN);

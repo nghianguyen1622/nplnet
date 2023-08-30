@@ -1,8 +1,5 @@
 package com.npl.global.dao.brand;
 
-import java.util.Arrays;
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureQuery;
@@ -10,10 +7,11 @@ import javax.persistence.StoredProcedureQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.npl.global.common.Constant;
 import com.npl.global.dto.ResultProcDto;
 import com.npl.global.dto.brand.BrandDto;
-import com.npl.global.dto.category.CategoryDto;
 
 @Repository
 public class BrandDaoExtend {
@@ -21,16 +19,16 @@ public class BrandDaoExtend {
 	@Autowired
 	private EntityManager entityManager;
 	
-	public ResultProcDto callBrandSave(BrandDto brandDto){
+	public ResultProcDto callBrandSave(BrandDto brandDto) throws JsonProcessingException{
 
-		final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("public.prc_brand_callupin");
+		final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("public.prc_brand");
 		
 		query.registerStoredProcedureParameter("p_brand_id",        String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_name",            String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_file_name",       String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_file_name_org",   String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_file_path",       String.class,         ParameterMode.IN);
-		query.registerStoredProcedureParameter("p_list_cate",       String[].class,       ParameterMode.IN);
+		query.registerStoredProcedureParameter("p_list_cate",       String.class,       ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_enabled",         String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_com_id",          String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_work_user",       String.class,         ParameterMode.IN);
@@ -38,7 +36,10 @@ public class BrandDaoExtend {
 		query.registerStoredProcedureParameter(Constant.SP_RETCODE,       String.class, ParameterMode.OUT);
 		query.registerStoredProcedureParameter(Constant.SP_RETSTR,        String.class, ParameterMode.OUT);
 		
-		String[] categoryIds = brandDto.getListCateIds();
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+		String jsonListCateIds = objectMapper.writeValueAsString(brandDto.getListCateIds());
+
 		if (brandDto.getBrandId() != null) {
 			query.setParameter("p_brand_id",                 brandDto.getBrandId());
 		} else {
@@ -48,7 +49,7 @@ public class BrandDaoExtend {
 		query.setParameter("p_file_name",                    brandDto.getFileName());
 		query.setParameter("p_file_name_org",                brandDto.getFileNameOrg());
 		query.setParameter("p_file_path",                    brandDto.getFilePath());
-		query.setParameter("p_list_cate",                    Arrays.asList(categoryIds).toArray());
+		query.setParameter("p_list_cate",                    jsonListCateIds);
 		query.setParameter("p_enabled",                      brandDto.getEnable());
 		query.setParameter("p_com_id",                       brandDto.getComId());
 		query.setParameter("p_work_user",                    brandDto.getWorkUser());

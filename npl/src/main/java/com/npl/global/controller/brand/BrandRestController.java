@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,8 +62,8 @@ public class BrandRestController {
 		}
 	}
 	
-	@PostMapping(value = "/2010/save", consumes = { "multipart/form-data" }, produces = { "application/json", "application/xml" })
-	public @ResponseBody ResultProcDto save(@RequestPart BrandDto brandDto, @RequestPart("fileImage") MultipartFile multipartFile) {
+	@PostMapping(value = "/2010/save")
+	public @ResponseBody ResultProcDto save(@ModelAttribute BrandDto brandDto) {
 		try {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			NplUserDetails loggedUser = (NplUserDetails) authentication.getPrincipal();
@@ -76,8 +77,8 @@ public class BrandRestController {
 			brandDto.setWorkUser(workUser);
 			
 			
-			if(!multipartFile.isEmpty()) {
-				String fileName = storageService.store(multipartFile, "brand");
+			if(!brandDto.getMultipartFile().isEmpty()) {
+				String fileName = storageService.store(brandDto.getMultipartFile(), "brand");
 				
 				brandDto.setFilePath("fileupload/brand/" + fileName);
 				brandDto.setFileName(fileName);

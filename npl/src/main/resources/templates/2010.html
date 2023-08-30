@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="vn" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<!-- Main Head -->
+<head th:replace="fragments :: page_head(${pageTitle}, 'none')"></head>
+<!-- End Head -->
+
+<body class="nk-body bg-lighter npc-general has-sidebar ">
+    <div class="nk-app-root">
+        <!-- main @s -->
+        <div class="nk-main ">
+            <!-- sidebar @s -->
+            	<div th:replace="common/header :: menu"></div>
+            <!-- sidebar @e -->
+            <!-- wrap @s -->
+            <div class="nk-wrap ">
+                <!-- main header @s -->
+                	<div th:replace="common/header :: header-top"></div>
+                <!-- main header @e -->
+                <!-- content @s -->
+                <div class="nk-content ">
+                    <div class="container-fluid">
+                        <div class="nk-content-inner">
+                            <div class="nk-content-body">
+                            <div th:replace="fragments :: message"></div>
+                            <div class="components-preview wide-md mx-auto">
+                                <div class="nk-block-head nk-block-head-sm">
+                                    <div class="nk-block-between">
+                                        <div class="nk-block-head-content">
+                                            <h3 class="nk-block-title page-title">[[${pageTitle}]]</h3>
+                                            <div class="nk-block-des text-soft">
+                                                <p> Hiện có <span th:text="${countRows}">0</span> thông báo.</p>
+                                            </div>
+                                        </div><!-- .nk-block-head-content -->
+                                        <div class="nk-block-head-content">
+                                            <div class="toggle-wrap nk-block-tools-toggle">
+                                                <a href="#" class="btn btn-icon btn-trigger toggle-expand me-n1" data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
+                                                <div class="toggle-expand-content" data-content="pageMenu">
+                                                    <ul class="nk-block-tools g-3">
+                                                        <li class="nk-block-tools-opt">
+                                                            <div class="drodown">
+                                                                <a href="#" class="dropdown-toggle btn btn-icon btn-primary" data-bs-toggle="dropdown"><em class="icon ni ni-plus"></em></a>
+                                                                <div class="dropdown-menu dropdown-menu-end">
+                                                                    <ul class="link-list-opt no-bdr">
+                                                                        <li><a href="#" data-bs-toggle="modal" data-bs-target="#newModal"><span>Tạo tin</span></a></li>
+                                                                        <li><a href="#"><span>Thông báo đã hết hạn</span></a></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div><!-- .toggle-wrap -->
+                                        </div><!-- .nk-block-head-content -->
+                                    </div><!-- .nk-block-between -->
+                                </div><!-- .nk-block-head -->
+                                <div class="nk-block nk-block-lg">
+                                       <div class="card card-bordered card-preview">
+                                           <div class="card-inner">
+											<table id="myDataTable" class="datatable-init-export nowrap table" data-auto-responsive="true" data-export-title="Export">
+											</table>
+											</div>
+                                       </div><!-- .card-preview -->
+                                   </div><!-- .nk-block -->
+                                   
+                            </div>
+                        	</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- content @e -->
+            </div>
+
+			<!-- wrap @e -->
+        </div>
+        <!-- main @e -->
+    </div>
+    <!-- app-root @e -->
+    <!-- select region modal -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="newModal" data-backdrop="static">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+				<div class="modal-body modal-body-md">
+					<h4 class="title">Tạo mới tin tức</h4>
+					<form action="#" class="form-validate is-alter" enctype="multipart/form-data">
+						<input type="hidden" /> 
+						<div class="row g-4">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label class="form-label" for="fullname">Name</label>
+									<div class="form-control-wrap">
+										<input type="text" class="form-control" required id="name">
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label class="form-label" for="email">Alias</label>
+									<div class="form-control-wrap">
+										<input class="form-control" type="text" id=alias
+											required>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label class="form-label" for="parentId">Parent Category</label>
+									<div class="form-control-wrap">
+										<select class="form-select js-select2" id="categoryId" multiple>
+											<option value="0">[no parent]</option>
+											<th:block th:each:="cat : ${listCat}">
+												 <option th:each="cat : ${listCat}" th:value="${cat.catId}" th:text="${cat.name}"></option>
+											</th:block>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-6 row">
+								<div class="m-2">
+									<img id="thumbnail" alt="Main image preview" class="img-fluid"
+										width="200px" src="">
+								</div>
+								<div id="myfileupload">
+									<label for="fileImage" class="custom-file-upload btn btn-sm btn-dim btn-light">Chọn ảnh</label> 
+									<input type="file" id="fileImage" name="fileImage"
+										
+										accept="image/png , image/jpeg" />
+								</div>
+							</div>
+							<div class="col-lg-12">
+								<div class="custom-control custom-switch">
+									<input type="checkbox" class="custom-control-input"
+										id="enable"> <label
+										class="custom-control-label" for="enable">Kích
+										hoạt</label>
+								</div>
+							</div>
+						</div>
+						<div class="form-group mt-1 text-center">
+							<a type="submit" id="btn-submit" class="btn btn-lg btn-primary">Lưu</a>
+							<a href="#" id="cancelButton" class="btn btn-lg btn-warning"
+								data-bs-dismiss="modal">Hủy</a>
+						</div>
+					</form>
+				</div>
+			</div>
+        </div>
+    </div>
+    <!-- .modal -->
+    <!-- JavaScript -->
+    <script th:src="@{/js/bundle.js?ver=3.2.0}"></script>
+    <script th:src="@{/js/scripts.js?ver=3.2.0}"></script>
+	<script th:src="@{/js/libs/datatable-btns.js?ver=3.2.0}"></script>
+    <script th:src="@{/js/example-sweetalert.js}"></script>
+
+	<script th:src="@{/js/dataTables.fixedColumns.min.js}"></script>
+	
+	<script th:src="@{/js/commom-list.js}"></script>
+	<script th:src="@{/js/commom-form.js}"></script>
+	<script type="text/javascript">
+		moduleURL = "[[@{/notice}]]";
+		contextPath = "[[@{/}]]";
+		MAX_FILE_SIZE = 5000000; //5MB
+		
+		var csrfHeaderName = "[[${_csrf.headerName}]]";
+		var csrfValue = "[[${_csrf.token}]]";
+		
+		function fetchDataById(id, callback){
+			var url = contextPath+ "2020/"+id.toString();
+			$.ajax({
+				type: "Get",
+				url: url,
+				dataType: 'json',
+				beforeSend: function(xhr) {
+					xhr.setRequestHeader(csrfHeaderName, csrfValue);
+				},
+				success: function(response) {
+					callback(response);
+				},
+				error: function(xhr, status, error) {
+					Swal.fire({icon: 'error', title: xhr.responseText});
+				}
+			});
+		}
+		
+
+		
+		function openEditModal(id) {
+			$(".title").text("Chỉnh sửa thông báo");
+			$("#catId").val(id)
+			fetchDataById(id, function (dataToEdit) {
+				$("#title").val(dataToEdit.title);
+				$("#content").summernote('code', dataToEdit.content)
+				$("#sdate").datepicker("setDate", new Date(dataToEdit.startDate));
+				$("#edate").datepicker("setDate", new Date(dataToEdit.startDate));
+				$("#enable").prop("checked", dataToEdit.isEnabled === "Y");
+				$("#poppup").prop("checked", dataToEdit.isPoppup === "Y");
+				
+				$("#newModal").modal("show");
+			});
+		}
+		
+		function openInfoModal(id) {
+			$(".title").text("Chi tiết thông báo");
+			$("#catId").val(id)
+			fetchDataById(id, function (dataToEdit) {
+				$("#title").val(dataToEdit.title);
+				$("#contentHidden").html(dataToEdit.content);
+				$("#sdate").datepicker("setDate", new Date(dataToEdit.startDate));
+				$("#edate").datepicker("setDate", new Date(dataToEdit.startDate));
+				$("#enable").prop("checked", dataToEdit.isEnabled === "Y");
+				$("#poppup").prop("checked", dataToEdit.isPoppup === "Y");
+				
+				$("#title").prop("readonly", true);
+				$("#content").summernote('destroy');
+				$("#content").css("display", "none");
+				$("#sdate").datepicker("destroy");
+				$("#edate").datepicker("destroy");
+				$("#enable").prop( "disabled", true );
+				$("#poppup").prop( "disabled", true );
+				
+				$("#newModal").modal("show");
+			});
+		}
+		
+		function loaddata(){
+			
+			var dataTableOptions = {
+						responsive: {
+							details: false
+						},
+						
+						buttons: [
+							{
+								extend: 'print',
+								exportOptions: {
+									columns: ':visible:not(:lt(1))'
+								}
+							},
+							{
+								extend: 'excel',
+								exportOptions: {
+									columns: ':visible:not(:lt(1))'
+								}
+							},
+							{
+								extend: 'colvis',
+								exportOptions: {
+								columns: ':visible:not(:lt(1))'
+								}
+							},
+						],
+						fixedColumns: {
+						leftColumns: 2
+					}
+		 	};
+			var mergedOptions = Object.assign({}, mergedOptions, dataTableOptions);
+			
+			var arr = [ {title:"Action", field: null, delEdit: true, className: "text-center", name:"brandId"},
+						{title:"Id", field:"brandId"},
+						{title:"Logo", field:"fileName"},
+						{title:"Name", field:"name"},
+						{title:"Status", field:"isEnabled"},
+						];
+			var arrURL = {api: "/2010", urlDel: "/2010/delete/"};
+			NioApp.DataTable.initWithUrlAndArr('.datatable-init-export', arrURL, arr, mergedOptions);
+		}
+		
+		
+	
+			
+		$(document).on('click', '#cancelButton', function() { 
+			$("#newModal").trigger('reset'); 
+		});
+
+		function removeTable() {
+			$('#myDataTable').DataTable().destroy();
+			$('#newModal').on('hidden.bs.modal', function() {
+			});
+
+			loaddata();
+		}
+
+		$(document).ready(function() {
+			$('#content').summernote({
+				minHeight : 150,
+			});
+			$(".date").datepicker({
+				format : 'dd-mm-yyyy'
+			});
+
+			$("#btn-submit").click(function() {
+				var formData = new FormData();
+				var fileInput = document.getElementById("fileImage");
+				const selectElement = document.getElementById('categoryId');
+				const listCateIds = [];
+				
+				for (let i = 0; i < selectElement.options.length; i++) {
+					if (selectElement.options[i].selected) {
+						listCateIds.push(selectElement.options[i].value);
+					}
+				}
+				formData.append("name"   , $("#name").val());
+				formData.append("listCateIds", listCateIds);
+				formData.append("enable" , ($("#enable").is(":checked") ? "Y" : "N"));
+				formData.append("multipartFile", fileInput.files[0]);
+
+				save("/2010/save", formData);
+			});
+
+			loaddata();
+
+			$(document).on("click", ".link-delete", function(e) {
+				e.preventDefault();
+				var entityName = $(this).attr("data-entityName");
+				showDeleteConfirm($(this), entityName, moduleURL);
+
+			});
+		});
+	</script>
+	
+	<script th:src="@{/js/libs/editors/summernote.js}"></script>
+
+</body>
+
+</html>

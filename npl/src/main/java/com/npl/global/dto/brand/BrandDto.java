@@ -1,5 +1,9 @@
 package com.npl.global.dto.brand;
 
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
 public class BrandDto {
 	private String brandId;
 	private String name;
@@ -12,6 +16,8 @@ public class BrandDto {
 	private String fileName;
 	private String fileNameOrg;
 	private String[] listCateIds;
+	
+	private MultipartFile multipartFile;
 	
 	public String getBrandId() {
 		return brandId;
@@ -72,6 +78,12 @@ public class BrandDto {
 	}
 	public void setListCateIds(String[] listCateIds) {
 		this.listCateIds = listCateIds;
+	}
+	public MultipartFile getMultipartFile() {
+		return multipartFile;
+	}
+	public void setMultipartFile(MultipartFile multipartFile) {
+		this.multipartFile = multipartFile;
 	}
 	
 }

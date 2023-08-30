@@ -55,8 +55,7 @@
 															<div class="row g-4">
 																<div class="col-lg-6">
 																	<div class="form-group">
-																		<label class="form-label" for="full-name-1">Tên
-																			sản phẩm</label>
+																		<label class="form-label" for="full-name-1">Tên sản phẩm</label>
 																		<div class="form-control-wrap">
 																			<input type="text" class="form-control" id="name" required >
 																		</div>
@@ -74,7 +73,7 @@
 																	<div class="form-group">
 																		<label class="form-label">Thương hiệu</label>
 																		<div class="form-control-wrap">
-																			<select class="form-select js-select2" id="BrandId" required>
+																			<select class="form-select js-select2" id="brandId" required>
 																					<option ></option>
 																			</select>
 																		</div>
@@ -85,7 +84,9 @@
 																		<label class="form-label">Danh mục</label>
 																		<div class="form-control-wrap">
 																			<select class="form-select js-select2" id="categoryId" required>
-																				<option></option>
+																				<th:block th:each:="cat : ${listCat}">
+																					<option th:each="cat : ${listCat}" th:value="${cat.catId}" th:text="${cat.name}"></option>
+																				</th:block>
 																			</select> 
 																		</div>
 																	</div>
@@ -245,7 +246,7 @@
 													</div>
 												</div>
 												<div class="col-12 text-center pb-3">
-														<button type="submit" class="btn btn-outline-primary m-1">Lưu</button>
+														<button type="submit" class="btn btn-outline-primary m-1" id="btn-submit">Lưu</button>
 														<button class="btn btn-outline-light m-1">Hủy</button>
 												</div>
 											</form>
@@ -284,15 +285,35 @@
 	
 	moduleURL = "[[@{/products}]]";
 	brandModuleURL = "[[@{/brands}]]";
-
-	
 	defaultImageThumbnailSrc = "[[@{/images/default-image.jpg}]]";
-	
 	checkUniqueUrl = "[[@{/products/check_unique}]]";
-	
 	
 	$('#fullDes').summernote({
 		minHeight: 150,
+	});
+	
+	$(document).ready(function() {
+		$("#btn-submit").click(function() {
+			var formData = new FormData();
+			
+			var fileInput = document.getElementById("fileImage");
+			formData.append("name"   , $("#name").val());
+			formData.append("alias"  , $("#alias").val());
+			formData.append("brandId", $("#brandId").val());
+			formData.append("categoryId", $("#categoryId").val());
+			formData.append("cost", $("#cost").val());
+			formData.append("price", $("#price").val());
+			formData.append("disPer", $("#disPer").val());
+			formData.append("qty", $("#qty").val());
+			formData.append("pdtKind", $("#pdtKind").val());
+			formData.append("enabled", ($("#enable").is(":checked") ? "Y" : "N"));
+			formData.append("shortDes", $("#shortDes").val());
+			formData.append("fullDes", $("#fullDes").val());
+			formData.append("fileMainImage", fileInput.files[0]);
+			//formData.append("fileExtraImage", fileInput.files[0]);
+	
+			save("/2030/save", formData);
+		});
 	});
 </script>
 	
