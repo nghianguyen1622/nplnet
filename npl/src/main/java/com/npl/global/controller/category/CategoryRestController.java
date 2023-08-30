@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -114,6 +115,20 @@ public class CategoryRestController {
 			
 			storageService.delete(fileName, "cat");
 			return result;
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			return null;
+		}
+	}
+	
+	@GetMapping("/listCate")
+	public  @ResponseBody List<CategoryModel> findListCateByBrand(@RequestParam("brandId") String brandId) {
+		try {
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			NplUserDetails loggedUser = (NplUserDetails) authentication.getPrincipal();
+			String comId = loggedUser.getUser().getCompany().getComId();
+			List<CategoryModel> listCat = service.findByBrand(comId, brandId);
+			return listCat;
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			return null;

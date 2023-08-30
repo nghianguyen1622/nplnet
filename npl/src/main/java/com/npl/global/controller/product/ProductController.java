@@ -9,8 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.npl.global.model.brand.BrandModel;
 import com.npl.global.model.category.CategoryModel;
 import com.npl.global.security.NplUserDetails;
+import com.npl.global.service.brand.BrandService;
 import com.npl.global.service.category.CategoryService;
 import com.npl.global.service.product.ProductService;
 
@@ -20,6 +22,7 @@ public class ProductController {
 	@Autowired private ProductService service;
 	
 	@Autowired private CategoryService cateService;
+	@Autowired private BrandService brandService;
 	
 	@GetMapping("/products")
 	public String viewHomePage(Model model) {
@@ -33,7 +36,9 @@ public class ProductController {
 		NplUserDetails loggedUser = (NplUserDetails) authentication.getPrincipal();
 		
 		String comId = loggedUser.getUser().getCompany().getComId();
+		List<BrandModel> listBrand = brandService.findAll(comId);
 		List<CategoryModel> listCat = cateService.findAll(comId);
+		model.addAttribute("listBrand", listBrand);
 		model.addAttribute("listCat", listCat);
 		return "2031";
 	}

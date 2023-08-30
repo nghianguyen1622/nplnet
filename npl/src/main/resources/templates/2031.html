@@ -74,7 +74,9 @@
 																		<label class="form-label">Thương hiệu</label>
 																		<div class="form-control-wrap">
 																			<select class="form-select js-select2" id="brandId" required>
-																					<option ></option>
+																				<th:block th:each:="brand : ${listBrand}">
+																					<option th:each="brand : ${listBrand}" th:value="${brand.brandId}" th:text="${brand.name}"></option>
+																				</th:block>
 																			</select>
 																		</div>
 																	</div>
@@ -84,9 +86,6 @@
 																		<label class="form-label">Danh mục</label>
 																		<div class="form-control-wrap">
 																			<select class="form-select js-select2" id="categoryId" required>
-																				<th:block th:each:="cat : ${listCat}">
-																					<option th:each="cat : ${listCat}" th:value="${cat.catId}" th:text="${cat.name}"></option>
-																				</th:block>
 																			</select> 
 																		</div>
 																	</div>
@@ -293,6 +292,31 @@
 	});
 	
 	$(document).ready(function() {
+		
+		 $("#brandId").change(function() {
+			$("#categoryId").empty();
+			
+			var selectedBrand = $(this).val();
+			
+			$.ajax({
+				url: '/listCate',
+				method: 'GET',
+				data: { brandId: selectedBrand },
+				success: function(response) {
+					if(response){
+						var html ;
+						response.forEach(function(category) {
+							html += '<option value="'+category.catId+'">'+category.name+'</option>'
+						});
+						$("#categoryId").append(html);
+					}
+				},
+				error: function() {
+					Swal.fire('Lỗi', 'Đã xảy ra lỗi ', 'error');
+				}
+			});
+		});
+		
 		$("#btn-submit").click(function() {
 			var formData = new FormData();
 			

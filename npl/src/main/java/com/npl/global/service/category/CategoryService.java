@@ -10,6 +10,7 @@ public interface CategoryService {
 
 	public List<CategoryModel> findAll(String comId);
 	public CategoryModel findInfo(String catId, String comId);
+	public List<CategoryModel> findByBrand(String comId, String brandId);
 	
 	public ResultProcDto saveCate(CategoryDto CateSave) throws Exception;
 	public ResultProcDto delCat(String catId) throws Exception;
