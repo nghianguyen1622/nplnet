@@ -38,6 +38,10 @@ public class MainController {
 	@GetMapping("/")
 	public String viewHomePage(Model model) {
 		model.addAttribute("pageTitle", "Trang chủ");
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		NplUserDetails userDetails = (NplUserDetails) auth.getPrincipal();
+		System.out.println("===================  : " +userDetails.getMyMenuList());
 
 		return "index";
 	}

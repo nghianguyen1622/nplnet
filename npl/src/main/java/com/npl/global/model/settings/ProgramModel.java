@@ -22,5 +22,6 @@ public interface ProgramModel {
 	public String getUpdateYn();
 	public String getUseYn();
 	public String getViewYn();
+	public String getUserId();
 	public List<UserMenu> getUserMenus();
 }

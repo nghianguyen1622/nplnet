@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class ProgramDto {
 
-	private Integer prgCd;
+	private String prgCd;
 	private String deleteYn;
 	private String expImpYn;
 	private String formName;
@@ -21,16 +21,16 @@ public class ProgramDto {
 	private String useYn;
 	private String viewYn;
 	private String pCd;
-	private Integer userid;
+	private String userid;
 
 	public ProgramDto() {
 	}
 
-	public Integer getPrgCd() {
+	public String getPrgCd() {
 		return prgCd;
 	}
 
-	public void setPrgCd(Integer prgCd) {
+	public void setPrgCd(String prgCd) {
 		this.prgCd = prgCd;
 	}
 
@@ -162,11 +162,11 @@ public class ProgramDto {
 		this.pCd = pCd;
 	}
 
-	public Integer getUserid() {
+	public String getUserid() {
 		return userid;
 	}
 
-	public void setUserid(Integer userid) {
+	public void setUserid(String userid) {
 		this.userid = userid;
 	}
 

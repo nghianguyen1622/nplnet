@@ -25,6 +25,7 @@ import com.npl.global.dao.user.UserDao;
 import com.npl.global.dao.user.UserDaoExtend;
 import com.npl.global.dto.ResultProcDto;
 import com.npl.global.dto.notice.NoticeDto;
+import com.npl.global.dto.settings.ProgramDto;
 import com.npl.global.dto.user.UserDto;
 import com.npl.global.entity.Company;
 import com.npl.global.entity.Notice;
@@ -34,6 +35,7 @@ import com.npl.global.entity.User;
 import com.npl.global.entity.UserMenu;
 import com.npl.global.model.settings.ProgramModel;
 import com.npl.global.model.settings.UserMenuModel;
+import com.npl.global.service.settings.ProgramService;
 
 @DataJpaTest(showSql = true)
 @AutoConfigureTestDatabase(replace = Replace.NONE)
@@ -63,6 +65,9 @@ public class NplTest {
 	
 	@Autowired
 	private UserMenuDao repoUM;
+	
+	@Autowired
+	private ProgramService prgService;
 	
 	@Autowired
 	private TestEntityManager entityManager;
@@ -104,33 +109,31 @@ public class NplTest {
 	@Test
 	public void testCreatePrg() {
 //		Program pg = new Program();
+//		pg.setPrgCd("PRG00001");
 //		pg.setDeleteYn("Y");
 //		pg.setExpImpYn("Y");
 //		pg.setMenuCd("LOGIN");
 //		pg.setMenuName("Đăng nhập");
-//		pg.setPrgKind("USER1");
+//		pg.setPrgKind("LOGIN");
 //		pg.setUseYn("Y");
 //		pg.setViewYn("Y");
 //		pg.setLv(new BigDecimal("1"));
 //		pg.setUpdateYn("Y");
-//		Company company = repoCom.findByComId(1);
-//		pg.setCompany(company);
 //		Program saveCom = repoPrg.save(pg);
-//		assertThat(saveCom.getPrgCd()).isGreaterThan(0);
 		
-//		Program pg1 = new Program();
-//		pg1.setDeleteYn("Y");
-//		pg1.setExpImpYn("Y");
-//		pg1.setMenuCd("BRAND");
-//		pg1.setMenuName("Thương hiệu");
-//		pg1.setPrgKind("USER1");
-//		pg1.setHelpUrl("/brands");
-//		pg1.setUseYn("Y");
-//		pg1.setViewYn("Y");
-//		pg1.setLv(new BigDecimal("1"));
-//		pg1.setUpdateYn("Y");
-//		Program saveCom1 = repoPrg.save(pg1);
-//		assertThat(saveCom1.getPrgCd()).isGreaterThan(0);
+		Program pg1 = new Program();
+		pg1.setPrgCd("PRG00006");
+		pg1.setDeleteYn("Y");
+		pg1.setExpImpYn("Y");
+		pg1.setMenuCd("HOME");
+		pg1.setMenuName("TRANG CHỦ");
+		pg1.setPrgKind("HOME");
+		pg1.setHelpUrl("/");
+		pg1.setUseYn("Y");
+		pg1.setViewYn("Y");
+		pg1.setLv(new BigDecimal("1"));
+		pg1.setUpdateYn("Y");
+		Program saveCom1 = repoPrg.save(pg1);
 	}
 	
 	@Test
@@ -228,28 +231,30 @@ public class NplTest {
 	}
 	
 	
-//	@Test
-//	public void testCreateUserMenus() {
-//		Company company = repoCom.findByComId(2);
-//		UserMenu menu = new UserMenu();
-//		menu.setCompany(company);
-//		menu.setCreatedTime(new Date());
-//		menu.setDeleteYn("Y");
-//		menu.setInsertYn("Y");
-//		
-//		User user = repoU.getUserByUserName("npltech1");
-//		menu.setUser(user);
-//		
-//		Program program = repoPrg.getPrgByPrgCd(4);
-//		menu.setProgram(program);
-//		
-//		menu.setExpImpYn("Y");
-//		menu.setWorkUser("nghia");
-//		
-//		UserMenu save = repoUM.save(menu);
-//		assertThat(save.getId()).isGreaterThan(0);
-//		
-//	}
+	@Test
+	public void testCreateUserMenus() {
+		Company company = repoCom.findByComId("NVN");
+		UserMenu menu = new UserMenu();
+		menu.setMenuId("MN00005");
+		menu.setCompany(company);
+		menu.setCreatedTime(new Date());
+		menu.setDeleteYn("Y");
+		menu.setInsertYn("Y");
+		menu.setInsertYn("Y");
+		menu.setPrintYn("Y");
+		menu.setUpdateYn("Y");
+		menu.setExpImpYn("Y");
+		menu.setWorkUser("nghia");
+		
+		User user = repoU.getUserByUserName("nvntech");
+		menu.setUser(user);
+		
+		Program program = repoPrg.getPrgByPrgCd("PRG00004");
+		menu.setProgram(program);
+		
+		UserMenu save = repoUM.save(menu);
+		
+	}
 	
 	@Test
 	public void testControllerAddUpd() {
@@ -277,5 +282,15 @@ public class NplTest {
 		ResultProcDto result = repoNoExtent.callNoticeDel(id);
 		System.out.println("========================== : " + result.getRetStr());
 		System.out.println("========================== : " + result.getRetCode());
+	}
+	@Test
+	public void testlistPRG() throws Exception {
+//		NoticeDto n = new NoticeDto();
+//		n.setId("NT00004");
+		
+		String id = "NVN00002";
+		
+		List<ProgramDto> dtos = prgService.findMenuByUser(id);
+		System.out.println("========================== : " + dtos);
 	}
 }
