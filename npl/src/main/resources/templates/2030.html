@@ -107,50 +107,48 @@
 		
 		function loadata() {
 			var dataTableOptions = {
-		            responsive: {
-		                details: false
-		            },
-		            
-		            buttons: [
-		                {
-		                    extend: 'print',
-		                    exportOptions: {
-		                        columns: ':visible:not(:lt(1))'
-		                    }
-		                },
-		                {
-		                    extend: 'excel',
-		                    exportOptions: {
-		                        columns: ':visible:not(:lt(1))'
-		                    }
-		                },
-		                {
-		                    extend: 'colvis',
-		                    exportOptions: {
-		                        columns: ':visible:not(:lt(1))'
-		                    }
-		                },
-		            ],
-		            fixedColumns: {
-						leftColumns: 2
-					}
-		        };
+					responsive: {
+						details: false
+					},
+					
+					buttons: [
+						{
+							extend: 'print',
+							exportOptions: {
+								columns: ':visible:not(:lt(1))'
+							}
+						},
+						{
+							extend: 'excel',
+							exportOptions: {
+								columns: ':visible:not(:lt(1))'
+							}
+						},
+						{
+							extend: 'colvis',
+							exportOptions: {
+							columns: ':visible:not(:lt(1))'
+							}
+						},
+					],
+					fixedColumns: {
+					leftColumns: 2
+				}
+	 		};
 			var mergedOptions = Object.assign({}, mergedOptions, dataTableOptions);
 
 			
-			var arr = [ {title:"Action", field:null, className: "text-center"},
+			var arr = [ {title:"Action", field:null, delEdit: true, className: "text-center", name:"pdtId"},
 						{title:"Name", field:"name", url:"/path/", id:"id"},
-						{title:"Image", field:"mainImage", img: true, path: "/images/product/", className: "text-center"},
+						{title:"Image", field:"filePath", img: true, className: "text-center"},
 						{title:"Alias", field:"alias"},
 						{title:"Category", field:"categoryID"},
 						{title:"Brand", field:"brandID"},
 						{title:"Cost", field:"cost"},
 						{title:"Price", field:"price"},
-						{title:"Discount Percent", field:"disPer" , className: "text-warning"},
-						//{title:"Length", field:"length"},
-						//{title:"Width", field:"width"},
-						//{title:"Height", field:"height"},
-						//{title:"Weight", field:"weight"},
+						{title:"Discount Percent", field:"disPer"},
+						{title:"Qty", field:"qty"},
+						{title:"PDT Kind", field:"pdtKind"},
 						{title:"Short Description", field:"shortDes"},
 						{title:"Full Description", field:"fullDes"},
 						{title:"Status", field:"isEnabled", status: true, url: "/product/enable/", className: "text-center"},

@@ -173,80 +173,44 @@
 																	</div>
 																	<input type="hidden" id=""/>
 																</div>
-
-																	<div class="col border m-3 p-2" >
-																		<div>
-																			<label>Ảnh Chi tiết :
-																				</label> <a
-																				name="linkRemoveExtraImage"
-																				class="btn btn-trigger btn-icon"
-																				title="Xóa ảnh này"><em class="icon ni ni-cross"></em></a>
+																<div class="col border m-3 p-2">
+																	<label class="form-label"
+																		for="fileExtra">Multiple File
+																		Upload</label>
+																	<div class="form-control-wrap">
+																		<div class="form-file">
+																			<input type="file" multiple class="form-file-input"
+																				id="fileExtra"> <label
+																				class="form-file-label" for="fileExtra">Choose
+																				files</label>
 																		</div>
-																		<div class="m-2">
-																			<img 
-																				
-																				class="img-fluid" width="200px"
-																				>
-																		</div>
-																		<div>
-																			<input type="file" name="extraImage"
-																				accept="image/png , image/jpeg" />
-																		</div>
-																		<input type="hidden" name="imageIDs"  /> 
-																		<input type="hidden" name="imageNames" />
-																	</div>
-																</th:block>
-
-
-																<div class="col border m-3 p-2" >
-																	<div >
-																		<label>Ảnh Chi tiết :</label>
-																	</div>
-																	<div class="m-2">
-																		<img  class="img-fluid" width="200px" >
-																	</div>
-																	<div>
-																		<input type="file" name="extraImage"
-																			accept="image/png , image/jpeg" />
 																	</div>
 																</div>
+
+
 															</div>
 														</div>
 														<div class="tab-pane" id="tabItem8">
 															<div id="divProductDetails">
-																	<div class="form-inline" >
-																		<input type="hidden" name="detailIDs"  /> 
-																		<label class="m-3">Thuộc tính:</label> 
-																		<input type="text" class="form-control w-25"
-																			name="detailNames" maxlength="255"
-																			placeholder="vd: Ram"  /> 
-																		<label class="m-3">Dữ liệu:</label> 
-																		<input type="text" class="form-control w-25" name="detailValues"
-																			maxlength="255" placeholder="vd: 8GB"
-																			 /> 
-																		<a name="linkRemoveDetail" class="btn btn-trigger btn-icon"
-																			title="Xóa trường này"><em class="icon ni ni-cross"></em></a>
-																	</div>
 																<div class="form-inline" >
-																	<input type="hidden" name="detailIDs" value="0" /> <label
-																		class="m-3">Thuộc tính:</label> <input type="text"
-																		class="form-control w-25" name="detailNames"
-																		maxlength="255" placeholder="vd: Ram" /> <label
-																		class="m-3">Dữ liệu:</label> <input type="text"
-																		class="form-control w-25" name="detailValues"
+																	<label class="m-3">Thuộc tính:</label>
+																	<input type="text" class="form-control w-25" name="detailNames"
+																		maxlength="255" placeholder="vd: Ram" />
+																	<label class="m-3">Dữ liệu:</label>
+																	<input type="text" class="form-control w-25" name="detailValues"
 																		maxlength="255" placeholder="vd: 8GB" />
 																</div>
 															</div>
 														<div>
 															<input type="button" class="btn btn-primary" value="+"
-																onclick="addNextDetailSection()" />
+																onclick="addDetail()" />
 														</div>
 														</div>
 													</div>
 												</div>
 												<div class="col-12 text-center pb-3">
-														<button type="submit" class="btn btn-outline-primary m-1" id="btn-submit">Lưu</button>
-														<button class="btn btn-outline-light m-1">Hủy</button>
+														<a type="submit" id="btn-submit" class="btn btn-lg btn-primary">Lưu</a>
+														<a class="btn btn-outline-light m-1">Hủy</a>
 												</div>
 											</form>
 										</div>
@@ -273,6 +237,7 @@
 	<script th:src="@{/js/libs/editors/summernote.js}"></script>
 	
 	<script th:src="@{/js/commom-form.js}"></script>
+	<script th:src="@{/js/commom-list.js}"></script>
 
 	<script th:src="@{/js/product_form_images.js}"></script>
 	<script th:src="@{/js/product_form_overview.js}"></script>
@@ -281,6 +246,8 @@
 <script type="text/javascript">
 	contextPath = "[[@{/}]]";
 	MAX_FILE_SIZE = 5242880; // 5MB
+	var csrfHeaderName = "[[${_csrf.headerName}]]";
+	var csrfValue = "[[${_csrf.token}]]";
 	
 	moduleURL = "[[@{/products}]]";
 	brandModuleURL = "[[@{/brands}]]";
@@ -292,35 +259,35 @@
 	});
 	
 	$(document).ready(function() {
+		var brandId = $("#brandId").val();
+		listCate("/listCate", brandId);
 		
 		 $("#brandId").change(function() {
 			$("#categoryId").empty();
 			
 			var selectedBrand = $(this).val();
 			
-			$.ajax({
-				url: '/listCate',
-				method: 'GET',
-				data: { brandId: selectedBrand },
-				success: function(response) {
-					if(response){
-						var html ;
-						response.forEach(function(category) {
-							html += '<option value="'+category.catId+'">'+category.name+'</option>'
-						});
-						$("#categoryId").append(html);
-					}
-				},
-				error: function() {
-					Swal.fire('Lỗi', 'Đã xảy ra lỗi ', 'error');
-				}
-			});
+			listCate("/listCate", selectedBrand);
+			
 		});
 		
 		$("#btn-submit").click(function() {
+			var index = 0;
 			var formData = new FormData();
+			$('.form-inline').each(function() {
+			
+				const name = $(this).find("input[name=detailNames]").val();
+				const value = $(this).find("input[name=detailValues]").val();
+				
+				if (name !== undefined && value !== undefined && name.trim() !== "" && value.trim() !== "") {
+					formData.append(`pdtDetails[${index}].name`, name);
+					formData.append(`pdtDetails[${index}].value`, value);
+					index++;
+				}
+			});
 			
 			var fileInput = document.getElementById("fileImage");
+			var fileExtra = document.getElementById("fileExtra").files;
 			formData.append("name"   , $("#name").val());
 			formData.append("alias"  , $("#alias").val());
 			formData.append("brandId", $("#brandId").val());
@@ -330,12 +297,17 @@
 			formData.append("disPer", $("#disPer").val());
 			formData.append("qty", $("#qty").val());
 			formData.append("pdtKind", $("#pdtKind").val());
-			formData.append("enabled", ($("#enable").is(":checked") ? "Y" : "N"));
+			formData.append("enabled", ($("#enabled").is(":checked") ? "Y" : "N"));
+			formData.append("delYn", "Y");
+			formData.append("editYn", "Y");
+			formData.append("inStock", "Y");
 			formData.append("shortDes", $("#shortDes").val());
 			formData.append("fullDes", $("#fullDes").val());
 			formData.append("fileMainImage", fileInput.files[0]);
-			//formData.append("fileExtraImage", fileInput.files[0]);
-	
+			for (var i = 0; i < fileExtra.length; i++) {
+				formData.append("fileExtraImage", fileExtra[i]);
+			}
+			
 			save("/2030/save", formData);
 		});
 	});

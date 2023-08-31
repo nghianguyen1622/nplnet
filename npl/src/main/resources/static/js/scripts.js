@@ -595,13 +595,13 @@
 					"render": function(data, type, row, meta) {
 						if (columnInfo.field != null) {
 							if(columnInfo.img){
-								return `<img height="28px" src="${columnInfo.path + data}" alt="" class="thumb">`;
+								return `<img height="28px" src="${ data}" alt="" class="thumb">`;
 							}if(columnInfo.status){
-								if(data==true){
-									return `<a class="btn btn-icon" style="color: #3ed900" href="${columnInfo.url + row.id}/false" title="'Khóa ' + ${row.name}">
+								if(data=='Y'){
+									return `<a class="btn btn-icon" style="color: #3ed900" >
 												<em class="icon ni ni-unlock"></em></a>`;
 								}else{
-									return `<a class="btn btn-icon" style="color: #3ed900" href="${columnInfo.url + row[columnInfo.id]}/true" title="'Mở ' + ${row.name}">
+									return `<a class="btn btn-icon" style="color: #3ed900" >
 												<em class="icon ni ni-lock-alt"></em></a>`;
 								}
 							}else{
@@ -616,7 +616,6 @@
 								}
 							}
 						}else{
-						}
 							var action= `<a href="#" onclick="openInfoModal('${row.id}')" class="btn btn-icon edit-color" th:title="Thông tin chi tiểt ${row[columnInfo.name]}">
 											<em class="icon ni ni-eye"></em></a>`;
 							if(columnInfo.delEdit){
@@ -626,6 +625,7 @@
 										<em class="icon ni ni-trash"></em></a>`;
 							}
 							return action;
+						}
 					}
 				};
 		}),

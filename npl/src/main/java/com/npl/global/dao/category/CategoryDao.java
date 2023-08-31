@@ -42,8 +42,8 @@ public interface CategoryDao extends PagingAndSortingRepository<Category, String
 			, nativeQuery = true)
 	CategoryModel findInfo(String catId, String comId);
 	
-	@Query(value=" SELECT c.cat_id                  "
-			+ "         , c.name                    "
+	@Query(value=" SELECT c.cat_id as catId         "
+			+ "         , c.name as name            "
 			+"       FROM brands_categories bc      "
 			+"          , categories c              "
 			+"      WHERE bc.brand_id = :brandId    "

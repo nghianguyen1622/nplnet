@@ -1,5 +1,6 @@
 package com.npl.global.controller.product;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -20,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.npl.global.common.Constant;
 import com.npl.global.dto.ResultProcDto;
 import com.npl.global.dto.brand.BrandDto;
+import com.npl.global.dto.product.PdtDetailDto;
 import com.npl.global.dto.product.PdtDto;
 import com.npl.global.model.product.ProductModel;
 import com.npl.global.security.NplUserDetails;
@@ -93,6 +95,18 @@ public class ProductRestController {
 							return result1;
 						}
 					}
+				}
+			}
+			
+			if(pdtDto.getPdtDetails().length > 0) {
+				for (PdtDetailDto pdtDetailDto : pdtDto.getPdtDetails()) {
+					pdtDetailDto.setComId(comId);
+					pdtDetailDto.setWorkUser(workUser);
+					pdtDetailDto.setPdtId(result.getKeyValue());
+					ResultProcDto result2 = this.service.savePdtDetail(pdtDetailDto);
+						if(!result2.getRetCode().equals(Constant.RETCODE_OK)) {
+							return result2;
+						}
 				}
 			}
 			

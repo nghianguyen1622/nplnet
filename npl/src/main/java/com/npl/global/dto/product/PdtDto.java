@@ -17,15 +17,11 @@ public class PdtDto {
 	private BigDecimal cost;
 	private BigDecimal price;
 	private BigDecimal disPer;
-	private int qty;
+	private BigDecimal qty;
 	private String pdtKind;
-//	private BigDecimal length;
-//	private BigDecimal width;
-//	private BigDecimal height;
-//	private BigDecimal weight;
 	private String mainImage;
 	private String categoryId;
-	private String BrandId;
+	private String brandId;
 	private String comId;
 	private String workUser;
 	
@@ -39,6 +35,8 @@ public class PdtDto {
 	
 	private MultipartFile fileMainImage;
 	private MultipartFile[] fileExtraImage;
+	
+	private PdtDetailDto[] pdtDetails;
 	
 	public String getPdtId() {
 		return pdtId;
@@ -112,10 +110,10 @@ public class PdtDto {
 	public void setDisPer(BigDecimal disPer) {
 		this.disPer = disPer;
 	}
-	public int getQty() {
+	public BigDecimal getQty() {
 		return qty;
 	}
-	public void setQty(int qty) {
+	public void setQty(BigDecimal qty) {
 		this.qty = qty;
 	}
 	public String getPdtKind() {
@@ -161,10 +159,10 @@ public class PdtDto {
 		this.categoryId = categoryId;
 	}
 	public String getBrandId() {
-		return BrandId;
+		return brandId;
 	}
 	public void setBrandId(String brandId) {
-		BrandId = brandId;
+		this.brandId = brandId;
 	}
 	public String getComId() {
 		return comId;
@@ -226,6 +224,12 @@ public class PdtDto {
 	}
 	public void setFileExtraImage(MultipartFile[] fileExtraImage) {
 		this.fileExtraImage = fileExtraImage;
+	}
+	public PdtDetailDto[] getPdtDetails() {
+		return pdtDetails;
+	}
+	public void setPdtDetails(PdtDetailDto[] pdtDetails) {
+		this.pdtDetails = pdtDetails;
 	}
 	
 

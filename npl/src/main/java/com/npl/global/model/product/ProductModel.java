@@ -10,18 +10,17 @@ public interface ProductModel {
 	public String getShortDes();
 	public String getFullDes();
 	public String getIsEnabled();
-	public float getCost();
+	public BigDecimal getCost();
 	public String getPrice();
 	public BigDecimal getDisPer();
-	public int getQty();
+	public BigDecimal getQty();
 	public String getPdtKind();
-//	public BigDecimal getLength();
-//	public BigDecimal getWidth();
-//	public BigDecimal getHeight();
-//	public BigDecimal getWeight();
 	public String getMainImage();
 	public String getCategoryID();
 	public String getBrandID();
+	public String getFilePath();
+	public String getFileName();
+	public String getFileNameOrg();
 	
 	public String getCreatedTime();
 	public String getUpdatedTime();

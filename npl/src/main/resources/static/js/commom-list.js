@@ -93,6 +93,46 @@ function save(url, data){
 	$.ajax(ajaxOptions);
 }
 
+function listCate(url, brandId){
+	$.ajax({
+		url: url,
+		method: 'GET',
+		data: { brandId: brandId },
+		success: function(response) {
+			if(response){
+				var html ='';
+				response.forEach(function(category) {
+					html += '<option value="'+category.catId+'">'+category.name+'</option>'
+				});
+				$("#categoryId").append(html);
+			}
+		},
+		error: function() {
+			Swal.fire('Lỗi', 'Đã xảy ra lỗi ', 'error');
+		}
+	});
+}
+	
+function addDetail(){
+	const container = document.getElementById("divProductDetails");
+	const productInput = document.createElement("div");
+	productInput.classList.add("form-inline");
+	
+	productInput.innerHTML = `
+		<label class="m-3">Thuộc tính:</label>
+		<input type="text" class="form-control w-25" name="detailNames" maxlength="255" placeholder="vd: Ram"/>
+		<label class="m-3">Dữ liệu:</label>
+		<input type="text" class="form-control w-25" name="detailValues" maxlength="255" placeholder="vd: 8GB"/>
+		<a class="btn btn-trigger btn-icon delete-product"  title="Xóa trường này"><em class="icon ni ni-cross"></em></a>
+	`;
+	
+	container.appendChild(productInput);
+	
+	const deleteButton = productInput.querySelector(".delete-product");
+	deleteButton.addEventListener("click", () => {
+		productInput.remove();
+	});
+}
 
 $(document).ready(function() {
 	var messageModal = document.getElementById('messageAlert');

@@ -9,6 +9,7 @@ import com.npl.global.dao.notice.NoticeDao;
 import com.npl.global.dao.product.ProductDao;
 import com.npl.global.dao.product.ProductDaoExtends;
 import com.npl.global.dto.ResultProcDto;
+import com.npl.global.dto.product.PdtDetailDto;
 import com.npl.global.dto.product.PdtDto;
 import com.npl.global.entity.Company;
 import com.npl.global.model.product.ProductModel;
@@ -50,6 +51,12 @@ public class ProductServicelmpl implements ProductService {
 	public ResultProcDto savePdtImage(PdtDto pdtDto) throws Exception {
 		// TODO Auto-generated method stub
 		return daoExtends.callPdtImage(pdtDto);
+	}
+
+	@Override
+	public ResultProcDto savePdtDetail(PdtDetailDto pdtDetailDto) throws Exception {
+		// TODO Auto-generated method stub
+		return daoExtends.callPdtDetail(pdtDetailDto);
 	}
 
 }

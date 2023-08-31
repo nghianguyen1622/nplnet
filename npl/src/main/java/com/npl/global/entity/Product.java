@@ -1,5 +1,6 @@
 package com.npl.global.entity;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,7 +29,6 @@ public class Product extends AbstractEntity {
 	@Column(name = "SHORT_DES")
 	private String shortDes;
 	
-	@Lob
 	@Column(name = "FULL_DES")
 	private String fullDes;
 	
@@ -50,18 +50,18 @@ public class Product extends AbstractEntity {
 	@Column(name = "IN_STOCK")
 	private String inStock;
 	
-	private float cost;
+	private BigDecimal cost;
 	
-	private float price;
+	private BigDecimal price;
 	
 	@Column(name = "QTY")
-	private int qty;
+	private BigDecimal qty;
 	
 	@Column(name = "PDT_KIND")
 	private String pdtKind;
 	
 	@Column(name = "DISCOUNT_PERCENT")
-	private float discountPercent;
+	private BigDecimal discountPercent;
 	
 	@Column(name = "FILE_NAME")
 	private String fileName;
@@ -174,28 +174,27 @@ public class Product extends AbstractEntity {
 	public void setInStock(String inStock) {
 		this.inStock = inStock;
 	}
-
-	public float getCost() {
+	public BigDecimal getCost() {
 		return cost;
 	}
 
-	public void setCost(float cost) {
+	public void setCost(BigDecimal cost) {
 		this.cost = cost;
 	}
 
-	public float getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(float price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 
-	public int getQty() {
+	public BigDecimal getQty() {
 		return qty;
 	}
 
-	public void setQty(int qty) {
+	public void setQty(BigDecimal qty) {
 		this.qty = qty;
 	}
 
@@ -206,15 +205,14 @@ public class Product extends AbstractEntity {
 	public void setPdtKind(String pdtKind) {
 		this.pdtKind = pdtKind;
 	}
-
-	public float getDiscountPercent() {
+	public BigDecimal getDiscountPercent() {
 		return discountPercent;
 	}
 
-	public void setDiscountPercent(float discountPercent) {
+	public void setDiscountPercent(BigDecimal discountPercent) {
 		this.discountPercent = discountPercent;
 	}
-	
+
 	public String getFileName() {
 		return fileName;
 	}
