@@ -21,7 +21,7 @@ public class BrandDaoExtend {
 	
 	public ResultProcDto callBrandSave(BrandDto brandDto) throws JsonProcessingException{
 
-		final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("public.prc_brand");
+		final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("public.prc_brand_callupin");
 		
 		query.registerStoredProcedureParameter("p_brand_id",        String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_name",            String.class,         ParameterMode.IN);

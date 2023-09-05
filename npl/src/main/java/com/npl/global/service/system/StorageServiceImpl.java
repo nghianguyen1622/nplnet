@@ -87,7 +87,7 @@ public class StorageServiceImpl implements StorageService {
 
 			DateFormat dateFormatter = new SimpleDateFormat("yyyyMMdd_HHmmss");
 			int i = fileName.lastIndexOf(".");
-			fileName = fileName.substring(0, i).replaceAll(" ", "") + dateFormatter.format(new Date())
+			fileName = fileName.substring(0, i).replaceAll(" ", "")+ "_" + dateFormatter.format(new Date())
 					+ fileName.substring(i);
 
 			try (InputStream inputStream = file.getInputStream()) {

@@ -12,12 +12,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.npl.global.controller.user.UserController;
 import com.npl.global.dto.ResultProcDto;
 import com.npl.global.dto.brand.BrandDto;
 import com.npl.global.model.brand.BrandModel;
@@ -27,7 +25,7 @@ import com.npl.global.service.system.StorageService;
 
 @RestController
 public class BrandRestController {
-	private Logger logger = LoggerFactory.getLogger(UserController.class);
+	private Logger logger = LoggerFactory.getLogger(BrandRestController.class);
 	
 	@Autowired private BrandService service;
 	
@@ -49,12 +47,12 @@ public class BrandRestController {
 	}
 	
 	@GetMapping("/2010/{id}")
-	public  @ResponseBody BrandModel getInfo(@PathVariable(name = "id") String catId) {
+	public  @ResponseBody BrandModel getInfo(@PathVariable(name = "id") String brandId) {
 		try {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			NplUserDetails loggedUser = (NplUserDetails) authentication.getPrincipal();
 			String comId = loggedUser.getUser().getCompany().getComId();
-			BrandModel brandInfo = service.findInfo(catId, comId);
+			BrandModel brandInfo = service.findInfo(brandId, comId);
 			return brandInfo;
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -77,8 +75,11 @@ public class BrandRestController {
 			brandDto.setWorkUser(workUser);
 			
 			
-			if(!brandDto.getMultipartFile().isEmpty()) {
-				String fileName = storageService.store(brandDto.getMultipartFile(), "brand");
+			if(!brandDto.getFileData().isEmpty()) {
+				if(!brandDto.getBrandId().isEmpty()) {
+					storageService.delete(service.findInfo(brandDto.getBrandId(), comId).getFileName(), "brand");
+				}
+				String fileName = storageService.store(brandDto.getFileData(), "brand");
 				
 				brandDto.setFilePath("fileupload/brand/" + fileName);
 				brandDto.setFileName(fileName);

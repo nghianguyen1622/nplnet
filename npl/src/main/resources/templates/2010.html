@@ -43,7 +43,7 @@
                                                                 <a href="#" class="dropdown-toggle btn btn-icon btn-primary" data-bs-toggle="dropdown"><em class="icon ni ni-plus"></em></a>
                                                                 <div class="dropdown-menu dropdown-menu-end">
                                                                     <ul class="link-list-opt no-bdr">
-                                                                        <li><a href="#" data-bs-toggle="modal" data-bs-target="#newModal"><span>Tạo tin</span></a></li>
+                                                                        <li><a href="#" data-bs-toggle="modal" onclick="openNewModal()"><span>Tạo tin</span></a></li>
                                                                         <li><a href="#"><span>Thông báo đã hết hạn</span></a></li>
                                                                     </ul>
                                                                 </div>
@@ -83,24 +83,15 @@
             <div class="modal-content">
                 <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
 				<div class="modal-body modal-body-md">
-					<h4 class="title">Tạo mới tin tức</h4>
-					<form action="#" class="form-validate is-alter" enctype="multipart/form-data">
-						<input type="hidden" /> 
+					<h4 class="title">Tạo Thương Hiệu Mới</h4>
+					<form action="#" id="formBrand" th:object="${brand}" class="form-validate is-alter" enctype="multipart/form-data">
+						<input type="hidden" th:field="*{brandId}"/> 
 						<div class="row g-4">
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label class="form-label" for="fullname">Name</label>
 									<div class="form-control-wrap">
-										<input type="text" class="form-control" required id="name">
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label class="form-label" for="email">Alias</label>
-									<div class="form-control-wrap">
-										<input class="form-control" type="text" id=alias
-											required>
+										<input type="text" class="form-control" required th:field="*{name}">
 									</div>
 								</div>
 							</div>
@@ -108,8 +99,7 @@
 								<div class="form-group">
 									<label class="form-label" for="parentId">Parent Category</label>
 									<div class="form-control-wrap">
-										<select class="form-select js-select2" id="categoryId" multiple>
-											<option value="0">[no parent]</option>
+										<select class="form-select js-select2" id="listCateIds" data-allow-clear="true" multiple="multiple" required>
 											<th:block th:each:="cat : ${listCat}">
 												 <option th:each="cat : ${listCat}" th:value="${cat.catId}" th:text="${cat.name}"></option>
 											</th:block>
@@ -119,14 +109,11 @@
 							</div>
 							<div class="col-sm-6 row">
 								<div class="m-2">
-									<img id="thumbnail" alt="Main image preview" class="img-fluid"
-										width="200px" src="">
+									<img id="thumbnail" alt="Main image preview" class="img-fluid" width="200px" src="./images/default-image.jpg">
 								</div>
 								<div id="myfileupload">
-									<label for="fileImage" class="custom-file-upload btn btn-sm btn-dim btn-light">Chọn ảnh</label> 
-									<input type="file" id="fileImage" name="fileImage"
-										
-										accept="image/png , image/jpeg" />
+									<label for="imgupload" class="custom-file-upload btn btn-sm btn-dim btn-light">Chọn ảnh</label> 
+									<input type="file" id="imgupload" th:field="*{fileData}" accept="image/png , image/jpeg" style="display: none"/>
 								</div>
 							</div>
 							<div class="col-lg-12">
@@ -139,7 +126,7 @@
 							</div>
 						</div>
 						<div class="form-group mt-1 text-center">
-							<a type="submit" id="btn-submit" class="btn btn-lg btn-primary">Lưu</a>
+							<button type="submit" id="btn-submit" class="btn btn-lg btn-primary">Lưu</button>
 							<a href="#" id="cancelButton" class="btn btn-lg btn-warning"
 								data-bs-dismiss="modal">Hủy</a>
 						</div>
@@ -167,8 +154,8 @@
 		var csrfHeaderName = "[[${_csrf.headerName}]]";
 		var csrfValue = "[[${_csrf.token}]]";
 		
-		function fetchDataById(id, callback){
-			var url = contextPath+ "2020/"+id.toString();
+		function findDataById(id, callback){
+			var url = contextPath+ "2010/"+id.toString();
 			$.ajax({
 				type: "Get",
 				url: url,
@@ -185,44 +172,82 @@
 			});
 		}
 		
-
+		function listCateByBrand(url, brandId){
+			$.ajax({
+				url: url,
+				method: 'GET',
+				data: { brandId: brandId },
+				success: function(response) {
+					if (response) {
+						const selectElement = $('#listCateIds');
+						// Lấy danh sách các giá trị (values) từ danh sách response
+						const selectedValues = response.map(category => category.catId);
+	
+						// Sử dụng .val(selectedValues) để chọn các tùy chọn tương ứng
+						selectElement.val(selectedValues);
+	
+						// Cập nhật Select2 sau khi chọn các tùy chọn
+						selectElement.trigger('change');
+					}
+				},
+				error: function() {
+					Swal.fire('Lỗi', 'Đã xảy ra lỗi ', 'error');
+				}
+			});
+		}
+		
+		function disabledControl(disabled){
+			$("#name").prop("readonly", disabled);
+			$('#listCateIds').prop('disabled', disabled);
+			$("#enable").prop( "disabled", disabled );
+		}
+		
+		function openNewModal(){
+			document.getElementById("formBrand").reset();
+			$("#brandId").val('');
+			$("#listCateIds").val(null).trigger("change");
+			$("#thumbnail").attr("src", "./images/default-image.jpg");
+			$("#newModal").modal("show");
+		}
 		
 		function openEditModal(id) {
-			$(".title").text("Chỉnh sửa thông báo");
-			$("#catId").val(id)
-			fetchDataById(id, function (dataToEdit) {
-				$("#title").val(dataToEdit.title);
-				$("#content").summernote('code', dataToEdit.content)
-				$("#sdate").datepicker("setDate", new Date(dataToEdit.startDate));
-				$("#edate").datepicker("setDate", new Date(dataToEdit.startDate));
-				$("#enable").prop("checked", dataToEdit.isEnabled === "Y");
-				$("#poppup").prop("checked", dataToEdit.isPoppup === "Y");
+			disabledControl(false);
+			$(".title").text("Chỉnh sửa thương hiệu");
+			$("#brandId").val(id);
+			$("#imgupload").val('');
+			listCateByBrand("/listCate", id);
+			findDataById(id, function (data) {
+				$("#name").val(data.name);
+				$("#thumbnail").attr({ "src": data.filePath});
+				$("#enable").prop("checked", data.isEnabled === "Y");
 				
 				$("#newModal").modal("show");
 			});
 		}
 		
 		function openInfoModal(id) {
-			$(".title").text("Chi tiết thông báo");
-			$("#catId").val(id)
-			fetchDataById(id, function (dataToEdit) {
-				$("#title").val(dataToEdit.title);
-				$("#contentHidden").html(dataToEdit.content);
-				$("#sdate").datepicker("setDate", new Date(dataToEdit.startDate));
-				$("#edate").datepicker("setDate", new Date(dataToEdit.startDate));
-				$("#enable").prop("checked", dataToEdit.isEnabled === "Y");
-				$("#poppup").prop("checked", dataToEdit.isPoppup === "Y");
-				
-				$("#title").prop("readonly", true);
-				$("#content").summernote('destroy');
-				$("#content").css("display", "none");
-				$("#sdate").datepicker("destroy");
-				$("#edate").datepicker("destroy");
-				$("#enable").prop( "disabled", true );
-				$("#poppup").prop( "disabled", true );
+			disabledControl(true);
+			$(".title").text("Chi tiết thương hiệu");
+			$("#brandId").val(id)
+			listCateByBrand("/listCate", id)
+			findDataById(id, function (data) {
+				$("#name").val(data.name);
+				$("#thumbnail").attr("src", data.filePath);
+				$("#enable").prop("checked", data.isEnabled === "Y");
 				
 				$("#newModal").modal("show");
 			});
+		}
+		
+		function readURL(input) {
+			var file = input.files[0];
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				$('#thumbnail').attr('src', e.target.result);
+			}
+			
+			reader.readAsDataURL(file);
+			
 		}
 		
 		function loaddata(){
@@ -268,9 +293,6 @@
 			NioApp.DataTable.initWithUrlAndArr('.datatable-init-export', arrURL, arr, mergedOptions);
 		}
 		
-		
-	
-			
 		$(document).on('click', '#cancelButton', function() { 
 			$("#newModal").trigger('reset'); 
 		});
@@ -290,11 +312,16 @@
 			$(".date").datepicker({
 				format : 'dd-mm-yyyy'
 			});
+			 $('#imgupload').change(function(){
+				 readURL(this);
+			 });
 
-			$("#btn-submit").click(function() {
-				var formData = new FormData();
-				var fileInput = document.getElementById("fileImage");
-				const selectElement = document.getElementById('categoryId');
+			$('#formBrand').on('submit', function(e) {
+				e.preventDefault();
+				var form0 = $('#formBrand')[0];
+				var data = new FormData(form0);
+				var fileInput = document.getElementById("imgupload");
+				const selectElement = document.getElementById('listCateIds');
 				const listCateIds = [];
 				
 				for (let i = 0; i < selectElement.options.length; i++) {
@@ -302,12 +329,14 @@
 						listCateIds.push(selectElement.options[i].value);
 					}
 				}
-				formData.append("name"   , $("#name").val());
-				formData.append("listCateIds", listCateIds);
-				formData.append("enable" , ($("#enable").is(":checked") ? "Y" : "N"));
-				formData.append("multipartFile", fileInput.files[0]);
+				data.append("listCateIds", listCateIds);
+				data.append("enable" , ($("#enable").is(":checked") ? "Y" : "N"));
 
-				save("/2010/save", formData);
+				if (fileInput.files.length > 0) {
+					data.append("fileData", fileInput.files[0]);
+				}
+
+				save("/2010/save", data);
 			});
 
 			loaddata();
@@ -316,7 +345,6 @@
 				e.preventDefault();
 				var entityName = $(this).attr("data-entityName");
 				showDeleteConfirm($(this), entityName, moduleURL);
-
 			});
 		});
 	</script>

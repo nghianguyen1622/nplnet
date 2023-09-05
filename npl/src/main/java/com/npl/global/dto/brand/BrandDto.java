@@ -17,7 +17,7 @@ public class BrandDto {
 	private String fileNameOrg;
 	private String[] listCateIds;
 	
-	private MultipartFile multipartFile;
+	private MultipartFile fileData;
 	
 	public String getBrandId() {
 		return brandId;
@@ -79,11 +79,11 @@ public class BrandDto {
 	public void setListCateIds(String[] listCateIds) {
 		this.listCateIds = listCateIds;
 	}
-	public MultipartFile getMultipartFile() {
-		return multipartFile;
+	public MultipartFile getFileData() {
+		return fileData;
 	}
-	public void setMultipartFile(MultipartFile multipartFile) {
-		this.multipartFile = multipartFile;
+	public void setFileData(MultipartFile fileData) {
+		this.fileData = fileData;
 	}
 	
 }

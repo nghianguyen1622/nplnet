@@ -174,16 +174,12 @@
 																	<input type="hidden" id=""/>
 																</div>
 																<div class="col border m-3 p-2">
-																	<label class="form-label"
-																		for="fileExtra">Multiple File
-																		Upload</label>
 																	<div class="form-control-wrap">
 																		<div class="form-file">
-																			<input type="file" multiple class="form-file-input"
-																				id="fileExtra"> <label
-																				class="form-file-label" for="fileExtra">Choose
-																				files</label>
+																			<input type="file" style="display: none" id="fileInput" multiple accept="image/*">
+																			<button type="button" id="addFileBtn">Thêm tệp</button>
 																		</div>
+																		<div id="imagePreviews"></div>
 																	</div>
 																</div>
 
@@ -271,6 +267,40 @@
 			
 		});
 		
+		var filesArray = [];
+		
+		$('#fileInput').on('change', function() {
+			var files = $(this)[0].files;
+			for (var i = 0; i < files.length; i++) {
+				filesArray.push(files[i]); // Thêm tệp vào mảng
+				displayImagePreview(files[i]); // Hiển thị ảnh đã chọn
+			}
+			$(this).val(''); // Xóa giá trị của input file để cho phép chọn lại cùng một tệp
+		});
+
+		$('#addFileBtn').on('click', function() {
+			$('#fileInput').click();
+		});
+
+		function displayImagePreview(file) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				var img = $('<img>').attr('src', e.target.result);
+				var deleteBtn = $('<button>').text('Xoá').on('click', function() {
+					// Xoá ảnh khỏi mảng và cả giao diện
+					var index = filesArray.indexOf(file);
+					if (index !== -1) {
+						filesArray.splice(index, 1);
+						$(this).prev('img').remove();
+						$(this).remove();
+					}
+				});
+				$('#imagePreviews').append(img).append(deleteBtn);
+			};
+			reader.readAsDataURL(file);
+		};
+
+		
 		$("#btn-submit").click(function() {
 			var index = 0;
 			var formData = new FormData();
@@ -287,7 +317,6 @@
 			});
 			
 			var fileInput = document.getElementById("fileImage");
-			var fileExtra = document.getElementById("fileExtra").files;
 			formData.append("name"   , $("#name").val());
 			formData.append("alias"  , $("#alias").val());
 			formData.append("brandId", $("#brandId").val());
@@ -304,8 +333,8 @@
 			formData.append("shortDes", $("#shortDes").val());
 			formData.append("fullDes", $("#fullDes").val());
 			formData.append("fileMainImage", fileInput.files[0]);
-			for (var i = 0; i < fileExtra.length; i++) {
-				formData.append("fileExtraImage", fileExtra[i]);
+			for (var i = 0; i < filesArray.length; i++) {
+				formData.append('fileExtraImage', filesArray[i]);
 			}
 			
 			save("/2030/save", formData);
