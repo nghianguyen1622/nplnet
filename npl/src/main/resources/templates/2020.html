@@ -43,7 +43,7 @@
                                                                 <a href="#" class="dropdown-toggle btn btn-icon btn-primary" data-bs-toggle="dropdown"><em class="icon ni ni-plus"></em></a>
                                                                 <div class="dropdown-menu dropdown-menu-end">
                                                                     <ul class="link-list-opt no-bdr">
-                                                                        <li><a href="#" data-bs-toggle="modal" data-bs-target="#newModal"><span>Tạo tin</span></a></li>
+                                                                        <li><a href="#" data-bs-toggle="modal" onclick="openNewModal()"><span>Tạo tin</span></a></li>
                                                                         <li><a href="#"><span>Thông báo đã hết hạn</span></a></li>
                                                                     </ul>
                                                                 </div>
@@ -84,23 +84,22 @@
                 <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
 				<div class="modal-body modal-body-md">
 					<h4 class="title">Tạo mới tin tức</h4>
-					<form action="#" class="form-validate is-alter" enctype="multipart/form-data">
-						<input type="hidden" /> 
+					<form action="#" id="formCategory" th:object="${category}" class="form-validate is-alter" enctype="multipart/form-data">
+						<input type="hidden" th:field="*{catId}"/> 
 						<div class="row g-4">
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label class="form-label" for="fullname">Name</label>
+									<label class="form-label" for="name">Name</label>
 									<div class="form-control-wrap">
-										<input type="text" class="form-control" required id="name">
+										<input type="text" class="form-control" required th:field="*{name}">
 									</div>
 								</div>
 							</div>
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label class="form-label" for="email">Alias</label>
+									<label class="form-label" for="alias">Alias</label>
 									<div class="form-control-wrap">
-										<input class="form-control" type="text" id=alias
-											required>
+										<input class="form-control" type="text" th:field="*{alias}" required>
 									</div>
 								</div>
 							</div>
@@ -108,8 +107,8 @@
 								<div class="form-group">
 									<label class="form-label" for="parentId">Parent Category</label>
 									<div class="form-control-wrap">
-										<select class="form-select js-select2" id="parentId">
-											<option value="0">[no parent]</option>
+										<select class="form-select js-select2" id="parentId" th:field="*{parentId}">
+											<option value="0">Main category</option>
 											<th:block th:each:="cat : ${listCat}">
 												 <option th:each="cat : ${listCat}" th:value="${cat.catId}" th:text="${cat.name}"></option>
 											</th:block>
@@ -119,27 +118,22 @@
 							</div>
 							<div class="col-sm-6 row">
 								<div class="m-2">
-									<img id="thumbnail" alt="Main image preview" class="img-fluid"
-										width="200px" src="">
+									<img id="thumbnail" alt="Main image preview" class="img-fluid" width="200px" src="./images/default-image.jpg">
 								</div>
 								<div id="myfileupload">
-									<label for="fileImage" class="custom-file-upload btn btn-sm btn-dim btn-light">Chọn ảnh</label> 
-									<input type="file" id="fileImage" name="fileImage"
-										
-										accept="image/png , image/jpeg" />
+									<label for="imgupload" class="custom-file-upload btn btn-sm btn-dim btn-light">Chọn ảnh</label> 
+									<input type="file" id="imgupload" th:field="*{fileData}" accept="image/png , image/jpeg" style="display: none"/>
 								</div>
 							</div>
 							<div class="col-lg-12">
 								<div class="custom-control custom-switch">
-									<input type="checkbox" class="custom-control-input"
-										id="enable"> <label
-										class="custom-control-label" for="enable">Kích
-										hoạt</label>
+									<input type="checkbox" class="custom-control-input" id="enable">
+									<label class="custom-control-label" for="enable">Kích hoạt</label>
 								</div>
 							</div>
 						</div>
 						<div class="form-group mt-1 text-center">
-							<a type="submit" id="btn-submit" class="btn btn-lg btn-primary">Lưu</a>
+							<button type="submit"  class="btn btn-lg btn-primary">Lưu</button>
 							<a href="#" id="cancelButton" class="btn btn-lg btn-warning"
 								data-bs-dismiss="modal">Hủy</a>
 						</div>
@@ -185,53 +179,71 @@
 			});
 		}
 		
-
+		function disabledControl(disabled){
+			$("#name").prop("readonly", disabled);
+			$("#alias").prop("readonly", disabled);
+			$('#parentId').prop('disabled', disabled);
+			$("#enable").prop( "disabled", disabled );
+			if(disabled){
+				$("#myfileupload").hide();
+			}else{
+				$("#myfileupload").show();
+			}
+		}
+		
+		function openNewModal(){
+			disabledControl(false);
+			document.getElementById("formCategory").reset();
+			$("#catId").val('');
+			$("#parentId").val(0).trigger("change");
+			$("#thumbnail").attr("src", "./images/default-image.jpg");
+			$("#newModal").modal("show");
+		}
 		
 		function openEditModal(id) {
-			$(".title").text("Chỉnh sửa thông báo");
+			disabledControl(false);
+			$(".title").text("Chỉnh sửa danh mục");
 			$("#catId").val(id)
-			fetchDataById(id, function (dataToEdit) {
-				$("#title").val(dataToEdit.title);
-				$("#content").summernote('code', dataToEdit.content)
-				$("#sdate").datepicker("setDate", new Date(dataToEdit.startDate));
-				$("#edate").datepicker("setDate", new Date(dataToEdit.startDate));
-				$("#enable").prop("checked", dataToEdit.isEnabled === "Y");
-				$("#poppup").prop("checked", dataToEdit.isPoppup === "Y");
+			fetchDataById(id, function (data) {
+				$("#name").val(data.name);
+				$("#alias").val(data.alias);
+				$("#parentId").val(data.parentId?data.parentId:0).trigger('change');
+				$("#thumbnail").attr({ "src": data.filePath});
+				$("#enable").prop("checked", data.isEnabled === "Y");
 				
 				$("#newModal").modal("show");
 			});
 		}
 		
 		function openInfoModal(id) {
-			$(".title").text("Chi tiết thông báo");
+			disabledControl(true);
+			$(".title").text("Chi tiết danh mục");
 			$("#catId").val(id)
-			fetchDataById(id, function (dataToEdit) {
-				$("#title").val(dataToEdit.title);
-				$("#contentHidden").html(dataToEdit.content);
-				$("#sdate").datepicker("setDate", new Date(dataToEdit.startDate));
-				$("#edate").datepicker("setDate", new Date(dataToEdit.startDate));
-				$("#enable").prop("checked", dataToEdit.isEnabled === "Y");
-				$("#poppup").prop("checked", dataToEdit.isPoppup === "Y");
-				
-				$("#title").prop("readonly", true);
-				$("#content").summernote('destroy');
-				$("#content").css("display", "none");
-				$("#sdate").datepicker("destroy");
-				$("#edate").datepicker("destroy");
-				$("#enable").prop( "disabled", true );
-				$("#poppup").prop( "disabled", true );
+			fetchDataById(id, function (data) {
+				$("#name").val(data.name);
+				$("#alias").val(data.alias);
+				$("#parentId").val(data.parentId?data.parentId:0).trigger('change');
+				$("#thumbnail").attr("src", data.filePath);
+				$("#enable").prop("checked", data.isEnabled === "Y");
 				
 				$("#newModal").modal("show");
 			});
 		}
 		
+		function readURL(input) {
+			var file = input.files[0];
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				$('#thumbnail').attr('src', e.target.result);
+			}
+			reader.readAsDataURL(file);
+		}
+		
 		function loaddata(){
-			
 			var dataTableOptions = {
 						responsive: {
 							details: false
 						},
-						
 						buttons: [
 							{
 								extend: 'print',
@@ -260,17 +272,15 @@
 			
 			var arr = [ {title:"Action", field: null, delEdit: true, className: "text-center", name:"catId"},
 						{title:"Id", field:"catId"},
-						{title:"Logo", field:"fileName"},
+						{title:"Logo", field:"filePath", img:true},
 						{title:"Name", field:"name"},
 						{title:"Alias", field:"alias"},
+						{title:"Status", field:"isEnabled", status:true},
 						];
 			var arrURL = {api: "/2020", urlDel: "/2020/delete/"};
 			NioApp.DataTable.initWithUrlAndArr('.datatable-init-export', arrURL, arr, mergedOptions);
 		}
 		
-		
-	
-			
 		$(document).on('click', '#cancelButton', function() { 
 			$("#newModal").trigger('reset'); 
 		});
@@ -279,7 +289,6 @@
 			$('#myDataTable').DataTable().destroy();
 			$('#newModal').on('hidden.bs.modal', function() {
 			});
-
 			loaddata();
 		}
 
@@ -290,17 +299,22 @@
 			$(".date").datepicker({
 				format : 'dd-mm-yyyy'
 			});
+			$('#imgupload').change(function(){
+				 readURL(this);
+			});
 
-			$("#btn-submit").click(function() {
-				var formData = new FormData();
-				var fileInput = document.getElementById("fileImage");
-				formData.append("name"   , $("#name").val());
-				formData.append("alias"  , $("#alias").val());
-				formData.append("parentId", $("#parentId").val());
-				formData.append("enable" , ($("#enable").is(":checked") ? "Y" : "N"));
-				formData.append("multipartFile", fileInput.files[0]);
-
-				save("/2020/save", formData);
+			$('#formCategory').on('submit', function(e) {
+				e.preventDefault();
+				var form0 = $('#formCategory')[0];
+				var data = new FormData(form0);
+				var fileInput = document.getElementById("imgupload");
+				//data.append("parentId", $("#parentId").val());
+				data.append("enable" , ($("#enable").is(":checked") ? "Y" : "N"));
+				if (fileInput.files.length > 0) {
+					data.append("fileData", fileInput.files[0]);
+				}
+				
+				save("/2020/save", data);
 			});
 
 			loaddata();

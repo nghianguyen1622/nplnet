@@ -23,8 +23,8 @@ public class UserServiceImpl implements UserService {
 	private UserDaoExtend userDaoExtend;
 
 	@Override
-	public UserModel findUserName(String username) {
-		return this.userDao.findUserName(username);
+	public UserModel findUserName(String userId) {
+		return this.userDao.findUserName(userId);
 	}
 
 	@Override

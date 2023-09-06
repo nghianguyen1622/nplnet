@@ -59,4 +59,16 @@ public class ProductServicelmpl implements ProductService {
 		return daoExtends.callPdtDetail(pdtDetailDto);
 	}
 
+	@Override
+	public List<ProductModel> findImgExtra(String pdtId) {
+		// TODO Auto-generated method stub
+		return dao.findImgExtra(pdtId);
+	}
+
+	@Override
+	public List<ProductModel> findPdtDetail(String pdtId) {
+		// TODO Auto-generated method stub
+		return dao.findPdtDetail(pdtId);
+	}
+
 }

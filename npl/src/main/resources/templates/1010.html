@@ -81,11 +81,8 @@
 																					class="icon ni ni-plus"></em></a>
 																				<div class="dropdown-menu dropdown-menu-end">
 																					<ul class="link-list-opt no-bdr">
-																						<li><a href="#" data-bs-toggle="modal"
-																							data-bs-target="#newModal"><span>Tạo
-																									tin</span></a></li>
-																						<li><a href="#"><span>Thông báo đã
-																									hết hạn</span></a></li>
+																						<li><a href="#" data-bs-toggle="modal" onclick="openNewModal()"><span>Thêm User</span></a></li>
+																						<li><a href="#"><span>Thông báo đã hết hạn</span></a></li>
 																					</ul>
 																				</div>
 																			</div>
@@ -137,23 +134,14 @@
                     </a>
                 </div>
                 <div class="modal-body modal-body-lg modal-body-md">
-					<form action="#" class="form-validate is-alter" enctype="multipart/form-data">
-						<input type="hidden" /> 
+					<form action="#" class="form-validate is-alter" id="formUser" th:object="${user}" enctype="multipart/form-data">
+						<input type="hidden" th:field="*{userId}"/> 
 						<div class="row g-4">
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label class="form-label" for="fullname">Họ Tên</label>
-									<div class="form-control-wrap">
-										<input type="text" class="form-control" required id="fullname">
-									</div>
-								</div>
-							</div>
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label class="form-label" for="email">Tên đăng nhập</label>
 									<div class="form-control-wrap">
-										<input class="form-control" type="text" id=userName
-											required>
+										<input class="form-control" type="text" th:field="*{userName}" required>
 									</div>
 								</div>
 							</div>
@@ -161,7 +149,7 @@
 								<div class="form-group">
 									<label class="form-label" for="passwd">Mật khẩu</label>
 									<div class="form-control-wrap">
-										<input class="form-control" type="password" id=passwd
+										<input class="form-control" type="password" th:field="*{passwd}"
 											required>
 									</div>
 								</div>
@@ -170,47 +158,38 @@
 								<div class="form-group">
 									<label class="form-label" for="email">Email</label>
 									<div class="form-control-wrap">
-										<input class="form-control" type="text" id=email
+										<input class="form-control" type="text" th:field="*{email}"
 											required>
 									</div>
 								</div>
 							</div>
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label class="form-label" for="phone">Số điện
-										thoại</label>
+									<label class="form-label" for="phone">Số điện thoại</label>
 									<div class="form-control-wrap">
-										<input class="form-control" type="number" id="phone">
+										<input class="form-control" type="number" th:field="*{phone}">
 									</div>
 								</div>
 							</div>
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label class="form-label" for="birthday">Ngày sinh</label>
-									<div class="form-control-wrap">
-										<div class="form-icon form-icon-left">
-											<em class="icon ni ni-calendar"></em>
-										</div>
-										<input type="text" class="form-control date-picker"
-											id="birtDay">
-									</div>
+									<label class="form-label" for="birthDay">Ngày sinh</label>
+									<input type="text" class="form-control date" id="birthDay" th:field="*{birthDay}">
 								</div>
 							</div>
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label class="form-label" for="adress">Địa chỉ</label>
 									<div class="form-control-wrap">
-										<input type="text" class="form-control" id="addr">
+										<input type="text" class="form-control" th:field="*{addr}">
 									</div>
 								</div>
 							</div>
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label class="form-label" for="idencard">Số
-										CMND/CCCD</label>
+									<label class="form-label" for="idencard">Số CMND/CCCD</label>
 									<div class="form-control-wrap">
-										<input class="form-control" type="number"
-											id="idenCard">
+										<input class="form-control" type="number" th:field="*{idenCard}">
 									</div>
 								</div>
 							</div>
@@ -218,7 +197,7 @@
 								<div class="form-group">
 									<label class="form-label" for="roles">Chức vụ</label>
 									<div class="form-control-wrap">
-										<select class="form-select js-select2" id="roles">
+										<select class="form-select js-select2" id="roles" th:field="*{roleId}">
 											<th:block th:each:="role : ${listRole}">
 												 <option th:each="role : ${listRole}" th:value="${role.roleId}" th:text="${role.name}"></option>
 											</th:block>
@@ -228,28 +207,22 @@
 							</div>
 							<div class="col-sm-6 row">
 								<div class="m-2">
-									<img id="thumbnail" alt="Main image preview" class="img-fluid"
-										width="200px" src="">
+									<img id="thumbnail" alt="Main image preview" class="img-fluid" width="200px" src="">
 								</div>
 								<div id="myfileupload">
-									<label for="fileImage" class="custom-file-upload btn btn-sm btn-dim btn-light">Chọn ảnh</label> 
-									<input type="file" id="fileImage" name="fileImage"
-										
-										accept="image/png , image/jpeg" />
+									<label for="imgupload" class="custom-file-upload btn btn-sm btn-dim btn-light">Chọn ảnh</label> 
+									<input type="file" id="imgupload" th:field="*{fileData}" accept="image/png , image/jpeg" style="display: none"/>
 								</div>
-								<input type="hidden" id="photos" />
 							</div>
 							<div class="col-lg-12">
 								<div class="custom-control custom-switch">
-									<input type="checkbox" class="custom-control-input"
-										id="enable"> <label
-										class="custom-control-label" for="enable">Kích
-										hoạt tài khoản</label>
+									<input type="checkbox" class="custom-control-input" id="enable" th:field="*{enable}">
+									<label class="custom-control-label" for="enable">Kích hoạt tài khoản</label>
 								</div>
 							</div>
 						</div>
 						<div class="form-group mt-1 text-center">
-							<a type="submit" id="btn-submit" class="btn btn-lg btn-primary">Lưu</a>
+							<button type="submit"  class="btn btn-lg btn-primary">Lưu</button>
 							<a href="#" id="cancelButton" class="btn btn-lg btn-warning"
 								data-bs-dismiss="modal">Hủy</a>
 						</div>
@@ -280,67 +253,99 @@
 		var csrfValue = "[[${_csrf.token}]]";
 		
 		function fetchDataById(id, callback) {
-			var url = contextPath + "8010/" + id.toString();
-			$
-					.ajax({
-						type : "Get",
-						url : url,
-						dataType : 'json',
-						beforeSend : function(xhr) {
-							xhr.setRequestHeader(csrfHeaderName, csrfValue);
-						},
-						success : function(response) {
-							callback(response);
-						},
-						error : function(xhr, status, error) {
-							Swal.fire({
-								icon : 'error',
-								title : xhr.responseText
-							});
-						}
+			var url = contextPath + "1010/" + id.toString();
+			$.ajax({
+				type : "Get",
+				url : url,
+				dataType : 'json',
+				beforeSend : function(xhr) {
+					xhr.setRequestHeader(csrfHeaderName, csrfValue);
+				},
+				success : function(response) {
+					callback(response);
+				},
+				error : function(xhr, status, error) {
+					Swal.fire({
+						icon : 'error',
+						title : xhr.responseText
 					});
+				}
+			});
+		}
+		
+		function disabledControl(disabled){
+			$("#userName").prop("readonly", disabled);
+			$("#passwd").prop("readonly", disabled);
+			$("#email").prop("readonly", disabled);
+			$("#birtDay").prop("readonly", disabled);
+			$("#addr").prop("readonly", disabled);
+			$("#phone").prop("readonly", disabled);
+			$("#idenCard").prop("readonly", disabled);
+			$('#roles').prop('disabled', disabled);
+			$("#enable").prop( "disabled", disabled );
+			if(disabled){
+				$("#myfileupload").hide();
+			}else{
+				$("#myfileupload").show();
+			}
+		}
+		
+		function openNewModal(){
+			disabledControl(false);
+			document.getElementById("formUser").reset();
+			$("#brandId").val('');
+			$("#listCateIds").val(null).trigger("change");
+			$("#thumbnail").attr("src", "./images/default-image.jpg");
+			$("#newModal").modal("show");
 		}
 
 		function openEditModal(id) {
-			$(".title").text("Chỉnh sửa thông báo");
-			$("#nt_id").val(id)
-			fetchDataById(id, function(dataToEdit) {
-				$("#title").val(dataToEdit.title);
-				$("#sdate").datepicker("setDate",
-						new Date(dataToEdit.startDate));
-				$("#edate").datepicker("setDate",
-						new Date(dataToEdit.startDate));
-				$("#enable").prop("checked", dataToEdit.isEnabled === "Y");
-				$("#poppup").prop("checked", dataToEdit.isPoppup === "Y");
+			disabledControl(false);
+			$(".title").text("Chỉnh sửa User");
+			$("#userId").val(id)
+			fetchDataById(id, function(data) {
+				$("#userName").val(data.userName);
+				$("#thumbnail").attr({ "src": data.filePath});
+				$("#email").val(data.email);
+				$("#birthDay").datepicker("setDate", new Date(data.birthDay));
+				$("#addr").val(data.adress);
+				$("#phone").val(data.phone);
+				$("#idenCard").val(data.identity);
+				$("#enable").prop("checked", data.enabled);
 
 				$("#newModal").modal("show");
 			});
 		}
 
 		function openInfoModal(id) {
+			disabledControl(true);
 			$(".title").text("Chi tiết thông báo");
-			$("#nt_id").val(id)
-			fetchDataById(id, function(dataToEdit) {
-				$("#title").val(dataToEdit.title);
-				$("#contentHidden").html(dataToEdit.content);
-				$("#sdate").datepicker("setDate",
-						new Date(dataToEdit.startDate));
-				$("#edate").datepicker("setDate",
-						new Date(dataToEdit.startDate));
-				$("#enable").prop("checked", dataToEdit.isEnabled === "Y");
-				$("#poppup").prop("checked", dataToEdit.isPoppup === "Y");
+			$("#userId").val(id)
+			fetchDataById(id, function(data) {
+				$("#userName").val(data.userName);
+				$("#thumbnail").attr({ "src": data.filePath});
+				$("#email").val(data.email);
+				$("#birthDay").datepicker("setDate", new Date(data.birthDay));
+				$("#addr").val(data.adress);
+				$("#phone").val(data.phone);
+				$("#idenCard").val(data.identity);
+				$("#enable").prop("checked", data.enabled);
 
-				$("#title").prop("readonly", true);
-				$("#content").css("display", "none");
-				$("#sdate").datepicker("destroy");
-				$("#edate").datepicker("destroy");
-				$("#enable").prop("disabled", true);
-				$("#poppup").prop("disabled", true);
+				//$("#birthDay").datepicker("destroy");
 
 				$("#newModal").modal("show");
 			});
 		}
 
+		function readURL(input) {
+			var file = input.files[0];
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				$('#thumbnail').attr('src', e.target.result);
+			}
+			reader.readAsDataURL(file);
+		}
+		
 		function loaddata() {
 
 			var dataTableOptions = {
@@ -385,7 +390,8 @@
 				field : "userName"
 			}, {
 				title : "Img",
-				field : "fileName"
+				field : "filePath",
+				img : true
 			}, {
 				title : "Email",
 				field : "email"
@@ -400,7 +406,8 @@
 				field : "birthDay"
 			}, {
 				title : "Status",
-				field : "enabled"
+				field : "enabled",
+				status : true
 			}, {
 				title : "Work User",
 				field : "workUser"
@@ -419,38 +426,39 @@
 					arrURL, arr, mergedOptions);
 		}
 		
+		$(document).on('click', '#cancelButton', function() { 
+			$("#newModal").trigger('reset'); 
+		});
+
 		function removeTable() {
 			$('#myDataTable').DataTable().destroy();
+			$('#newModal').on('hidden.bs.modal', function() {
+			});
 			loaddata();
 		}
 
 		$(document).ready(function() {
+			$(".date").datepicker({
+				format : 'dd-mm-yyyy'
+			});
+			$('#imgupload').change(function(){
+				 readURL(this);
+			});
 
-			$("#btn-submit").click(function() {
-				var formData = new FormData();
+			$('#formUser').on('submit', function(e) {
+				e.preventDefault();
+				var form0 = $('#formUser')[0];
+				var data = new FormData(form0);
+				var fileInput = document.getElementById("imgupload");
 				
-				formData.append('userSave', new Blob([JSON.stringify({
-					"userName" : $("#userName").val(),
-					"passwd"   : $("#passwd").val(),
-					"email"    : $("#email").val(),
-					"birtDay"  : $("#birtDay").val(),
-					"addr"     : $("#addr").val(),
-					"phone"    : $("#phone").val(),  
-					"idenCard" : $("#idenCard").val(),
-					"delYN"    : "Y",
-					"editYN"   : "Y",
-					"enable"   : $("#enable").is(":checked"),
-					"useYN"    : "Y",
-					"roleId"   : $("#roles").val()
-				})], {
-						type: "application/json"
-					}));
+				data.append("delYN"  , "Y");
+				data.append("editYN" , "Y");
+				data.append("useYN"  , "Y");
+				if (fileInput.files.length > 0) {
+					data.append("fileData", fileInput.files[0]);
+				}
 
-				var fileInput = document.getElementById("fileImage");
-				formData.append("fileImage", fileInput.files[0]);
-				console.log(formData)
-
-				save("/1010/save", formData);
+				save("/1010/save", data);
 			});
 
 			loaddata();

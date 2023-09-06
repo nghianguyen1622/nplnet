@@ -48,6 +48,7 @@
 																data-bs-toggle="tab" href="#tabItem8"><em
 																	class="icon ni ni-property-add"></em><span>Chi tiết</span></a></li>
 														</ul>
+
 													</div>
 													<div class="tab-content">
 														<div class="tab-pane active" id="tabItem5">
@@ -160,11 +161,11 @@
 																		<label class="tableCodeFalse">Ảnh đại diện:</label>
 																	</div>
 																	<div class="m-2">
-																		<img id="thumbnail" alt="Main image preview" class="img-fluid" width="200px" src="../images/default-image.jpg">
+																		<img id="thumbnail" alt="Main image preview" class="img-fluid" width="200px" th:src="@{'/'+${pdt.filePath}}">
 																	</div>
 																	<div id="myfileupload">
 																		<label for="imgupload" class="custom-file-upload btn btn-sm btn-dim btn-light">Chọn ảnh</label> 
-																		<input type="file" id="imgupload" th:field="*{fileMainImage}" accept="image/png , image/jpeg" style="display: none"/>
+																		<input type="file" id="imgupload" accept="image/png , image/jpeg" style="display: none"/>
 																	</div>
 																</div>
 																<div class="col border m-3 p-2">
@@ -176,20 +177,24 @@
 																		<div id="imagePreviews"></div>
 																	</div>
 																</div>
+
+
 															</div>
 														</div>
 														<div class="tab-pane" id="tabItem8">
 															<div id="divProductDetails">
-																<div class="form-inline" >
-																	<label class="m-3">Thuộc tính:</label>
-																	<input type="text" class="form-control w-25" name="detailNames" maxlength="255" placeholder="vd: Ram" />
-																	<label class="m-3">Dữ liệu:</label>
-																	<input type="text" class="form-control w-25" name="detailValues" maxlength="255" placeholder="vd: 8GB" />
-																</div>
+																<th:block th:each="detail : ${listDetail}">
+																	<div class="form-inline" >
+																		<label class="m-3">Thuộc tính:</label>
+																		<input type="text" class="form-control w-25" name="detailNames" th:value="${detail.detailName}" maxlength="255" placeholder="vd: Ram" />
+																		<label class="m-3">Dữ liệu:</label>
+																		<input type="text" class="form-control w-25" name="detailValues" th:value="${detail.detailValue}" maxlength="255" placeholder="vd: 8GB" />
+																	</div>
+																</th:block>
 															</div>
-															<div>
-																<input type="button" class="btn btn-primary" value="+" onclick="addDetail()" />
-															</div>
+														<div>
+															<input type="button" class="btn btn-primary" value="+" onclick="addDetail()" />
+														</div>
 														</div>
 													</div>
 												</div>

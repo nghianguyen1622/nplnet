@@ -18,7 +18,7 @@ public class CategoryDto {
 	private String fileName;
 	private String fileNameOrg;
 	
-	private MultipartFile multipartFile;
+	private MultipartFile fileData;
 	
 	public String getCatId() {
 		return catId;
@@ -99,11 +99,11 @@ public class CategoryDto {
 	public void setFileNameOrg(String fileNameOrg) {
 		this.fileNameOrg = fileNameOrg;
 	}
-	public MultipartFile getMultipartFile() {
-		return multipartFile;
+	public MultipartFile getFileData() {
+		return fileData;
 	}
-	public void setMultipartFile(MultipartFile multipartFile) {
-		this.multipartFile = multipartFile;
+	public void setFileData(MultipartFile fileData) {
+		this.fileData = fileData;
 	}
 	
 }

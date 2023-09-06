@@ -15,12 +15,14 @@ public interface ProductModel {
 	public BigDecimal getDisPer();
 	public BigDecimal getQty();
 	public String getPdtKind();
-	public String getMainImage();
-	public String getCategoryID();
-	public String getBrandID();
+	public String getCategoryId();
+	public String getBrandId();
 	public String getFilePath();
 	public String getFileName();
 	public String getFileNameOrg();
+	
+	public String getDetailName();
+	public String getDetailValue();
 	
 	public String getCreatedTime();
 	public String getUpdatedTime();

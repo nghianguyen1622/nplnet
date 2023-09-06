@@ -19,7 +19,7 @@ public interface UserModel {
 	public String getFileNameOrg();
 	public String getIdentity();
 	public String getBirthDay();
-	public String getEnabled();
-	public String getRoles();
+	public boolean getEnabled();
+	public String getRoleId();
 	public String getUserMenus();
 }

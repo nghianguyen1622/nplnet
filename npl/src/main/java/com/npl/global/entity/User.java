@@ -45,6 +45,15 @@ public class User extends AbstractEntity {
 
 	@Column(name = "USER_NAME", nullable = false)
 	private String username;
+	
+	@Column(name="FILE_NAME")
+	private String fileName;
+
+	@Column(name="FILE_NAME_ORG")
+	private String fileNameOrg;
+
+	@Column(name="FILE_PATH")
+	private String filePath;
 
 	@Column(name = "PHONE")
 	private String phone;
@@ -160,6 +169,30 @@ public class User extends AbstractEntity {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public String getFileNameOrg() {
+		return fileNameOrg;
+	}
+
+	public void setFileNameOrg(String fileNameOrg) {
+		this.fileNameOrg = fileNameOrg;
+	}
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
 	}
 
 	public String getPhone() {

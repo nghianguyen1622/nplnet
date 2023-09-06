@@ -11,6 +11,8 @@ import com.npl.global.model.product.ProductModel;
 public interface ProductService {
 
 	public List<ProductModel> findAll(String comId);
+	public List<ProductModel> findImgExtra(String pdtId);
+	public List<ProductModel> findPdtDetail(String pdtId);
 	public ProductModel findInfo(String pdtId, String comId);
 	
 	public ResultProcDto savePdt(PdtDto pdtDto) throws Exception;

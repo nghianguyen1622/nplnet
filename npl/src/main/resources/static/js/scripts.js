@@ -597,7 +597,7 @@
 							if(columnInfo.img){
 								return `<img height="28px" src="${ data}" alt="" class="thumb">`;
 							}if(columnInfo.status){
-								if(data=='Y'){
+								if(data=='Y' || data){
 									return `<a class="btn btn-icon" style="color: #3ed900" >
 												<em class="icon ni ni-unlock"></em></a>`;
 								}else{

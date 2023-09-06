@@ -9,8 +9,8 @@ import com.npl.global.model.user.RoleModel;
 import com.npl.global.model.user.UserModel;
 
 public interface UserService {
-	public UserModel findUserName(String username);
-	public User findUserNameParam(String username);
+	public UserModel findUserName(String userId);
+	public User findUserNameParam(String userId);
 	
 	public List<UserModel> findAll(String comId);
 	public ResultProcDto saveUser(UserDto userSave) throws Exception;

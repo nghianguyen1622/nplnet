@@ -25,8 +25,8 @@ public interface ProductDao extends PagingAndSortingRepository<Product, Integer>
 			+ "      , file_path as filePath                              "
 			+ "      , file_name as fileName                              "
 			+ "      , file_name_org as fileNameOrg                       "
-			+ "      , CATEGORY_ID as categoryID                          "
-			+ "      , BRAND_ID as brandID                                "
+			+ "      , CATEGORY_ID as categoryId                          "
+			+ "      , BRAND_ID as brandId                                "
 			+ "      , CREATED_TIME as createdTime                        "
 			+ "      , UPDATE_TIME as updatedTime                         "
 			+ "      , WORK_USER as workUser                              "
@@ -46,7 +46,9 @@ public interface ProductDao extends PagingAndSortingRepository<Product, Integer>
 			+ "      , DISCOUNT_PERCENT as disPer                         "
 			+ "      , qty as qty                                         "
 			+ "      , pdt_kind as pdtKind                                "
-			+ "      , MAIN_IMAGE as mainImage                            "
+			+ "      , file_path as filePath                              "
+			+ "      , file_name as fileName                              "
+			+ "      , file_name_org as fileNameOrg                       "
 			+ "      , CATEGORY_ID as categoryID                          "
 			+ "      , BRAND_ID as brandID                                "
 			+ "      , CREATED_TIME as createdTime                        "
@@ -57,5 +59,28 @@ public interface ProductDao extends PagingAndSortingRepository<Product, Integer>
 			+ "      AND COM_ID = :comId                                  "
 			, nativeQuery = true)
 	ProductModel findInfo(String pdtId, String comId);
+	
+	@Query(value = " SELECT pdt_id  as pdtId                              "
+			+ "      , file_path as filePath                              "
+			+ "      , file_name as fileName                              "
+			+ "      , file_name_org as fileNameOrg                       "
+			+ "      , CREATED_TIME as createdTime                        "
+			+ "      , UPDATE_TIME as updatedTime                         "
+			+ "      , WORK_USER as workUser                              "
+			+ "     FROM product_image                                    "
+			+ "     WHERE pdt_id = :pdtId                                 "
+			, nativeQuery = true)
+	List<ProductModel> findImgExtra(String pdtId);
+	
+	@Query(value = " SELECT product_id  as pdtId                          "
+			+ "      , name as detailName                                 "
+			+ "      , value as detailValue                               "
+			+ "      , CREATED_TIME as createdTime                        "
+			+ "      , UPDATE_TIME as updatedTime                         "
+			+ "      , WORK_USER as workUser                              "
+			+ "     FROM product_details                                  "
+			+ "     WHERE product_id = :pdtId                             "
+			, nativeQuery = true)
+	List<ProductModel> findPdtDetail(String pdtId);
 	
 }

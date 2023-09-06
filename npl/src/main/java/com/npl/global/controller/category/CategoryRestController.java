@@ -76,8 +76,11 @@ public class CategoryRestController {
 			catDto.setWorkUser(workUser);
 			
 			
-			if(!catDto.getMultipartFile().isEmpty()) {
-				String fileName = storageService.store(catDto.getMultipartFile(), "cat");
+			if(!catDto.getFileData().isEmpty()) {
+				if(!catDto.getCatId().isEmpty()) {
+					storageService.delete(service.findInfo(catDto.getCatId(), comId).getFileName(), "cat");
+				}
+				String fileName = storageService.store(catDto.getFileData(), "cat");
 				
 				catDto.setFilePath("fileupload/category/" + fileName);
 				catDto.setFileName(fileName);

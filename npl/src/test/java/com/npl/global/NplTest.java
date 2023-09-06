@@ -182,7 +182,7 @@ public class NplTest {
 		u.setCheckPw(checkpass);
 		u.setEmail("lxl@gmail.com");
 		u.setImg("");
-		u.setBirtDay("");
+		u.setBirthDay("");
 		u.setAddr("");
 		u.setIdenCard("");
 		u.setEnable(true);

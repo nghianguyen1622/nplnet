@@ -7,10 +7,9 @@ public class UserDto {
 	private String userName;
 	private String passwd;
 	private String checkPw;
-	private MultipartFile fileImage;
 	private String img;
 	private String email;
-	private String birtDay;
+	private String birthDay;
 	private String addr;
 	private String phone;
 	private String idenCard;
@@ -27,6 +26,7 @@ public class UserDto {
 	private String filePath;
 	private String fileName;
 	private String fileNameOrg;
+	private MultipartFile fileData;
 	
 	public String getUserId() {
 		return userId;
@@ -52,13 +52,6 @@ public class UserDto {
 	public void setCheckPw(String checkPw) {
 		this.checkPw = checkPw;
 	}
-	
-	public MultipartFile getFileImage() {
-		return fileImage;
-	}
-	public void setFileImage(MultipartFile fileImage) {
-		this.fileImage = fileImage;
-	}
 	public String getImg() {
 		return img;
 	}
@@ -71,11 +64,11 @@ public class UserDto {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getBirtDay() {
-		return birtDay;
+	public String getBirthDay() {
+		return birthDay;
 	}
-	public void setBirtDay(String birtDay) {
-		this.birtDay = birtDay;
+	public void setBirthDay(String birthDay) {
+		this.birthDay = birthDay;
 	}
 	public String getAddr() {
 		return addr;
@@ -166,6 +159,12 @@ public class UserDto {
 	}
 	public void setFileNameOrg(String fileNameOrg) {
 		this.fileNameOrg = fileNameOrg;
+	}
+	public MultipartFile getFileData() {
+		return fileData;
+	}
+	public void setFileData(MultipartFile fileData) {
+		this.fileData = fileData;
 	}
 	
 }

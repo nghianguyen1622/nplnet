@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -68,8 +69,8 @@ public class UserRestController {
 		}
 	}
 	
-	@PostMapping(value = "/1010/save", consumes = { "multipart/form-data" }, produces = { "application/json", "application/xml" })
-	public @ResponseBody ResultProcDto save(@RequestPart UserDto userSave, @RequestPart("fileImage") MultipartFile multipartFile) {
+	@PostMapping(value = "/1010/save")
+	public @ResponseBody ResultProcDto save(@ModelAttribute UserDto userSave) {
 		try {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			NplUserDetails loggedUser = (NplUserDetails) authentication.getPrincipal();
@@ -90,35 +91,30 @@ public class UserRestController {
 			userSave.setPasswd(pass);
 			userSave.setCheckPw(checkpass);
 			
-			result = this.service.saveUser(userSave);
-			
-			if(!multipartFile.isEmpty()) {
-				String fileName = storageService.store(multipartFile, "user");
-//				String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+			if(!userSave.getFileData().isEmpty()) {
+				if(!userSave.getUserId().isEmpty()) {
+					storageService.delete(service.findUserName(userSave.getUserId()).getFileName(), "user");
+				}
+				String fileName = storageService.store(userSave.getFileData(), "user");
 				
 				userSave.setFilePath("fileupload/users/" + fileName);
 				userSave.setFileName(fileName);
 				userSave.setFileNameOrg(fileName);
 				
-				userSave.setKindCD(comCd + "u10");
-				userSave.setUserId(result.getKeyValue());
+//				userSave.setKindCD(comCd + "u10");
+//				userSave.setUserId(result.getKeyValue());
+//				
+//				ResultProcDto result1 = this.service.saveUserImage(userSave);
+//				if(!result1.getRetCode().equals(Constant.RETCODE_OK)) {
+//					return result1;
+//				}
 				
-				ResultProcDto result1 = this.service.saveUserImage(userSave);
-				if(!result1.getRetCode().equals(Constant.RETCODE_OK)) {
-					return result1;
-				}
-				
-//				String uploadDir = "fileupload/users/" + fileName;
-//				FileUploadUtil.clearDir(uploadDir);
-//				FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 			}else {
-				if(!userSave.getFileName().equals("")) {
-					storageService.delete(userSave.getFileName(), "user");
-				}
 				userSave.setFilePath("");
 				userSave.setFileName("");
 				userSave.setFileNameOrg("");
 			}
+			result = this.service.saveUser(userSave);
 			
 			return result;
 		} catch (Exception e) {

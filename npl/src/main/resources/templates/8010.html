@@ -180,6 +180,7 @@
 			$(".title").text("Chỉnh sửa thông báo");
 			$("#nt_id").val(id)
 			fetchDataById(id, function (dataToEdit) {
+				console.log(dataToEdit.startDate)
 				$("#title").val(dataToEdit.title);
 				$("#content").summernote('code', dataToEdit.content)
 				$("#sdate").datepicker("setDate", new Date(dataToEdit.startDate));

@@ -24,6 +24,9 @@ public class UserDaoExtend {
 		query.registerStoredProcedureParameter("p_user_name",       String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_passwd",          String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_check_pass",      String.class,         ParameterMode.IN);
+		query.registerStoredProcedureParameter("p_file_name",       String.class,         ParameterMode.IN);
+		query.registerStoredProcedureParameter("p_file_name_org",   String.class,         ParameterMode.IN);
+		query.registerStoredProcedureParameter("p_file_path",       String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_email",           String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_birth_day",       String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_addr",            String.class,         ParameterMode.IN);
@@ -49,8 +52,11 @@ public class UserDaoExtend {
 		query.setParameter("p_user_name",                   userDto.getUserName());
 		query.setParameter("p_passwd",                      userDto.getPasswd());
 		query.setParameter("p_check_pass",                  userDto.getCheckPw());
+		query.setParameter("p_file_name",                   userDto.getFileName());
+		query.setParameter("p_file_name_org",               userDto.getFileNameOrg());
+		query.setParameter("p_file_path",                   userDto.getFilePath());
 		query.setParameter("p_email",                       userDto.getEmail());
-		query.setParameter("p_birth_day",                   userDto.getBirtDay());
+		query.setParameter("p_birth_day",                   userDto.getBirthDay());
 		query.setParameter("p_addr",                        userDto.getAddr());
 		query.setParameter("p_phone",                       userDto.getPhone());
 		query.setParameter("p_identity_card",               userDto.getIdenCard());

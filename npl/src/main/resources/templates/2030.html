@@ -89,13 +89,20 @@
 	<script th:src="@{/js/commom-list.js}"></script>
 	
 	<script type="text/javascript">
-		moduleURL = "[[@{/notice}]]";
+		moduleURL = "[[@{/}]]";
 		
 		$(document).ready(function() {
 			deleteRow();
 			loadata();
 		});
 		
+		function openInfoModal(){
+			location.href="";
+		}
+
+		function openEditModal(id) {
+			location.href=moduleURL+"products/edit/"+id;
+		}
 		
 		function deleteRow() {
 			$(document).on("click", ".link-delete", function(e) {
@@ -142,8 +149,8 @@
 						{title:"Name", field:"name", url:"/path/", id:"id"},
 						{title:"Image", field:"filePath", img: true, className: "text-center"},
 						{title:"Alias", field:"alias"},
-						{title:"Category", field:"categoryID"},
-						{title:"Brand", field:"brandID"},
+						{title:"Category", field:"categoryId"},
+						{title:"Brand", field:"brandId"},
 						{title:"Cost", field:"cost"},
 						{title:"Price", field:"price"},
 						{title:"Discount Percent", field:"disPer"},
