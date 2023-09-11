@@ -11,12 +11,14 @@ import com.npl.global.model.product.ProductModel;
 public interface ProductService {
 
 	public List<ProductModel> findAll(String comId);
-	public List<ProductModel> findImgExtra(String pdtId);
+	public List<ProductModel> findImgExtra(String pdtId, String comId);
+	public ProductModel findImgExtra1(String pdtId, int sortNo, String comId);
 	public List<ProductModel> findPdtDetail(String pdtId);
 	public ProductModel findInfo(String pdtId, String comId);
 	
 	public ResultProcDto savePdt(PdtDto pdtDto) throws Exception;
 	public ResultProcDto delPdt(String pdtId) throws Exception;
+	public ResultProcDto delDetail(String pdtId, int sortNo, String comId) throws Exception;
 	
 	public ResultProcDto savePdtImage(PdtDto pdtDto) throws Exception;
 	public ResultProcDto savePdtDetail(PdtDetailDto pdtDetailDto) throws Exception;

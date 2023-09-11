@@ -1,5 +1,6 @@
 package com.npl.global.controller.product;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -61,14 +62,12 @@ public class ProductController {
 			NplUserDetails loggedUser = (NplUserDetails) authentication.getPrincipal();
 			String comId = loggedUser.getUser().getCompany().getComId();
 			ProductModel pdtInfo = service.findInfo(pdtId, comId);
-			List<ProductModel> imgExtra= service.findImgExtra(pdtId);
 			List<ProductModel> listDetail = service.findPdtDetail(pdtId);
 			List<BrandModel> listBrand = brandService.findAll(comId);
 			List<CategoryModel> listCat = cateService.findAll(comId);
 			model.addAttribute("listBrand", listBrand);
 			model.addAttribute("listCat", listCat);
 			model.addAttribute("pdt", pdtInfo);
-			model.addAttribute("imgExtra", imgExtra);
 			model.addAttribute("listDetail", listDetail);
 		} catch (Exception e) {
 			logger.error(e.getMessage());

@@ -18,7 +18,7 @@ public interface ProductDao extends PagingAndSortingRepository<Product, Integer>
 			+ "      , FULL_DES as  fullDes                               "
 			+ "      , enabled as  isEnabled                              "
 			+ "      , cost as cost                                       "
-			+ "      , uf_currency(price) as price                        "
+			+ "      , uf_currency(price) as priceText                    "
 			+ "      , DISCOUNT_PERCENT as disPer                         "
 			+ "      , qty as qty                                         "
 			+ "      , pdt_kind as pdtKind                                "
@@ -42,7 +42,7 @@ public interface ProductDao extends PagingAndSortingRepository<Product, Integer>
 			+ "      , FULL_DES as fullDes                                "
 			+ "      , enabled as isEnabled                               "
 			+ "      , cost as cost                                       "
-			+ "      , uf_currency(price) as price                        "
+			+ "      , price as price                                     "
 			+ "      , DISCOUNT_PERCENT as disPer                         "
 			+ "      , qty as qty                                         "
 			+ "      , pdt_kind as pdtKind                                "
@@ -60,21 +60,44 @@ public interface ProductDao extends PagingAndSortingRepository<Product, Integer>
 			, nativeQuery = true)
 	ProductModel findInfo(String pdtId, String comId);
 	
-	@Query(value = " SELECT pdt_id  as pdtId                              "
+	@Query(value = " SELECT id as regNo                                   "
+			+ "      , pdt_id  as pdtId                                   "
 			+ "      , file_path as filePath                              "
 			+ "      , file_name as fileName                              "
 			+ "      , file_name_org as fileNameOrg                       "
+			+ "      , sort_no as sortNo                                  "
+			+ "      , image_kind as imageKind                            "
 			+ "      , CREATED_TIME as createdTime                        "
 			+ "      , UPDATE_TIME as updatedTime                         "
 			+ "      , WORK_USER as workUser                              "
-			+ "     FROM product_image                                    "
-			+ "     WHERE pdt_id = :pdtId                                 "
+			+ "        FROM product_image                                 "
+			+ "       WHERE pdt_id = :pdtId                               "
+			+ "         AND com_id = :comId                               "
+			+ "       ORDER BY sort_no                                   "
 			, nativeQuery = true)
-	List<ProductModel> findImgExtra(String pdtId);
+	List<ProductModel> findImgExtra(String pdtId, String comId);
+	
+	@Query(value = " SELECT id as regNo                                   "
+			+ "      , pdt_id  as pdtId                                   "
+			+ "      , file_path as filePath                              "
+			+ "      , file_name as fileName                              "
+			+ "      , file_name_org as fileNameOrg                       "
+			+ "      , sort_no as sortNo                                  "
+			+ "      , image_kind as imageKind                            "
+			+ "      , CREATED_TIME as createdTime                        "
+			+ "      , UPDATE_TIME as updatedTime                         "
+			+ "      , WORK_USER as workUser                              "
+			+ "        FROM product_image                                 "
+			+ "       WHERE pdt_id = :pdtId                               "
+			+ "         AND sort_no = :sortNo                             "
+			+ "         AND com_id = :comId                               "
+			, nativeQuery = true)
+	ProductModel findImgExtra1(String pdtId, int sortNo, String comId);
 	
 	@Query(value = " SELECT product_id  as pdtId                          "
 			+ "      , name as detailName                                 "
 			+ "      , value as detailValue                               "
+			+ "      , sort_no as sortNo                                  "
 			+ "      , CREATED_TIME as createdTime                        "
 			+ "      , UPDATE_TIME as updatedTime                         "
 			+ "      , WORK_USER as workUser                              "

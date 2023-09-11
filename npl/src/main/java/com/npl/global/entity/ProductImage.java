@@ -1,5 +1,7 @@
 package com.npl.global.entity;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,6 +32,12 @@ public class ProductImage extends AbstractEntity {
 	
 	@Column(name = "FILE_PATH")
 	private String filePath;
+	
+	@Column(name="IMAGE_KIND")
+	private String imageKind;
+
+	@Column(name="SORT_NO")
+	private int sortNo;
 	
 	@ManyToOne
 	@JoinColumn(name = "PDT_ID")
@@ -75,6 +83,22 @@ public class ProductImage extends AbstractEntity {
 
 	public void setFilePath(String filePath) {
 		this.filePath = filePath;
+	}
+
+	public String getImageKind() {
+		return imageKind;
+	}
+
+	public void setImageKind(String imageKind) {
+		this.imageKind = imageKind;
+	}
+
+	public int getSortNo() {
+		return sortNo;
+	}
+
+	public void setSortNo(int sortNo) {
+		this.sortNo = sortNo;
 	}
 
 	public Product getProduct() {

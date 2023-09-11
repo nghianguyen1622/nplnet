@@ -60,15 +60,27 @@ public class ProductServicelmpl implements ProductService {
 	}
 
 	@Override
-	public List<ProductModel> findImgExtra(String pdtId) {
+	public List<ProductModel> findImgExtra(String pdtId, String comId) {
 		// TODO Auto-generated method stub
-		return dao.findImgExtra(pdtId);
+		return dao.findImgExtra(pdtId, comId);
+	}
+	
+	@Override
+	public ProductModel findImgExtra1(String pdtId, int sortNo, String comId) {
+		// TODO Auto-generated method stub
+		return dao.findImgExtra1(pdtId, sortNo, comId);
 	}
 
 	@Override
 	public List<ProductModel> findPdtDetail(String pdtId) {
 		// TODO Auto-generated method stub
 		return dao.findPdtDetail(pdtId);
+	}
+
+	@Override
+	public ResultProcDto delDetail(String pdtId, int sortNo, String comId) throws Exception {
+		// TODO Auto-generated method stub
+		return daoExtends.callDelDetail(pdtId, sortNo, comId);
 	}
 
 }

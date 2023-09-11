@@ -5,6 +5,8 @@ public class PdtDetailDto {
 	private String comId;
 	private String name;
 	private String value;
+	private int sortNo;
+	private String delNo;
 	private String workUser;
 	public String getPdtId() {
 		return pdtId;
@@ -29,6 +31,18 @@ public class PdtDetailDto {
 	}
 	public void setValue(String value) {
 		this.value = value;
+	}
+	public int getSortNo() {
+		return sortNo;
+	}
+	public void setSortNo(int sortNo) {
+		this.sortNo = sortNo;
+	}
+	public String getDelNo() {
+		return delNo;
+	}
+	public void setDelNo(String delNo) {
+		this.delNo = delNo;
 	}
 	public String getWorkUser() {
 		return workUser;

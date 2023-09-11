@@ -41,6 +41,8 @@ public class ProductDaoExtends {
 		query.registerStoredProcedureParameter("p_cost",                    BigDecimal.class,     ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_price",                   BigDecimal.class,     ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_discount_percent",        BigDecimal.class,     ParameterMode.IN);
+		query.registerStoredProcedureParameter("p_qty",                     BigDecimal.class,     ParameterMode.IN);
+		query.registerStoredProcedureParameter("p_pdt_kind",                String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_file_name",               String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_file_name_org",           String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_file_path",               String.class,         ParameterMode.IN);
@@ -69,6 +71,8 @@ public class ProductDaoExtends {
 		query.setParameter("p_cost",                     pdtDto.getCost());
 		query.setParameter("p_price",                    pdtDto.getPrice());
 		query.setParameter("p_discount_percent",         pdtDto.getDisPer());
+		query.setParameter("p_qty",                      pdtDto.getQty());
+		query.setParameter("p_pdt_kind",                 pdtDto.getPdtKind());
 		query.setParameter("p_file_name",                pdtDto.getFileName());
 		query.setParameter("p_file_name_org",            pdtDto.getFileNameOrg());
 		query.setParameter("p_file_path",                pdtDto.getFilePath());
@@ -121,21 +125,30 @@ public ResultProcDto callPdtImage(PdtDto pdtDto){
 		
 		final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("public.prc_pdt_image");
 		
+		query.registerStoredProcedureParameter("p_reg_no",          String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_pdt_id",          String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_com_id",          String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_file_path",       String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_file_name",       String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_file_name_org",   String.class,         ParameterMode.IN);
+		query.registerStoredProcedureParameter("p_image_kind",      String.class,         ParameterMode.IN);
+		query.registerStoredProcedureParameter("p_sort_no",         Integer.class,        ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_work_user",       String.class,         ParameterMode.IN);
 		
 		query.registerStoredProcedureParameter(Constant.SP_RETCODE,       String.class, ParameterMode.OUT);
 		query.registerStoredProcedureParameter(Constant.SP_RETSTR,        String.class, ParameterMode.OUT);
 		
-		query.setParameter("p_pdt_id",                     pdtDto.getPdtId());
+		if(pdtDto.getRegNo() == null || pdtDto.getRegNo() == "" || pdtDto.getRegNo().isEmpty()) {
+			pdtDto.setRegNo("0");
+		}
+		query.setParameter("p_reg_no",                      pdtDto.getRegNo());
+		query.setParameter("p_pdt_id",                      pdtDto.getPdtId());
 		query.setParameter("p_com_id",                      pdtDto.getComId());
-		query.setParameter("p_file_path",                   pdtDto.getFileExtraPath());
-		query.setParameter("p_file_name",                   pdtDto.getFileExtraName());
-		query.setParameter("p_file_name_org",               pdtDto.getFileExtraNameOrg());
+		query.setParameter("p_file_path",                   pdtDto.getFilePath());
+		query.setParameter("p_file_name",                   pdtDto.getFileName());
+		query.setParameter("p_file_name_org",               pdtDto.getFileNameOrg());
+		query.setParameter("p_image_kind",                  "LARGE");
+		query.setParameter("p_sort_no",                     pdtDto.getSortNo());
 		query.setParameter("p_work_user",                   pdtDto.getWorkUser());
 		
 		query.execute();
@@ -147,6 +160,8 @@ public ResultProcDto callPdtImage(PdtDto pdtDto){
 		if(query.getOutputParameterValue(Constant.SP_RETSTR) != null) {
 			resultProcDto.setRetStr(query.getOutputParameterValue(Constant.SP_RETSTR).toString());
 		}
+		System.out.println("SP_RETCODE :"+ query.getOutputParameterValue(Constant.SP_RETCODE).toString());
+		System.out.println("SP_RETSTR  :"+ query.getOutputParameterValue(Constant.SP_RETSTR).toString());
 		
 		return resultProcDto;
 		
@@ -160,6 +175,7 @@ public ResultProcDto callPdtDetail(PdtDetailDto detailDto){
 	query.registerStoredProcedureParameter("p_com_id",          String.class,         ParameterMode.IN);
 	query.registerStoredProcedureParameter("p_name",            String.class,         ParameterMode.IN);
 	query.registerStoredProcedureParameter("p_value",           String.class,         ParameterMode.IN);
+	query.registerStoredProcedureParameter("p_sort_no",         Integer.class,        ParameterMode.IN);
 	query.registerStoredProcedureParameter("p_work_user",       String.class,         ParameterMode.IN);
 	
 	query.registerStoredProcedureParameter(Constant.SP_RETCODE,       String.class, ParameterMode.OUT);
@@ -169,6 +185,7 @@ public ResultProcDto callPdtDetail(PdtDetailDto detailDto){
 	query.setParameter("p_com_id",                     detailDto.getComId());
 	query.setParameter("p_name",                       detailDto.getName());
 	query.setParameter("p_value",                      detailDto.getValue());
+	query.setParameter("p_sort_no",                    detailDto.getSortNo());
 	query.setParameter("p_work_user",                  detailDto.getWorkUser());
 	
 	query.execute();
@@ -180,7 +197,37 @@ public ResultProcDto callPdtDetail(PdtDetailDto detailDto){
 	if(query.getOutputParameterValue(Constant.SP_RETSTR) != null) {
 		resultProcDto.setRetStr(query.getOutputParameterValue(Constant.SP_RETSTR).toString());
 	}
+	System.out.println("SP_RETCODE :"+ query.getOutputParameterValue(Constant.SP_RETCODE).toString());
+	System.out.println("SP_RETSTR  :"+ query.getOutputParameterValue(Constant.SP_RETSTR).toString());
+	return resultProcDto;
 	
+}
+public ResultProcDto callDelDetail(String pdtId, int sortNo, String comId){
+	
+	final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("public.prc_pdt_deldetail");
+	
+	query.registerStoredProcedureParameter("p_pdt_id",          String.class,         ParameterMode.IN);
+	query.registerStoredProcedureParameter("p_com_id",          String.class,         ParameterMode.IN);
+	query.registerStoredProcedureParameter("p_sort_no",         Integer.class,        ParameterMode.IN);
+	
+	query.registerStoredProcedureParameter(Constant.SP_RETCODE,       String.class, ParameterMode.OUT);
+	query.registerStoredProcedureParameter(Constant.SP_RETSTR,        String.class, ParameterMode.OUT);
+	
+	query.setParameter("p_pdt_id",                     pdtId);
+	query.setParameter("p_com_id",                     comId);
+	query.setParameter("p_sort_no",                    sortNo);
+	
+	query.execute();
+	
+	ResultProcDto resultProcDto = new ResultProcDto();
+	if(query.getOutputParameterValue(Constant.SP_RETCODE) != null) {
+		resultProcDto.setRetCode(query.getOutputParameterValue(Constant.SP_RETCODE).toString());
+	}
+	if(query.getOutputParameterValue(Constant.SP_RETSTR) != null) {
+		resultProcDto.setRetStr(query.getOutputParameterValue(Constant.SP_RETSTR).toString());
+	}
+	System.out.println("SP_RETCODE :"+ query.getOutputParameterValue(Constant.SP_RETCODE).toString());
+	System.out.println("SP_RETSTR  :"+ query.getOutputParameterValue(Constant.SP_RETSTR).toString());
 	return resultProcDto;
 	
 }

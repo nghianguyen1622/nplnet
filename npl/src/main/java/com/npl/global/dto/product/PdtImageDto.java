@@ -1,34 +1,19 @@
 package com.npl.global.dto.product;
 
-import java.math.BigDecimal;
-
 import org.springframework.web.multipart.MultipartFile;
 
-public class PdtDto {
+public class PdtImageDto {
 	private String pdtId;
-	private String name;
-	private String alias;
-	private String shortDes;
-	private String fullDes;
-	private String enabled;
-	private String editYn;
-	private String delYn;
-	private String inStock;
-	private BigDecimal cost;
-	private BigDecimal price;
-	private BigDecimal disPer;
-	private BigDecimal qty;
-	private String pdtKind;
-	private String mainImage;
-	private String categoryId;
-	private String brandId;
-	private String comId;
-	private String workUser;
-	
+	private String regNo;
+	private String sortNo;
+	private String imageKind;
 	private String filePath;
 	private String fileName;
 	private String fileNameOrg;
 	
+	private String comId;
+	private String workUser;
+
 	private String filePathLarge0;
 	private String fileNameLarge0;
 	private String fileNameOrgLarge0;
@@ -68,153 +53,30 @@ public class PdtDto {
 	private MultipartFile fileLarge4;
 	private String sortNoLarge4;
 	private String regNoLarge4;
-	
-	private String imageKind;
-	private int sortNo;
-	private String regNo;
-	
-	private MultipartFile fileMainImage;
-	private MultipartFile[] fileExtraImage;
-	
-	private PdtDetailDto[] pdtDetails;
-	
 	public String getPdtId() {
 		return pdtId;
 	}
 	public void setPdtId(String pdtId) {
 		this.pdtId = pdtId;
 	}
-	public String getName() {
-		return name;
+	public String getRegNo() {
+		return regNo;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setRegNo(String regNo) {
+		this.regNo = regNo;
 	}
-	public String getAlias() {
-		return alias;
+	
+	public String getSortNo() {
+		return sortNo;
 	}
-	public void setAlias(String alias) {
-		this.alias = alias;
+	public void setSortNo(String sortNo) {
+		this.sortNo = sortNo;
 	}
-	public String getShortDes() {
-		return shortDes;
+	public String getImageKind() {
+		return imageKind;
 	}
-	public void setShortDes(String shortDes) {
-		this.shortDes = shortDes;
-	}
-	public String getFullDes() {
-		return fullDes;
-	}
-	public void setFullDes(String fullDes) {
-		this.fullDes = fullDes;
-	}
-	public String getEnabled() {
-		return enabled;
-	}
-	public void setEnabled(String enabled) {
-		this.enabled = enabled;
-	}
-	public String getEditYn() {
-		return editYn;
-	}
-	public void setEditYn(String editYn) {
-		this.editYn = editYn;
-	}
-	public String getDelYn() {
-		return delYn;
-	}
-	public void setDelYn(String delYn) {
-		this.delYn = delYn;
-	}
-	public String getInStock() {
-		return inStock;
-	}
-	public void setInStock(String inStock) {
-		this.inStock = inStock;
-	}
-	public BigDecimal getCost() {
-		return cost;
-	}
-	public void setCost(BigDecimal cost) {
-		this.cost = cost;
-	}
-	public BigDecimal getPrice() {
-		return price;
-	}
-	public void setPrice(BigDecimal price) {
-		this.price = price;
-	}
-	public BigDecimal getDisPer() {
-		return disPer;
-	}
-	public void setDisPer(BigDecimal disPer) {
-		this.disPer = disPer;
-	}
-	public BigDecimal getQty() {
-		return qty;
-	}
-	public void setQty(BigDecimal qty) {
-		this.qty = qty;
-	}
-	public String getPdtKind() {
-		return pdtKind;
-	}
-	public void setPdtKind(String pdtKind) {
-		this.pdtKind = pdtKind;
-	}
-	//	public BigDecimal getLength() {
-//		return length;
-//	}
-//	public void setLength(BigDecimal length) {
-//		this.length = length;
-//	}
-//	public BigDecimal getWidth() {
-//		return width;
-//	}
-//	public void setWidth(BigDecimal width) {
-//		this.width = width;
-//	}
-//	public BigDecimal getHeight() {
-//		return height;
-//	}
-//	public void setHeight(BigDecimal height) {
-//		this.height = height;
-//	}
-//	public BigDecimal getWeight() {
-//		return weight;
-//	}
-//	public void setWeight(BigDecimal weight) {
-//		this.weight = weight;
-//	}
-	public String getMainImage() {
-		return mainImage;
-	}
-	public void setMainImage(String mainImage) {
-		this.mainImage = mainImage;
-	}
-	public String getCategoryId() {
-		return categoryId;
-	}
-	public void setCategoryId(String categoryId) {
-		this.categoryId = categoryId;
-	}
-	public String getBrandId() {
-		return brandId;
-	}
-	public void setBrandId(String brandId) {
-		this.brandId = brandId;
-	}
-	public String getComId() {
-		return comId;
-	}
-	public void setComId(String comId) {
-		this.comId = comId;
-	}
-	public String getWorkUser() {
-		return workUser;
-	}
-	public void setWorkUser(String workUser) {
-		this.workUser = workUser;
+	public void setImageKind(String imageKind) {
+		this.imageKind = imageKind;
 	}
 	public String getFilePath() {
 		return filePath;
@@ -234,17 +96,17 @@ public class PdtDto {
 	public void setFileNameOrg(String fileNameOrg) {
 		this.fileNameOrg = fileNameOrg;
 	}
-	public MultipartFile getFileMainImage() {
-		return fileMainImage;
+	public String getComId() {
+		return comId;
 	}
-	public void setFileMainImage(MultipartFile fileMainImage) {
-		this.fileMainImage = fileMainImage;
+	public void setComId(String comId) {
+		this.comId = comId;
 	}
-	public MultipartFile[] getFileExtraImage() {
-		return fileExtraImage;
+	public String getWorkUser() {
+		return workUser;
 	}
-	public void setFileExtraImage(MultipartFile[] fileExtraImage) {
-		this.fileExtraImage = fileExtraImage;
+	public void setWorkUser(String workUser) {
+		this.workUser = workUser;
 	}
 	public String getFilePathLarge0() {
 		return filePathLarge0;
@@ -456,30 +318,5 @@ public class PdtDto {
 	public void setRegNoLarge4(String regNoLarge4) {
 		this.regNoLarge4 = regNoLarge4;
 	}
-	public String getImageKind() {
-		return imageKind;
-	}
-	public void setImageKind(String imageKind) {
-		this.imageKind = imageKind;
-	}
-	public int getSortNo() {
-		return sortNo;
-	}
-	public void setSortNo(int sortNo) {
-		this.sortNo = sortNo;
-	}
-	public String getRegNo() {
-		return regNo;
-	}
-	public void setRegNo(String regNo) {
-		this.regNo = regNo;
-	}
-	public PdtDetailDto[] getPdtDetails() {
-		return pdtDetails;
-	}
-	public void setPdtDetails(PdtDetailDto[] pdtDetails) {
-		this.pdtDetails = pdtDetails;
-	}
 	
-
 }

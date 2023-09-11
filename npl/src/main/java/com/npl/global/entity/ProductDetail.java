@@ -28,6 +28,9 @@ public class ProductDetail extends AbstractEntity {
 	@Column(name = "VALUE")
 	private String value;
 	
+	@Column(name="SORT_NO")
+	private int sortNo;
+	
 	@ManyToOne
 	@JoinColumn(name = "PRODUCT_ID")
 	private Product product;
@@ -63,6 +66,14 @@ public class ProductDetail extends AbstractEntity {
 
 	public void setValue(String value) {
 		this.value = value;
+	}
+
+	public int getSortNo() {
+		return sortNo;
+	}
+
+	public void setSortNo(int sortNo) {
+		this.sortNo = sortNo;
 	}
 
 	public Product getProduct() {
