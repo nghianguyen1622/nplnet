@@ -109,8 +109,9 @@
 									<div class="form-control-wrap">
 										<select class="form-select js-select2" id="parentId" th:field="*{parentId}">
 											<option value="0">Main category</option>
-											<th:block th:each:="cat : ${listCat}">
-												 <option th:each="cat : ${listCat}" th:value="${cat.catId}" th:text="${cat.name}"></option>
+											<th:block th:each="cat : ${listCat}">
+												<option th:value="${cat.catId}" th:text="${cat.name}">
+												</option>
 											</th:block>
 										</select>
 									</div>

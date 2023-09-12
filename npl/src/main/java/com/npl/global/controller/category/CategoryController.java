@@ -29,7 +29,7 @@ public class CategoryController {
 		try {
 			CategoryDto category = new CategoryDto();
 			String comId = loggedUser.getUser().getCompany().getComId();
-			List<CategoryModel> listCat = service.findAll(comId);
+			List<CategoryModel> listCat = service.listCate(comId);
 			model.addAttribute("pageTitle", "Quản lý danh mục");
 			model.addAttribute("listCat", listCat);
 			model.addAttribute("category", category);

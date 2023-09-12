@@ -597,13 +597,23 @@
 							if(columnInfo.img){
 								return `<img height="28px" src="${ data}" alt="" class="thumb">`;
 							}if(columnInfo.status){
-								if(data=='Y' || data){
+								if(data=='Y'){
 									return `<a class="btn btn-icon" style="color: #3ed900" >
 												<em class="icon ni ni-unlock"></em></a>`;
 								}else{
 									return `<a class="btn btn-icon" style="color: #3ed900" >
 												<em class="icon ni ni-lock-alt"></em></a>`;
 								}
+							}if(columnInfo.list){
+								var arr = data.split(',');
+								let txt =`<span class="ec-sub-cat-list">
+											<span class="badge badge-dim rounded-pill bg-primary" title="Total Sub Categories">`+arr.length+`</span>`;
+								arr.forEach((e) =>{
+									console.log(e)
+									txt +=`	<span class="badge badge-dim rounded-pill bg-gray" >`+e+`</span>`;
+								})
+								txt += `</span>`
+								return txt;
 							}else{
 								if (data === null || data === undefined) {
 									return "";

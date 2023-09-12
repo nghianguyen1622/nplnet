@@ -17,10 +17,11 @@ public interface BrandDao extends PagingAndSortingRepository<Brand, String> {
 			+"      , file_name_org as fileNameOrg                        "
 			+"      , file_path as filePath                               "
 			+"      , enabled as  isEnabled                               "
+			+"      , (select STRING_AGG(c.name, ', ') from categories c ,brands_categories bc where b.brand_id = bc.brand_id and c.cat_id = bc.cat_id ) as listCate "
 			+"      , CREATED_TIME AS createdTime                         "
 			+"      , UPDATE_TIME AS updatedTime                          "
 			+"      , WORK_USER AS workUser                               "
-			+"     FROM brands                                            "
+			+"     FROM brands b                                          "
 			+"     WHERE com_id = :comId                                  "
 			, nativeQuery = true)
 	List<BrandModel> findByComCd(String comId);

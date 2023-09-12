@@ -7,6 +7,7 @@ public interface BrandModel {
 	public String getFileNameOrg();
 	public String getFilePath();
 	public String getIsEnabled();
+	public String getListCate();
 	
 	public String getCreatedTime();
 	public String getUpdatedTime();

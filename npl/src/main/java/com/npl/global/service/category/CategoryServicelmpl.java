@@ -71,4 +71,10 @@ public class CategoryServicelmpl implements CategoryService {
 		return dao.findByBrand(comId, brandId);
 	}
 
+	@Override
+	public List<CategoryModel> listCate(String comId) {
+		// TODO Auto-generated method stub
+		return dao.listCate(comId);
+	}
+
 }

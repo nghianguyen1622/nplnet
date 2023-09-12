@@ -30,7 +30,7 @@ public class BrandController {
 		String comId = loggedUser.getUser().getCompany().getComId();
 		try {
 			BrandDto brand = new BrandDto();
-			List<CategoryModel> listCat = catService.findAll(comId);
+			List<CategoryModel> listCat = catService.listCate(comId);
 			model.addAttribute("pageTitle", "Quản lý thương hiệu");
 			model.addAttribute("listCat", listCat);
 			model.addAttribute("brand", brand);

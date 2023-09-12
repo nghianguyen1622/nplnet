@@ -9,6 +9,7 @@ import com.npl.global.model.category.CategoryModel;
 public interface CategoryService {
 
 	public List<CategoryModel> findAll(String comId);
+	public List<CategoryModel> listCate(String comId);
 	public CategoryModel findInfo(String catId, String comId);
 	public List<CategoryModel> findByBrand(String comId, String brandId);
 	

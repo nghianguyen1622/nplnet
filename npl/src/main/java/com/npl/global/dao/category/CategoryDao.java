@@ -24,6 +24,29 @@ public interface CategoryDao extends PagingAndSortingRepository<Category, String
 			, nativeQuery = true)
 	List<CategoryModel> findByComCd(String comId);
 	
+		@Query(value="   with recursive cte as (                                     "
+				+"        select cat_id as catId                                     "
+				+"           , CAST ( name AS text )                                 "
+				+"           , parent_id                                             "
+				+"           , 1 as level                                            "
+				+"           , unnest(array[cat_id]) as path_info                    "
+				+"        from categories                                            "
+				+"        where parent_id  is null and com_id = :comId               "
+				+"        union all                                                  "
+				+"        select c.cat_id                                            "
+				+"           , rpad('*', p.level * 2,'*') || c.name                  "
+				+"           , c.parent_id                                           "
+				+"           , p.level + 1                                           "
+				+"           , p.path_info||c.cat_id                                 "
+				+"        from categories c                                          "
+				+"          join cte p on c.parent_id  = p.catId                     "
+				+"     )                                                             "
+				+"     select *                                                      "
+				+"     from cte                                                      "
+				+"     order by path_info;                                           "
+				, nativeQuery = true)
+		List<CategoryModel> listCate(String comId);
+	
 	@Query(value=" SELECT cat_id  as catId                                "
 			+"      , name  as name                                       "
 			+"      , alias as alias                                      "
