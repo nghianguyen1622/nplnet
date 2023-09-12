@@ -20,14 +20,14 @@ function showDeleteConfirm(link, entityName, moduleURL) {
 						if(response.retCode && response.retCode == 'OK') {
 							Swal.fire('Thông báo!', response.retStr, 'success').then((result) => {
 								if (result.isConfirmed) {
-									removeTable();
+									afterSaveForm();
 								}
 							});;
 						} else {
 							if(response.retStr){
 								Swal.fire({ icon: 'error', title: response.retStr });
 							}	else {
-								removeTable();
+								afterSaveForm();
 							}
 						}
 					}
@@ -57,13 +57,13 @@ function save(url, data){
 						Swal.fire(response.retStr + '\n NO ' + response.keyValue, 'success')
 						.then((result) => {
 							if (result.isConfirmed) {
-								removeTable();
+								afterSaveForm();
 							}
 						});;
 					} else {
 						Swal.fire('Thông báo!', response.retStr, 'success').then((result) => {
 							if (result.isConfirmed) {
-								removeTable();
+								afterSaveForm();
 							}
 						});;
 					}	

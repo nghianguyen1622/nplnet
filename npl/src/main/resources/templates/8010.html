@@ -264,7 +264,7 @@
 			$("#newModal").trigger('reset'); 
 		});
 
-		function removeTable() {
+		function afterSaveForm() {
 			$('#myDataTable').DataTable().destroy();
 			$('#newModal').on('hidden.bs.modal', function() {
 			});

@@ -252,6 +252,10 @@
 		reader.readAsDataURL(file);
 	}
 	
+	function afterSaveForm() {
+		location.href=contextPath+"products";
+	}
+	
 	$(document).ready(function() {
 		var brandId = $("#brandId").val();
 		listCate("/listCate", brandId);

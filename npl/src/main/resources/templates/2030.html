@@ -58,7 +58,7 @@
                                 <div class="nk-block nk-block-lg">
                                         <div class="card card-bordered card-preview">
                                             <div class="card-inner">
-												<table class="datatable-init-export nowrap table" data-auto-responsive="true" data-export-title="Export">
+												<table id="myDataTable" class="datatable-init-export nowrap table" data-auto-responsive="true" data-export-title="Export">
 												</table>
 											</div>
                                         </div><!-- .card-preview -->
@@ -92,8 +92,12 @@
 		moduleURL = "[[@{/}]]";
 		
 		$(document).ready(function() {
-			deleteRow();
-			loadata();
+			$(document).on("click", ".link-delete", function(e) {
+				e.preventDefault();
+				var entityName = $(this).attr("data-entityName");
+				showDeleteConfirm($(this), entityName, moduleURL);
+			});
+			loaddata();
 		});
 		
 		function openInfoModal(){
@@ -104,15 +108,12 @@
 			location.href=moduleURL+"products/edit/"+id;
 		}
 		
-		function deleteRow() {
-			$(document).on("click", ".link-delete", function(e) {
-				e.preventDefault();
-				var entityName = $(this).attr("data-entityName");
-				showDeleteConfirm($(this), entityName, moduleURL);
-			});
+		function afterSaveForm() {
+			$('#myDataTable').DataTable().destroy();
+			loaddata();
 		}
 		
-		function loadata() {
+		function loaddata() {
 			var dataTableOptions = {
 					responsive: {
 						details: false

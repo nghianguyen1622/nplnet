@@ -162,7 +162,7 @@
 																		<label class="tableCodeFalse">Ảnh đại diện:</label>
 																	</div>
 																	<div class="m-2">
-																		<img id="thumbnail" alt="Main image preview" class="img-fluid" width="200px" th:src="@{'/'+${pdt.filePath}}">
+																		<img id="thumbnail" alt="Main image preview" class="img-fluid" width="200px"  th:src="@{${pdt.filePath} == null or ${#strings.isEmpty(pdt.filePath)} ? '/images/default-image.jpg' : '/'+${pdt.filePath}}">
 																	</div>
 																	<div id="myfileupload">
 																		<label for="imgupload" class="custom-file-upload btn btn-sm btn-dim btn-light">Chọn ảnh</label> 
@@ -373,6 +373,10 @@
 			$('#thumbnail').attr('src', e.target.result);
 		}
 		reader.readAsDataURL(file);
+	}
+	
+	function afterSaveForm() {
+		location.href=contextPath+"products";
 	}
 	
 	$(document).ready(function() {

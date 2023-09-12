@@ -299,10 +299,9 @@
 			$("#newModal").trigger('reset'); 
 		});
 
-		function removeTable() {
+		function afterSaveForm() {
+			$('#newModal').modal("hide");
 			$('#myDataTable').DataTable().destroy();
-			$('#newModal').on('hidden.bs.modal', function() {
-			});
 
 			loaddata();
 		}
