@@ -8,6 +8,7 @@ import com.npl.global.model.settings.ProgramModel;
 
 public interface ProgramService {
 
+	public List<ProgramDto> allPrograms();
 	public List<ProgramModel> listProgram();
 	
 	public List<ProgramDto> findMenuByUser(String userid);

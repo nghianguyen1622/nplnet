@@ -22,9 +22,32 @@ public class ProgramServiceImpl implements ProgramService{
 	private ProgramDaoExtend daoExtend;
 	
 	@Override
-	public List<ProgramModel> listProgram() {
-		// TODO Auto-generated method stub
-		return this.dao.getListPrograms();
+	public List<ProgramDto> allPrograms() {
+		List<ProgramModel> prgList = this.dao.getListPrograms();
+		
+		List<ProgramDto> menuDtos = new ArrayList<>();
+		for(ProgramModel info: prgList) {
+			ProgramDto menu = new ProgramDto();
+
+			menu.setPrgCd(info.getPrgCd());
+			menu.setPrgKind(info.getPrgKind());
+			menu.setMenuCd(info.getMenuCd());
+			menu.setMenuName(info.getMenuName());
+			menu.setFormNo(info.getFormNo());
+			menu.setFormName(info.getFormName());
+			menu.setUserid(info.getUserId());
+			menu.setHelpUrl(info.getHelpUrl());
+			menu.setDeleteYn(info.getDeleteYn());
+			menu.setExpImpYn(info.getExpImpYn());
+			menu.setInsertYn(info.getInsertYn());
+			menu.setUpdateYn(info.getUpdateYn());
+			menu.setUseYn(info.getUseYn());
+			menu.setPrintYn(info.getPrintYn());
+			
+			menuDtos.add(menu);
+		}
+		
+		return menuDtos;
 	}
 
 	@Override
@@ -66,6 +89,12 @@ public class ProgramServiceImpl implements ProgramService{
 	public ResultProcDto del(String prgCd) throws Exception {
 		// TODO Auto-generated method stub
 		return daoExtend.del(prgCd);
+	}
+
+	@Override
+	public List<ProgramModel> listProgram() {
+		// TODO Auto-generated method stub
+		return this.dao.getListPrograms();
 	}
 
 }

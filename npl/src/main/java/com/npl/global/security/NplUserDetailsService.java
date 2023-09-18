@@ -27,6 +27,7 @@ public class NplUserDetailsService implements UserDetailsService {
 		if(user != null) {
 			
 			List<ProgramDto> dtos = prgService.findMenuByUser(user.getUserId());
+			List<ProgramDto> mainlistMenu = prgService.allPrograms();
 			
 			NplUserDetails userDetails = new NplUserDetails(user);
 			userDetails.setDeviceName(InfoPcClientUtil.getDevice());
@@ -36,6 +37,7 @@ public class NplUserDetailsService implements UserDetailsService {
 	        userDetails.setMacAddress("");
 	        
 	        userDetails.setMyMenuList(dtos);
+	        userDetails.setMainList(mainlistMenu);
 	        
 			return userDetails;
 		}

@@ -25,37 +25,37 @@
 		<div class="nk-sidebar-element nk-sidebar-body">
 			<div class="nk-sidebar-content">
 				<div class="nk-sidebar-menu" data-simplebar>
-				<ul class="nk-menu">
+				<!-- <ul class="nk-menu">
 					<li class="nk-menu-heading">
 						<h6 class="overline-title text-primary-alt">Nhân sự</h6>
 					</li>
-					<!-- .nk-menu-item -->
+					
 					<li class="nk-menu-item"><a th:href="@{/users}" title="Quản lý nhân viên"
 						class="nk-menu-link"> <span class="nk-menu-icon"><em
 								class="icon ni ni-user-list-fill"></em></span> <span
 							class="nk-menu-text">Nhân viên</span>
 					</a></li>
-					<!-- .nk-menu-item -->
+					
 					<li class="nk-menu-item"><a href="#" title="Quản lý quỹ lương"
 						class="nk-menu-link"> <span class="nk-menu-icon"><em class="icon ni ni-sign-usdc-alt"></em></span> <span class="nk-menu-text">Quỹ
 								lương</span>
 					</a></li>
-					<!-- .nk-menu-item -->
+					
 					<li class="nk-menu-heading">
 						<h6 class="overline-title text-primary-alt">Bán hàng</h6>
 					</li>
-					<!-- .nk-menu-item -->
+					
 					<li class="nk-menu-item"><a th:href="@{/brands}" title="Quản lý thương hiệu"
 						class="nk-menu-link"> <span class="nk-menu-icon"><em class="icon ni ni-offer"></em></span> <span class="nk-menu-text">Thương
 								hiệu</span>
 					</a></li>
-					<!-- .nk-menu-item -->
+					
 					<li class="nk-menu-item"><a th:href="@{/categories}" title="Quản lý danh mục"
 						class="nk-menu-link"> <span class="nk-menu-icon"><em
 								class="icon ni ni-grid-alt"></em></span> <span class="nk-menu-text">Danh
 								mục</span>
 					</a></li>
-					<!-- .nk-menu-heading -->
+					
 					<li class="nk-menu-item has-sub"><a href="#" title="Quản lý sản phẩm"
 						class="nk-menu-link nk-menu-toggle"> <span
 							class="nk-menu-icon"><em class="icon ni ni-card-view"></em></span>
@@ -73,73 +73,84 @@
 							<li class="nk-menu-item"><a href="html/project-list.html"
 								class="nk-menu-link"><span class="nk-menu-text">Đã
 										xóa</span></a></li>
-						</ul> <!-- .nk-menu-sub --></li>
-					<!-- .nk-menu-item -->
+						</ul> .nk-menu-sub</li>
+					
 					<li class="nk-menu-item"><a th:href="@{/slider}" title="Quản lý Poster quảng cáo"
 						class="nk-menu-link"> <span class="nk-menu-icon"><em
 								class="icon ni ni-growth"></em></span> <span class="nk-menu-text">Quảng
 								cáo</span>
 					</a></li>
-					<!-- .nk-menu-item -->
+					
 					<li class="nk-menu-item"><a th:href="@{/customers}" title="Quản lý khách hàng"
 						class="nk-menu-link"> <span class="nk-menu-icon"><em
 								class="icon ni ni-users-fill"></em></span> <span class="nk-menu-text">Khách
 								hàng</span>
 					</a></li>
 
-					<!-- .nk-menu-item -->
+					
 					<li class="nk-menu-heading">
 						<h6 class="overline-title text-primary-alt">Doanh số</h6>
 					</li>
 
-					<!-- .nk-menu-item -->
+					
 					<li class="nk-menu-item"><a th:href="@{/orders}" title="Quản lý đơn hàng"
 						class="nk-menu-link"> <span class="nk-menu-icon"><em
 								class="icon ni ni-layers"></em></span> <span class="nk-menu-text">Đơn
 								hàng</span>
 					</a></li>
-					<!-- .nk-menu-item -->
+					
 					<li class="nk-menu-item"><a th:href="@{/reports}" title="Thống kê doanh số"
 						class="nk-menu-link"> <span class="nk-menu-icon"><em
 								class="icon ni ni-pie"></em></span> <span class="nk-menu-text">Thống
 								kê</span>
 					</a></li>
 
-					<!-- .nk-menu-item -->
+					
 					<li class="nk-menu-heading">
 						<h6 class="overline-title text-primary-alt">Chiến lược</h6>
 					</li>
 
-					<!-- .nk-menu-item -->
+					
 					<li class="nk-menu-item"><a th:href="@{/board}" title="Quản lý tin tức"
 						class="nk-menu-link"> <span class="nk-menu-icon"><em
 								class="icon ni ni-file-docs"></em></span> <span class="nk-menu-text">Tin
 								tức</span>
 					</a></li>
-					<!-- .nk-menu-item -->
+					
 					<li class="nk-menu-item"><a th:href="@{/notice}" title="Thông báo"
 						class="nk-menu-link"> <span class="nk-menu-icon"><em
 								class="icon ni ni-vol"></em></span> <span class="nk-menu-text">Thông
 								báo</span>
 					</a></li>
 
-					<!-- .nk-menu-item -->
+					
 					<li class="nk-menu-heading">
 						<h6 class="overline-title text-primary-alt">Hệ thống</h6>
 					</li>
 
-					<!-- .nk-menu-item -->
+					
 					<li class="nk-menu-item"><a th:href="@{/shipping_rates}" title="Quản lý khu vực giao hàng"
 						class="nk-menu-link"> <span class="nk-menu-icon"> <em
 								class="icon ni ni-map"></em></span> <span class="nk-menu-text">Khu
 								vực</span>
 					</a></li>
-					<!-- .nk-menu-item -->
+					
 					<li class="nk-menu-item"><a th:href="@{/settings}" title="Cài đặt hệ thống"
 						class="nk-menu-link"> <span class="nk-menu-icon"><em
 								class="icon ni ni-setting"></em></span> <span class="nk-menu-text">Cài
 								đặt</span>
 					</a></li>
+				</ul> -->
+
+				<ul class="nk-menu">
+					<th:block th:each="item : ${listMenus}">
+						<li class="nk-menu-item"><a th:href="${item.helpUrl}"
+							th:title="${item.menuName}" class="nk-menu-link"> <span
+								class="nk-menu-icon"><em
+									class="icon ni ni-user-list-fill"></em></span> <span
+								class="nk-menu-text">[[${item.menuName}]]</span>
+						</a></li>
+					</th:block>
 				</ul>
 
 				<!-- .nk-menu -->

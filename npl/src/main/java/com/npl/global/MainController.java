@@ -41,7 +41,8 @@ public class MainController {
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		NplUserDetails userDetails = (NplUserDetails) auth.getPrincipal();
-		System.out.println("===================  : " +userDetails.getMyMenuList());
+//		System.out.println("===================  : " +userDetails.getMyMenuList());
+//		System.out.println("-------------------  : " +userDetails.getMainList());
 
 		return "index";
 	}

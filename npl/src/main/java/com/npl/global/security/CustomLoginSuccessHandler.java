@@ -31,8 +31,8 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
         HttpSession session = request.getSession();
         if (session != null) {
         	
-        	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        	NplUserDetails userDetails = (NplUserDetails)auth.getPrincipal();
+        	authentication = SecurityContextHolder.getContext().getAuthentication();
+        	NplUserDetails userDetails = (NplUserDetails)authentication.getPrincipal();
 	    	try {
 	    		userService.findUserName(userDetails.getUser().getUsername());
 	    		
