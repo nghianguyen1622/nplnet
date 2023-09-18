@@ -3,6 +3,7 @@ package com.npl.global.service.settings;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.npl.global.dao.settings.CompanyDao;
 import com.npl.global.dao.settings.CompanyDaoExtend;
@@ -10,6 +11,7 @@ import com.npl.global.dto.ResultProcDto;
 import com.npl.global.dto.settings.CompanyDto;
 import com.npl.global.model.settings.CompanyModel;
 
+@Service
 public class CompanyServiceImpl implements CompanyService {
 	
 	@Autowired private CompanyDao dao;
