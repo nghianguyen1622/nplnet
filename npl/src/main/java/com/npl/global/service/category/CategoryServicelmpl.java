@@ -60,12 +60,6 @@ public class CategoryServicelmpl implements CategoryService {
 	}
 
 	@Override
-	public ResultProcDto saveCatImage(CategoryDto catDto) throws Exception {
-		// TODO Auto-generated method stub
-		return cateDaoExtends.callCatImage(catDto);
-	}
-
-	@Override
 	public List<CategoryModel> findByBrand(String comId, String brandId) {
 		// TODO Auto-generated method stub
 		return dao.findByBrand(comId, brandId);

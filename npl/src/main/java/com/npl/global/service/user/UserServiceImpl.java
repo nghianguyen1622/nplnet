@@ -45,9 +45,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<UserModel> findAll(String comId) {
+	public List<UserModel> findAll(String comId, String fromDate, String toDate) {
 		// TODO Auto-generated method stub
-		return userDao.findAll(comId);
+		return userDao.findAll(comId, fromDate, toDate);
 	}
 
 	@Override
@@ -66,13 +66,6 @@ public class UserServiceImpl implements UserService {
 	public List<RoleModel> findRole() {
 		// TODO Auto-generated method stub
 		return userDao.findRole();
-	}
-
-
-	@Override
-	public ResultProcDto saveUserImage(UserDto user) throws Exception {
-		// TODO Auto-generated method stub
-		return userDaoExtend.callUserImage(user);
 	}
 
 	@Override

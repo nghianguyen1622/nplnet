@@ -148,8 +148,8 @@
 			
 			var arr = [ {title:"Action", field:null, delEdit: true, className: "text-center", name:"pdtId"},
 						{title:"PDT ID", field:"pdtId"},
-						{title:"Name", field:"name", url:"/path/", id:"id"},
 						{title:"Image", field:"filePath", img: true, className: "text-center"},
+						{title:"Name", field:"name", url:"/path/", id:"id"},
 						{title:"Alias", field:"alias"},
 						{title:"Category", field:"categoryId"},
 						{title:"Brand", field:"brandId"},
@@ -165,7 +165,7 @@
 						{title:"Updated Time", field:"updatedTime"}
 						];
 			var arrURL = {api: "/2030", urlDel: "/2030/delete/"};
-			NioApp.DataTable.initWithUrlAndArr('.datatable-init-export', arrURL, arr, mergedOptions);
+			NioApp.DataTable.initWithUrlAndArr('.datatable-init-export', arrURL, "", arr, mergedOptions);
 				
 			}
 		

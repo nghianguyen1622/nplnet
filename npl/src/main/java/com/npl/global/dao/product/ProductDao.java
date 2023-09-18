@@ -18,7 +18,7 @@ public interface ProductDao extends PagingAndSortingRepository<Product, Integer>
 			+ "      , FULL_DES as  fullDes                               "
 			+ "      , enabled as  isEnabled                              "
 			+ "      , cost as cost                                       "
-			+ "      , uf_currency(price) as priceText                    "
+			+ "      , uf_currency(price, 'VN') as priceText              "
 			+ "      , DISCOUNT_PERCENT as disPer                         "
 			+ "      , qty as qty                                         "
 			+ "      , pdt_kind as pdtKind                                "

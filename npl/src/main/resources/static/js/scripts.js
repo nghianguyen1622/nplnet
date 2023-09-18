@@ -560,11 +560,12 @@
     
   };
   
-	NioApp.DataTable.initWithUrlAndArr = function (elm, arrURL, arr, opt) {
+	NioApp.DataTable.initWithUrlAndArr = function (elm, arrURL, conditon, arr,  opt) {
 		var myExternalOptions = {
 		ajax: {
 			url: arrURL.api,
-			dataSrc: ""
+			dataSrc: "",
+			data: conditon
 		},
 		
 		initComplete: function(settings, json) {

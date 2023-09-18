@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,12 +43,12 @@ public class UserRestController {
 	private Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	@GetMapping("/1010")
-	public  @ResponseBody List<UserModel> getAll() {
+	public  @ResponseBody List<UserModel> getAll(@RequestParam String fromDate, @RequestParam String toDate) {
 		try {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			NplUserDetails loggedUser = (NplUserDetails) authentication.getPrincipal();
 			String comId = loggedUser.getUser().getCompany().getComId();
-			List<UserModel> listUser = service.findAll(comId);
+			List<UserModel> listUser = service.findAll(comId, fromDate, toDate);
 			return listUser;
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -100,15 +101,6 @@ public class UserRestController {
 				userSave.setFilePath("fileupload/users/" + fileName);
 				userSave.setFileName(fileName);
 				userSave.setFileNameOrg(fileName);
-				
-//				userSave.setKindCD(comCd + "u10");
-//				userSave.setUserId(result.getKeyValue());
-//				
-//				ResultProcDto result1 = this.service.saveUserImage(userSave);
-//				if(!result1.getRetCode().equals(Constant.RETCODE_OK)) {
-//					return result1;
-//				}
-				
 			}else {
 				userSave.setFilePath("");
 				userSave.setFileName("");
@@ -127,7 +119,7 @@ public class UserRestController {
 	@RequestMapping(value = "/1010/delete/{userId}")
 	public  @ResponseBody ResultProcDto  delete( @PathVariable(name = "userId") String userId) {
 		try {
-			String fileName = this.service.findFileName(userId).getFileName();
+			String fileName = this.service.findUserName(userId).getFileName();
 			ResultProcDto result = this.service.delUser(userId);
 			
 			storageService.delete(fileName, "user");

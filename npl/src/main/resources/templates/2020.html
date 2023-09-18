@@ -99,7 +99,7 @@
 								<div class="form-group">
 									<label class="form-label" for="alias">Alias</label>
 									<div class="form-control-wrap">
-										<input class="form-control" type="text" th:field="*{alias}" required>
+										<input class="form-control" type="text" th:field="*{alias}" required readonly>
 									</div>
 								</div>
 							</div>
@@ -182,7 +182,6 @@
 		
 		function disabledControl(disabled){
 			$("#name").prop("readonly", disabled);
-			$("#alias").prop("readonly", disabled);
 			$('#parentId').prop('disabled', disabled);
 			$("#enable").prop( "disabled", disabled );
 			if(disabled){
@@ -279,7 +278,7 @@
 						{title:"Status", field:"isEnabled", status:true},
 						];
 			var arrURL = {api: "/2020", urlDel: "/2020/delete/"};
-			NioApp.DataTable.initWithUrlAndArr('.datatable-init-export', arrURL, arr, mergedOptions);
+			NioApp.DataTable.initWithUrlAndArr('.datatable-init-export', arrURL, "", arr, mergedOptions);
 		}
 		
 		$(document).on('click', '#cancelButton', function() { 
@@ -299,6 +298,11 @@
 			$(".date").datepicker({
 				format : 'dd-mm-yyyy'
 			});
+			
+			$('#name').on('input',function(){
+				$('#alias').val($(this).val().toLowerCase().replace(/ /g, '-'));
+			});
+			
 			$('#imgupload').change(function(){
 				 readURL(this);
 			});

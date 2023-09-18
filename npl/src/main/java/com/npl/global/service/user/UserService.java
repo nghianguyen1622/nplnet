@@ -12,10 +12,9 @@ public interface UserService {
 	public UserModel findUserName(String userId);
 	public User findUserNameParam(String userId);
 	
-	public List<UserModel> findAll(String comId);
+	public List<UserModel> findAll(String comId, String fromDate, String toDate);
 	public ResultProcDto saveUser(UserDto userSave) throws Exception;
 	public ResultProcDto delUser(String userId) throws Exception;
-	public ResultProcDto saveUserImage(UserDto user) throws Exception;
 	
 	public List<RoleModel> findRole();
 	public UserModel findFileName(String userId);

@@ -18,7 +18,7 @@ public class UserDaoExtend {
 	
 	public ResultProcDto callSaveUser(UserDto userDto){
 
-		final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("public.prc_user_callupin");
+		final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("\"PRC_USER\"");
 		
 		query.registerStoredProcedureParameter("p_user_id",         String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_user_name",       String.class,         ParameterMode.IN);
@@ -87,7 +87,7 @@ public class UserDaoExtend {
 	
 	public ResultProcDto callDellUser(String userId) throws Exception{
 
-		final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("public.prc_user_del");
+		final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("\"PRC_USER_DEL\"");
 		
 		query.registerStoredProcedureParameter("p_user_id",    String.class, ParameterMode.IN);
 		
@@ -107,43 +107,6 @@ public class UserDaoExtend {
 		}
 		
 		return resultProcDto;
-	}
-	
-	public ResultProcDto callUserImage(UserDto userDto){
-		
-		final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("public.prc_user_image");
-		
-		query.registerStoredProcedureParameter("p_user_id",         String.class,         ParameterMode.IN);
-		query.registerStoredProcedureParameter("p_com_id",          String.class,         ParameterMode.IN);
-		query.registerStoredProcedureParameter("p_kind_cd",         String.class,         ParameterMode.IN);
-		query.registerStoredProcedureParameter("p_file_path",       String.class,         ParameterMode.IN);
-		query.registerStoredProcedureParameter("p_file_name",       String.class,         ParameterMode.IN);
-		query.registerStoredProcedureParameter("p_file_name_org",   String.class,         ParameterMode.IN);
-		query.registerStoredProcedureParameter("p_work_user",       String.class,         ParameterMode.IN);
-		
-		query.registerStoredProcedureParameter(Constant.SP_RETCODE,       String.class, ParameterMode.OUT);
-		query.registerStoredProcedureParameter(Constant.SP_RETSTR,        String.class, ParameterMode.OUT);
-		
-		query.setParameter("p_user_id",                     userDto.getUserId());
-		query.setParameter("p_com_id",                      userDto.getComId());
-		query.setParameter("p_kind_cd",                     userDto.getKindCD());
-		query.setParameter("p_file_path",                   userDto.getFilePath());
-		query.setParameter("p_file_name",                   userDto.getFileName());
-		query.setParameter("p_file_name_org",               userDto.getFileNameOrg());
-		query.setParameter("p_work_user",                   userDto.getWorkUser());
-		
-		query.execute();
-		
-		ResultProcDto resultProcDto = new ResultProcDto();
-		if(query.getOutputParameterValue(Constant.SP_RETCODE) != null) {
-			resultProcDto.setRetCode(query.getOutputParameterValue(Constant.SP_RETCODE).toString());
-		}
-		if(query.getOutputParameterValue(Constant.SP_RETSTR) != null) {
-			resultProcDto.setRetStr(query.getOutputParameterValue(Constant.SP_RETSTR).toString());
-		}
-		
-		return resultProcDto;
-		
 	}
 	
 }

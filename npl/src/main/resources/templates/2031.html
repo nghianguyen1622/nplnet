@@ -64,7 +64,7 @@
 																	<div class="form-group">
 																		<label class="form-label" for="alias">Tên định danh</label>
 																		<div class="form-control-wrap">
-																			<input type="text" class="form-control" id="alias" th:field="*{alias}" required >
+																			<input type="text" class="form-control" id="alias" th:field="*{alias}" required readonly>
 																		</div>
 																	</div>
 																</div>
@@ -259,6 +259,10 @@
 	$(document).ready(function() {
 		var brandId = $("#brandId").val();
 		listCate("/listCate", brandId);
+		
+		$('#name').on('input',function(){
+			$('#alias').val($(this).val().toLowerCase().replace(/ /g, '-'));
+		});
 		
 		$('#imgupload').change(function(){
 			 readURL(this);

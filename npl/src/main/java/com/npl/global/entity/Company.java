@@ -39,8 +39,14 @@ public class Company implements Serializable {
 	@Column(name = "EMAIL")
 	private String eMail;
 
-	@Column(name = "LOGO")
-	private String logo;
+	@Column(name="FILE_NAME")
+	private String fileName;
+
+	@Column(name="FILE_NAME_ORG")
+	private String fileNameOrg;
+
+	@Column(name="FILE_PATH")
+	private String filePath;
 
 	@Column(name = "TEL")
 	private String tel;
@@ -112,12 +118,28 @@ public class Company implements Serializable {
 		this.eMail = eMail;
 	}
 
-	public String getLogo() {
-		return logo;
+	public String getFileName() {
+		return fileName;
 	}
 
-	public void setLogo(String logo) {
-		this.logo = logo;
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public String getFileNameOrg() {
+		return fileNameOrg;
+	}
+
+	public void setFileNameOrg(String fileNameOrg) {
+		this.fileNameOrg = fileNameOrg;
+	}
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
 	}
 
 	public String getTel() {
@@ -150,6 +172,22 @@ public class Company implements Serializable {
 
 	public void setAddr2(String addr2) {
 		this.addr2 = addr2;
+	}
+
+	public String getBankCd() {
+		return bankCd;
+	}
+
+	public void setBankCd(String bankCd) {
+		this.bankCd = bankCd;
+	}
+
+	public String getBankName() {
+		return bankName;
+	}
+
+	public void setBankName(String bankName) {
+		this.bankName = bankName;
 	}
 
 	public Date getWorkDate() {

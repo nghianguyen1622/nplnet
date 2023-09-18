@@ -26,7 +26,7 @@ public class ProductDaoExtends {
 	
 	public ResultProcDto callPdtSave(PdtDto pdtDto) throws Exception {
 	
-		final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("public.prc_pdt_callupin");
+		final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("\"PRC_PDT\"");
 		
 		query.registerStoredProcedureParameter("p_pdt_id",                  String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_com_id",                  String.class,         ParameterMode.IN);
@@ -99,7 +99,7 @@ public class ProductDaoExtends {
 	
 	public ResultProcDto callPdtDel(String id) throws Exception{
 
-		final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("public.prc_pdt_del");
+		final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("\"PRC_PDT_DEL\"");
 		
 		query.registerStoredProcedureParameter("p_pdt_id",    String.class, ParameterMode.IN);
 		
@@ -123,7 +123,7 @@ public class ProductDaoExtends {
 	
 public ResultProcDto callPdtImage(PdtDto pdtDto){
 		
-		final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("public.prc_pdt_image");
+		final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("\"PRC_PDT_IMG\"");
 		
 		query.registerStoredProcedureParameter("p_reg_no",          String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_pdt_id",          String.class,         ParameterMode.IN);
@@ -169,7 +169,7 @@ public ResultProcDto callPdtImage(PdtDto pdtDto){
 
 public ResultProcDto callPdtDetail(PdtDetailDto detailDto){
 	
-	final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("public.prc_pdt_detail");
+	final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("\"PRC_PDT_DETAIL\"");
 	
 	query.registerStoredProcedureParameter("p_pdt_id",          String.class,         ParameterMode.IN);
 	query.registerStoredProcedureParameter("p_com_id",          String.class,         ParameterMode.IN);
@@ -204,7 +204,7 @@ public ResultProcDto callPdtDetail(PdtDetailDto detailDto){
 }
 public ResultProcDto callDelDetail(String pdtId, int sortNo, String comId){
 	
-	final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("public.prc_pdt_deldetail");
+	final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("\"PRC_PDT_DETAIL_DEL\"");
 	
 	query.registerStoredProcedureParameter("p_pdt_id",          String.class,         ParameterMode.IN);
 	query.registerStoredProcedureParameter("p_com_id",          String.class,         ParameterMode.IN);

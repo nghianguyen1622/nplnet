@@ -40,9 +40,9 @@
 																		<label class="form-label">Lọc dữ liệu</label>
 																		<div class="form-control-wrap">
 																			<div class="input-daterange date-picker-range input-group">
-																				<input type="text" class="form-control" readonly="readonly"/>
+																				<input type="text" id="fromDate" class="form-control date" readonly="readonly"/>
 																				<div class="input-group-addon">Tới</div>
-																				<input type="text" class="form-control" readonly="readonly"/>
+																				<input type="text" id="toDate" class="form-control date" readonly="readonly"/>
 																			</div>
 																		</div>
 																	</div>
@@ -52,12 +52,12 @@
 																		<label class="form-label">Tìm mặc định</label>
 																		<div class="form-control-wrap">
 																			<div class="btn-group">
-																				<button type="button" class="btn btn-outline-light active">H.nay</button>
-																				<button type="button" class="btn btn-outline-light">Tuần này</button>
-																				<button type="button" class="btn btn-outline-light">Thg này</button>
-																				<button type="button" class="btn btn-outline-light">3 Thg trước</button>
-																				<button type="button" class="btn btn-outline-light">Năm nay</button>
-																				<button type="button" class="btn btn-outline-light">T.cả</button>
+																				<button type="button" id="today" class="btn btn-outline-light active">H.nay</button>
+																				<button type="button" id="lastWeek" class="btn btn-outline-light">Tuần trước</button>
+																				<button type="button" id="lastMonth" class="btn btn-outline-light">Thg trước</button>
+																				<button type="button" id="last3Months" class="btn btn-outline-light">3 Thg trước</button>
+																				<button type="button" id="lastYear" class="btn btn-outline-light">Năm trước</button>
+																				<button type="button" id="All" class="btn btn-outline-light">T.cả</button>
 																			</div>
 																		</div>
 																	</div>
@@ -376,54 +376,27 @@
 			var mergedOptions = Object.assign({}, mergedOptions,
 					dataTableOptions);
 
-			var arr = [ {
-				title : "Action",
-				field : null,
-				delEdit : true,
-				className : "text-center",
-				name : "userId"
-			}, {
-				title : "User Id",
-				field : "userId"
-			}, {
-				title : "User Name",
-				field : "userName"
-			}, {
-				title : "Img",
-				field : "filePath",
-				img : true
-			}, {
-				title : "Email",
-				field : "email"
-			}, {
-				title : "Adress",
-				field : "adress"
-			}, {
-				title : "Phone",
-				field : "phone"
-			}, {
-				title : "Bith Day",
-				field : "birthDay"
-			}, {
-				title : "Status",
-				field : "enabled",
-				status : true
-			}, {
-				title : "Work User",
-				field : "workUser"
-			}, {
-				title : "Update Time",
-				field : "updatedTime"
-			}, {
-				title : "Create Time",
-				field : "createdTime"
-			}, ];
-			var arrURL = {
-				api : "/1010",
-				urlDel : "/1010/delete/"
-			};
-			NioApp.DataTable.initWithUrlAndArr('.datatable-init-export',
-					arrURL, arr, mergedOptions);
+			var arr = [ { title : "Action", field : null, delEdit : true, className : "text-center", name : "userId" },
+						{ title : "User Id", field : "userId" },
+						{ title : "User Name", field : "userName" },
+						{ title : "Img", field : "filePath", img : true },
+						{ title : "Email", field : "email" },
+						{ title : "Adress", field : "adress" },
+						{ title : "Phone", field : "phone" },
+						{ title : "Bith Day", field : "birthDay" },
+						{ title : "Status", field : "enabled", status : true },
+						{ title : "Work User", field : "workUser" },
+						{ title : "Update Time", field : "updatedTime" },
+						{ title : "Create Time", field : "createdTime" }, 
+					];
+			var arrURL = { 	api : "/1010",
+							urlDel : "/1010/delete/"
+						};
+			var conditon = { fromDate : $("#fromDate").val() ,
+							toDate : $("#toDate").val() ,
+							}
+			
+			NioApp.DataTable.initWithUrlAndArr('.datatable-init-export', arrURL, conditon, arr, mergedOptions);
 		}
 		
 		$(document).on('click', '#cancelButton', function() { 
@@ -441,8 +414,17 @@
 			$(".date").datepicker({
 				format : 'dd-mm-yyyy'
 			});
-			$('#imgupload').change(function(){
-				 readURL(this);
+			
+			$('#imgupload').change(function() {
+				readURL(this);
+			});
+			$('#fromDate').change(function() {
+				console.log($(this).val());
+				afterSaveForm();
+			});
+			$('#toDate').change(function() {
+				console.log($(this).val());
+				afterSaveForm();
 			});
 
 			$('#formUser').on('submit', function(e) {
@@ -450,10 +432,10 @@
 				var form0 = $('#formUser')[0];
 				var data = new FormData(form0);
 				var fileInput = document.getElementById("imgupload");
-				
-				data.append("delYN"  , "Y");
-				data.append("editYN" , "Y");
-				data.append("useYN"  , "Y");
+
+				data.append("delYN", "Y");
+				data.append("editYN", "Y");
+				data.append("useYN", "Y");
 				if (fileInput.files.length > 0) {
 					data.append("fileData", fileInput.files[0]);
 				}

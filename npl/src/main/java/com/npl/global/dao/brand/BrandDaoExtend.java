@@ -21,14 +21,14 @@ public class BrandDaoExtend {
 	
 	public ResultProcDto callBrandSave(BrandDto brandDto) throws JsonProcessingException{
 
-		final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("public.prc_brand_callupin");
+		final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("\"PRC_BRAND\"");
 		
 		query.registerStoredProcedureParameter("p_brand_id",        String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_name",            String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_file_name",       String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_file_name_org",   String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_file_path",       String.class,         ParameterMode.IN);
-		query.registerStoredProcedureParameter("p_list_cate",       String.class,       ParameterMode.IN);
+		query.registerStoredProcedureParameter("p_list_cate",       String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_enabled",         String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_com_id",          String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_work_user",       String.class,         ParameterMode.IN);
@@ -70,7 +70,7 @@ public class BrandDaoExtend {
 	
 	public ResultProcDto callBrandDel(String id) throws Exception{
 
-		final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("public.prc_brand_del");
+		final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("\"PRC_BRAND_DEL\"");
 		
 		query.registerStoredProcedureParameter("p_brand_id",    String.class, ParameterMode.IN);
 		

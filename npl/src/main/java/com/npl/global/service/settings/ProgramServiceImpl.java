@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.npl.global.dao.settings.ProgramDao;
+import com.npl.global.dao.settings.ProgramDaoExtend;
+import com.npl.global.dto.ResultProcDto;
 import com.npl.global.dto.settings.ProgramDto;
 import com.npl.global.model.settings.ProgramModel;
 
@@ -15,6 +17,9 @@ public class ProgramServiceImpl implements ProgramService{
 
 	@Autowired
 	private ProgramDao dao;
+	
+	@Autowired
+	private ProgramDaoExtend daoExtend;
 	
 	@Override
 	public List<ProgramModel> listProgram() {
@@ -49,6 +54,18 @@ public class ProgramServiceImpl implements ProgramService{
 		}
 		
 		return menuDtos;
+	}
+
+	@Override
+	public ResultProcDto save(ProgramDto dto) {
+		// TODO Auto-generated method stub
+		return daoExtend.save(dto);
+	}
+
+	@Override
+	public ResultProcDto del(String prgCd) throws Exception {
+		// TODO Auto-generated method stub
+		return daoExtend.del(prgCd);
 	}
 
 }

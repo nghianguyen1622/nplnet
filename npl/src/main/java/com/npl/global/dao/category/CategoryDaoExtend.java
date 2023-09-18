@@ -19,7 +19,7 @@ public class CategoryDaoExtend {
 	
 	public ResultProcDto callCateSave(CategoryDto cateDto){
 
-		final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("public.prc_category_callupin");
+		final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("\"PRC_CATEGORY\"");
 		
 		query.registerStoredProcedureParameter("p_cat_id",          String.class,         ParameterMode.IN);
 		query.registerStoredProcedureParameter("p_name",            String.class,         ParameterMode.IN);
@@ -68,7 +68,7 @@ public class CategoryDaoExtend {
 	
 	public ResultProcDto callCatDel(String id) throws Exception{
 
-		final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("public.prc_category_del");
+		final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("\"PRC_CATEGORY_DEL\"");
 		
 		query.registerStoredProcedureParameter("p_cat_id",    String.class, ParameterMode.IN);
 		
@@ -90,40 +90,4 @@ public class CategoryDaoExtend {
 		return resultProcDto;
 	}
 	
-public ResultProcDto callCatImage(CategoryDto catDto){
-		
-		final StoredProcedureQuery query = entityManager.createStoredProcedureQuery("public.prc_cat_image");
-		
-		query.registerStoredProcedureParameter("p_cat_id",         String.class,         ParameterMode.IN);
-		query.registerStoredProcedureParameter("p_com_id",          String.class,         ParameterMode.IN);
-		query.registerStoredProcedureParameter("p_kind_cd",         String.class,         ParameterMode.IN);
-		query.registerStoredProcedureParameter("p_file_path",       String.class,         ParameterMode.IN);
-		query.registerStoredProcedureParameter("p_file_name",       String.class,         ParameterMode.IN);
-		query.registerStoredProcedureParameter("p_file_name_org",   String.class,         ParameterMode.IN);
-		query.registerStoredProcedureParameter("p_work_user",       String.class,         ParameterMode.IN);
-		
-		query.registerStoredProcedureParameter(Constant.SP_RETCODE,       String.class, ParameterMode.OUT);
-		query.registerStoredProcedureParameter(Constant.SP_RETSTR,        String.class, ParameterMode.OUT);
-		
-		query.setParameter("p_cat_id",                     catDto.getCatId());
-		query.setParameter("p_com_id",                      catDto.getComId());
-		query.setParameter("p_kind_cd",                     catDto.getKindCd());
-		query.setParameter("p_file_path",                   catDto.getFilePath());
-		query.setParameter("p_file_name",                   catDto.getFileName());
-		query.setParameter("p_file_name_org",               catDto.getFileNameOrg());
-		query.setParameter("p_work_user",                   catDto.getWorkUser());
-		
-		query.execute();
-		
-		ResultProcDto resultProcDto = new ResultProcDto();
-		if(query.getOutputParameterValue(Constant.SP_RETCODE) != null) {
-			resultProcDto.setRetCode(query.getOutputParameterValue(Constant.SP_RETCODE).toString());
-		}
-		if(query.getOutputParameterValue(Constant.SP_RETSTR) != null) {
-			resultProcDto.setRetStr(query.getOutputParameterValue(Constant.SP_RETSTR).toString());
-		}
-		
-		return resultProcDto;
-		
-	}
 }

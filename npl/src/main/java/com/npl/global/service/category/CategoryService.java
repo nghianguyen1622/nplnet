@@ -15,6 +15,5 @@ public interface CategoryService {
 	
 	public ResultProcDto saveCate(CategoryDto CateSave) throws Exception;
 	public ResultProcDto delCat(String catId) throws Exception;
-	public ResultProcDto saveCatImage(CategoryDto catDto) throws Exception;
 
 }
