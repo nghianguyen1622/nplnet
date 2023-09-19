@@ -43,7 +43,7 @@
                                                                 <a href="#" class="dropdown-toggle btn btn-icon btn-primary" data-bs-toggle="dropdown"><em class="icon ni ni-plus"></em></a>
                                                                 <div class="dropdown-menu dropdown-menu-end">
                                                                     <ul class="link-list-opt no-bdr">
-                                                                        <li><a th:href="@{/products/2031}"><span>Thêm sản phẩm</span></a></li>
+                                                                        <li><a th:href="@{/2031}"><span>Thêm sản phẩm</span></a></li>
                                                                         <li><a href="#"><span>Thông báo đã hết hạn</span></a></li>
                                                                     </ul>
                                                                 </div>
@@ -105,7 +105,7 @@
 		}
 
 		function openEditModal(id) {
-			location.href=moduleURL+"products/edit/"+id;
+			location.href=moduleURL+"2032/"+id;
 		}
 		
 		function afterSaveForm() {
@@ -164,7 +164,7 @@
 						{title:"Created Time", field:"createdTime"},
 						{title:"Updated Time", field:"updatedTime"}
 						];
-			var arrURL = {api: "/2030", urlDel: "/2030/delete/"};
+			var arrURL = {api: "/2030/list", urlDel: "/2030/delete/"};
 			NioApp.DataTable.initWithUrlAndArr('.datatable-init-export', arrURL, "", arr, mergedOptions);
 				
 			}

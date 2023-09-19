@@ -243,7 +243,7 @@
 	<script th:src="@{/js/commom-list.js}"></script>
 	<script th:src="@{/js/commom-form.js}"></script>
 	<script type="text/javascript">
-		moduleURL = "[[@{/notice}]]";
+		moduleURL = "[[@{/1010}]]";
 		contextPath = "[[@{/}]]";
 		MAX_FILE_SIZE = 5000000; //5MB
 		
@@ -389,7 +389,7 @@
 						{ title : "Update Time", field : "updatedTime" },
 						{ title : "Create Time", field : "createdTime" }, 
 					];
-			var arrURL = { 	api : "/1010",
+			var arrURL = { 	api : "/1010/list",
 							urlDel : "/1010/delete/"
 						};
 			var conditon = { fromDate : $("#fromDate").val() ,

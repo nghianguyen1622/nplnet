@@ -30,6 +30,7 @@ public class ProgramDto implements Serializable{
 	private String pCd;
 	private String userid;
 	private String icon;
+	private String sortNo;
 	
 	private YesNoStatus useYnStatus;
 	private YesNoStatus printYnStatus;
@@ -199,6 +200,14 @@ public class ProgramDto implements Serializable{
 
 	public void setIcon(String icon) {
 		this.icon = icon;
+	}
+
+	public String getSortNo() {
+		return sortNo;
+	}
+
+	public void setSortNo(String sortNo) {
+		this.sortNo = sortNo;
 	}
 
 	public YesNoStatus getUseYnStatus() {

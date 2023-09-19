@@ -1,6 +1,5 @@
 package com.npl.global.controller.product;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -12,8 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.npl.global.common.CheckUtil;
 import com.npl.global.dto.product.PdtDto;
 import com.npl.global.model.brand.BrandModel;
 import com.npl.global.model.category.CategoryModel;
@@ -30,14 +29,17 @@ public class ProductController {
 	@Autowired private ProductService service;
 	@Autowired private CategoryService cateService;
 	@Autowired private BrandService brandService;
+	@Autowired private CheckUtil checkYN;
 	
-	@GetMapping("/products")
-	public String viewHomePage(Model model) {
+	@GetMapping("/2030")
+	public String viewPage(Model model) {
 		model.addAttribute("pageTitle", "Quản lý sản phẩm");
-		return "2030";
+		String urlHepl = "/2030";
+		String htmlNo = "2030";
+		return checkYN.canAccess(urlHepl, htmlNo);
 	}
 	
-	@GetMapping("/products/2031")
+	@GetMapping("/2031")
 	public String view2031(Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		NplUserDetails loggedUser = (NplUserDetails) authentication.getPrincipal();
@@ -55,7 +57,7 @@ public class ProductController {
 		return "2031";
 	}
 	
-	@GetMapping("/products/edit/{pdtId}")
+	@GetMapping("/2032/{pdtId}")
 	public String getInfo(@PathVariable(name = "pdtId") String pdtId, Model model) {
 		try {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

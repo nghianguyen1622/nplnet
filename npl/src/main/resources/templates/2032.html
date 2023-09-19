@@ -236,10 +236,10 @@
 	var csrfHeaderName = "[[${_csrf.headerName}]]";
 	var csrfValue = "[[${_csrf.token}]]";
 	
-	moduleURL = "[[@{/products}]]";
-	brandModuleURL = "[[@{/brands}]]";
+	moduleURL = "[[@{/2030}]]";
+	brandModuleURL = "[[@{/2010}]]";
 	defaultImageThumbnailSrc = "[[@{/images/default-image.jpg}]]";
-	checkUniqueUrl = "[[@{/products/check_unique}]]";
+	checkUniqueUrl = "[[@{/2030/check_unique}]]";
 	
 	$('#fullDes').summernote({
 		minHeight: 150,
@@ -376,7 +376,7 @@
 	}
 	
 	function afterSaveForm() {
-		location.href=contextPath+"products";
+		location.href=contextPath+"2030";
 	}
 	
 	$(document).ready(function() {

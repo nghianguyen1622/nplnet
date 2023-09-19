@@ -39,7 +39,7 @@ public class ProductRestController {
 	@Autowired
 	private StorageService storageService;
 	
-	@GetMapping("/2030")
+	@GetMapping("/2030/list")
 	public  @ResponseBody List<ProductModel> getAll() {
 		try {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

@@ -45,9 +45,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<UserModel> findAll(String comId, String fromDate, String toDate) {
+	public List<UserModel> findAll(String fromDate, String toDate) {
 		// TODO Auto-generated method stub
-		return userDao.findAll(comId, fromDate, toDate);
+		return userDao.findAll(fromDate, toDate);
+	}
+	
+	@Override
+	public List<UserModel> findByComId(String comId, String fromDate, String toDate) {
+		// TODO Auto-generated method stub
+		return userDao.findByComId(comId, fromDate, toDate);
 	}
 
 	@Override

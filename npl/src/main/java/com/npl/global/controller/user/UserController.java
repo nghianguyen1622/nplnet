@@ -19,12 +19,12 @@ public class UserController {
 	
 	@Autowired UserService servide;
 	
-	@GetMapping("/users")
+	@GetMapping("/1010")
 	public String viewHomePage(Model model) {
 		try {
 			UserDto user = new UserDto();
 			List<RoleModel> listRole = servide.findRole();
-			model.addAttribute("pageTitle", "Quản lý User");
+			model.addAttribute("pageTitle", "Quản lý thành viên");
 			model.addAttribute("listRole", listRole);
 			model.addAttribute("user", user);
 		} catch (Exception e) {

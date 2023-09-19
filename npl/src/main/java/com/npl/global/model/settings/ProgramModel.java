@@ -24,5 +24,6 @@ public interface ProgramModel {
 	public String getViewYn();
 	public String getUserId();
 	public String getIcon();
+	public String getSortNo();
 	public List<UserMenu> getUserMenus();
 }

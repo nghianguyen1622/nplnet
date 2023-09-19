@@ -32,7 +32,7 @@ public class BrandRestController {
 	@Autowired
 	private StorageService storageService;
 	
-	@GetMapping("/2010")
+	@GetMapping("/2010/list")
 	public  @ResponseBody List<BrandModel> getAll() {
 		try {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

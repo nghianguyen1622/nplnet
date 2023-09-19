@@ -150,14 +150,14 @@
 	
 	<script th:src="@{/js/commom-list.js}"></script>
 	<script type="text/javascript">
-		moduleURL = "[[@{/notice}]]";
+		moduleURL = "[[@{/4020}]]";
 		contextPath = "[[@{/}]]";
 		
 		var csrfHeaderName = "[[${_csrf.headerName}]]";
 		var csrfValue = "[[${_csrf.token}]]";
 		
 		function fetchDataById(id, callback){
-			var url = contextPath+ "8010/"+id.toString();
+			var url = contextPath+ "4020/"+id.toString();
 			$.ajax({
 				type: "Get",
 				url: url,
@@ -253,7 +253,7 @@
 						{title:"Content", field:"content"},
 						{title:"Start Date", field:"startDate"},
 						{title:"End Date", field:"endDate"}];
-			var arrURL = {api: "/notice/8010", urlDel: "/8010/delete/"};
+			var arrURL = {api: "/4020/list", urlDel: "/4020/delete/"};
 			NioApp.DataTable.initWithUrlAndArr('.datatable-init-export', arrURL, arr, mergedOptions);
 		}
 		
@@ -291,7 +291,7 @@
 					popup : ($("#poppup").is(":checked") ? "Y" : "N")
 				};
 
-				save("/board/save", data);
+				save("/4020/save", data);
 			});
 
 			loaddata();

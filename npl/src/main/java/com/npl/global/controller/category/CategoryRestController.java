@@ -33,7 +33,7 @@ public class CategoryRestController {
 	@Autowired
 	private StorageService storageService;
 	
-	@GetMapping("/2020")
+	@GetMapping("/2020/list")
 	public  @ResponseBody List<CategoryModel> getAll() {
 		try {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

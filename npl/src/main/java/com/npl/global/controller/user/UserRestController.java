@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.npl.global.common.CheckUtil;
 import com.npl.global.common.Constant;
 import com.npl.global.common.FileUploadUtil;
 import com.npl.global.dao.user.UserDao;
@@ -34,6 +35,8 @@ public class UserRestController {
 
 	@Autowired private UserService service;
 	
+	@Autowired private CheckUtil checkUtil;
+	
 	@Autowired
 	private StorageService storageService;
 	
@@ -42,13 +45,10 @@ public class UserRestController {
 	
 	private Logger logger = LoggerFactory.getLogger(UserController.class);
 	
-	@GetMapping("/1010")
+	@GetMapping("/1010/list")
 	public  @ResponseBody List<UserModel> getAll(@RequestParam String fromDate, @RequestParam String toDate) {
 		try {
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			NplUserDetails loggedUser = (NplUserDetails) authentication.getPrincipal();
-			String comId = loggedUser.getUser().getCompany().getComId();
-			List<UserModel> listUser = service.findAll(comId, fromDate, toDate);
+			List<UserModel> listUser = service.findAll(fromDate, toDate);
 			return listUser;
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -59,9 +59,6 @@ public class UserRestController {
 	@GetMapping("/1010/{id}")
 	public  @ResponseBody UserModel getInfo(@PathVariable(name = "id") String userId) {
 		try {
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			NplUserDetails loggedUser = (NplUserDetails) authentication.getPrincipal();
-			String comId = loggedUser.getUser().getCompany().getComId();
 			UserModel userInfo = service.findUserName(userId);
 			return userInfo;
 		} catch (Exception e) {

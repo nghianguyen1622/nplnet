@@ -24,7 +24,7 @@ function getCategoriesForNewForm(){
 
 function getCategories() {
 	brandId = dropdownBrands.val();
-	url = brandModuleURL + "/" + brandId + "/categories";
+	url = brandModuleURL + "/" + brandId + "/2020";
 
 	$.get(url, function(responseJson) {
 		$.each(responseJson, function(index, category) {

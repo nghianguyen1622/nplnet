@@ -29,7 +29,7 @@ public class NoticeRestController {
 	
 	private Logger logger = LoggerFactory.getLogger(NoticeController.class);
 
-	@GetMapping("/notice/8010")
+	@GetMapping("/4020/list")
 	public  @ResponseBody List<NoticeModel> getAll() {
 		try {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -57,7 +57,7 @@ public class NoticeRestController {
 		}
 	}
 	
-	@PostMapping(value = "/board/save")
+	@PostMapping(value = "/4020/save")
 	public @ResponseBody ResultProcDto save(@RequestBody NoticeDto NoticeAddSave) {
 		try {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -79,7 +79,7 @@ public class NoticeRestController {
 		}
 	}
 	
-	@RequestMapping(value = "/8010/delete/{id}")
+	@RequestMapping(value = "/4020/delete/{id}")
 	public  @ResponseBody ResultProcDto  delete( @PathVariable(name = "id") String boardNo) {
 		try {
 			ResultProcDto result = this.service.delNotice(boardNo);

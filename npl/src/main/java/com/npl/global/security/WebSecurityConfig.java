@@ -68,23 +68,12 @@ public class WebSecurityConfig{
                         "/js/**",
                         "/webjars/**").permitAll()
 //                .antMatchers("/**").hasAuthority("Admin")
-                .antMatchers("/settings/**", "/countries/**", "/states/**").hasAuthority("Admin")
+                .antMatchers("/1010/**", "/6010/**", "/6030/**").hasAuthority("Admin")
 
-                .antMatchers("/products", "/products/detail/**", "/products/page/**", "/products/export/",
-                		"/reports/**", "/download", "/backuplist",
-                		"/brands", "/brands/page/**",
-                		"/categories", "/categories/page/**", "/categories/export/**",
-                		"/customers", "/customers/page/**", "/customers/detail/**",
-                		"/notice", "/notice/page/**",
-                		"/orders", "/orders/page/**", "/orders/detail/**",
-                		"/board", "/board/page/**", "/board/detail/**",
-                		"/shipping_rates", "/shipping_rates/page/**",
-                		"/slider","/slider/page/**",
-                		"/account", "/users", "/users/page/**", "/users/export/**")
+                .antMatchers("/1020/**", "/1030/**", "/2010/**", "/2020/**", "/2030/**", "/2040/**",
+                		"/3010/**", "/3020/**", "/3030/**", "/3040/**", "/4010/**", "/4020/**", "/4030/**", "/4040/**"
+                		)
                 .hasAnyAuthority("Admin", "Member" , "Review")
-                
-				.antMatchers("/users/**", "/products/**", "/board/**", "/customers/**", "/orders/**", "/reports/**",
-                		"/categories/**", "/brands/**", "/slider/**", "/notice/**", "/shipping_rates/**" ).hasAnyAuthority("Admin", "Member")
 
                 .anyRequest().authenticated()
                 .and()

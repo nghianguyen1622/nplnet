@@ -15,7 +15,6 @@ import com.npl.global.entity.Company;
 import com.npl.global.entity.Program;
 import com.npl.global.entity.Role;
 import com.npl.global.entity.User;
-import com.npl.global.model.user.UserModel;
 
 public class NplUserDetails implements UserDetails {
 	private static final long serialVersionUID = 1L;
