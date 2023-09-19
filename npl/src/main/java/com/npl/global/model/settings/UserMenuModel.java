@@ -1,10 +1,8 @@
 package com.npl.global.model.settings;
 
-import com.npl.global.entity.Program;
-
 public interface UserMenuModel {
 
-	public String getId();
+	public String getMenuId();
 	public String getCreatedTime();
 	public String getUpdatedTime();
 	public String getWorkUser();

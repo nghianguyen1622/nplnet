@@ -10,6 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.npl.global.dto.settings.ProgramDto;
+import com.npl.global.dto.settings.UserMenuDto;
 import com.npl.global.entity.Company;
 import com.npl.global.entity.Program;
 import com.npl.global.entity.Role;
@@ -39,6 +40,7 @@ public class NplUserDetails implements UserDetails {
 
 	private List<ProgramDto> myMenuList;
 	private List<ProgramDto> mainList;
+	private List<UserMenuDto> userMenuList;
 
 	private String deviceName;
 	private String ipAddress;
@@ -248,6 +250,14 @@ public class NplUserDetails implements UserDetails {
 
 	public void setCredentialsNonExpired(boolean credentialsNonExpired) {
 		this.credentialsNonExpired = credentialsNonExpired;
+	}
+
+	public List<UserMenuDto> getUserMenuList() {
+		return userMenuList;
+	}
+
+	public void setUserMenuList(List<UserMenuDto> userMenuList) {
+		this.userMenuList = userMenuList;
 	}
 
 }

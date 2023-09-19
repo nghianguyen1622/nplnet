@@ -58,6 +58,12 @@ public class Program implements Serializable {
 
 	@Column(name = "VIEW_YN")
 	private String viewYn;
+	
+	@Column(name = "SORT_NO")
+	private String sortNo;
+	
+	@Column(name = "ICON")
+	private String icon;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "P_CD")
@@ -222,5 +228,21 @@ public class Program implements Serializable {
 
 	public void setUserMenus(List<UserMenu> userMenus) {
 		this.userMenus = userMenus;
+	}
+
+	public String getSortNo() {
+		return sortNo;
+	}
+
+	public void setSortNo(String sortNo) {
+		this.sortNo = sortNo;
+	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
 	}
 }

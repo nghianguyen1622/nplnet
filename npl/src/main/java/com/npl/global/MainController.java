@@ -1,6 +1,5 @@
 package com.npl.global;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,6 +42,7 @@ public class MainController {
 		NplUserDetails userDetails = (NplUserDetails) auth.getPrincipal();
 //		System.out.println("===================  : " +userDetails.getMyMenuList());
 //		System.out.println("-------------------  : " +userDetails.getMainList());
+		System.out.println("-------------------  : " +userDetails.getUserMenuList());
 
 		return "index";
 	}

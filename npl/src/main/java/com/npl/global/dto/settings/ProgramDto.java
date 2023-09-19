@@ -1,9 +1,16 @@
 package com.npl.global.dto.settings;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class ProgramDto {
+import com.npl.global.common.YesNoStatus;
 
+public class ProgramDto implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String prgCd;
 	private String deleteYn;
 	private String expImpYn;
@@ -22,8 +29,24 @@ public class ProgramDto {
 	private String viewYn;
 	private String pCd;
 	private String userid;
+	private String icon;
+	
+	private YesNoStatus useYnStatus;
+	private YesNoStatus printYnStatus;
+	private YesNoStatus updateYnStatus;
+	private YesNoStatus insertYnStatus;
+	private YesNoStatus viewYnStatus;
 
 	public ProgramDto() {
+	}
+
+	public ProgramDto(YesNoStatus useYnStatus, YesNoStatus printYnStatus, YesNoStatus updateYnStatus,
+			YesNoStatus insertYnStatus, YesNoStatus viewYnStatus) {
+		this.useYnStatus = useYnStatus;
+		this.printYnStatus = printYnStatus;
+		this.updateYnStatus = updateYnStatus;
+		this.insertYnStatus = insertYnStatus;
+		this.viewYnStatus = viewYnStatus;
 	}
 
 	public String getPrgCd() {
@@ -168,6 +191,54 @@ public class ProgramDto {
 
 	public void setUserid(String userid) {
 		this.userid = userid;
+	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
+	public YesNoStatus getUseYnStatus() {
+		return useYnStatus;
+	}
+
+	public void setUseYnStatus(YesNoStatus useYnStatus) {
+		this.useYnStatus = useYnStatus;
+	}
+
+	public YesNoStatus getPrintYnStatus() {
+		return printYnStatus;
+	}
+
+	public void setPrintYnStatus(YesNoStatus printYnStatus) {
+		this.printYnStatus = printYnStatus;
+	}
+
+	public YesNoStatus getUpdateYnStatus() {
+		return updateYnStatus;
+	}
+
+	public void setUpdateYnStatus(YesNoStatus updateYnStatus) {
+		this.updateYnStatus = updateYnStatus;
+	}
+
+	public YesNoStatus getInsertYnStatus() {
+		return insertYnStatus;
+	}
+
+	public void setInsertYnStatus(YesNoStatus insertYnStatus) {
+		this.insertYnStatus = insertYnStatus;
+	}
+
+	public YesNoStatus getViewYnStatus() {
+		return viewYnStatus;
+	}
+
+	public void setViewYnStatus(YesNoStatus viewYnStatus) {
+		this.viewYnStatus = viewYnStatus;
 	}
 
 }

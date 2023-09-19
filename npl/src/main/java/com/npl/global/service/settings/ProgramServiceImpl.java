@@ -23,7 +23,7 @@ public class ProgramServiceImpl implements ProgramService{
 	
 	@Override
 	public List<ProgramDto> allPrograms() {
-		List<ProgramModel> prgList = this.dao.getListPrograms();
+		List<ProgramModel> prgList = this.dao.allPrograms();
 		
 		List<ProgramDto> menuDtos = new ArrayList<>();
 		for(ProgramModel info: prgList) {
@@ -43,6 +43,7 @@ public class ProgramServiceImpl implements ProgramService{
 			menu.setUpdateYn(info.getUpdateYn());
 			menu.setUseYn(info.getUseYn());
 			menu.setPrintYn(info.getPrintYn());
+			menu.setIcon(info.getIcon());
 			
 			menuDtos.add(menu);
 		}
@@ -72,6 +73,7 @@ public class ProgramServiceImpl implements ProgramService{
 			menu.setUpdateYn(info.getUpdateYn());
 			menu.setUseYn(info.getUseYn());
 			menu.setPrintYn(info.getPrintYn());
+			menu.setIcon(info.getIcon());
 			
 			menuDtos.add(menu);
 		}

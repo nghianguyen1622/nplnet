@@ -146,9 +146,8 @@
 					<th:block th:each="item : ${listMenus}">
 						<li class="nk-menu-item"><a th:href="${item.helpUrl}"
 							th:title="${item.menuName}" class="nk-menu-link"> <span
-								class="nk-menu-icon"><em
-									class="icon ni ni-user-list-fill"></em></span> <span
-								class="nk-menu-text">[[${item.menuName}]]</span>
+								class="nk-menu-icon"><em th:class="'icon ni ' + ${item.icon}"></em></span> <span
+								class="nk-menu-text"> [[${item.menuName}]]</span>
 						</a></li>
 					</th:block>
 				</ul>

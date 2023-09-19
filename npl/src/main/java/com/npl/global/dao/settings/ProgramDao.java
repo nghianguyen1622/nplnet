@@ -33,6 +33,7 @@ public interface ProgramDao extends PagingAndSortingRepository<Program, String>{
 			+"      , UPDATE_YN AS updateYn                              "  
 			+"      , USE_YN AS useYn                                    "  
 			+"      , VIEW_YN AS viewYn                                  "  
+			+"      , ICON AS icon                                       "  
 			+"    FROM Program                                           "  
 			, nativeQuery = true)
 	public List<ProgramModel> allPrograms();
@@ -54,7 +55,9 @@ public interface ProgramDao extends PagingAndSortingRepository<Program, String>{
 			+"      , UPDATE_YN AS updateYn                              "  
 			+"      , USE_YN AS useYn                                    "  
 			+"      , VIEW_YN AS viewYn                                  "  
+			+"      , ICON AS icon                                       "  
 			+"    FROM Program                                           "  
+			+"   WHERE USE_YN = 'Y'                                      "  
 			, nativeQuery = true)
 	public List<ProgramModel> getListPrograms();
 	
@@ -74,9 +77,11 @@ public interface ProgramDao extends PagingAndSortingRepository<Program, String>{
 			+"          , A.UPDATE_YN AS updateYn                              "
 			+"          , A.USE_YN AS useYn                                    "
 			+"          , A.VIEW_YN AS viewYn                                  "
+			+"          , A.ICON AS icon                                       "
 			+"       FROM Program A                                            "
 			+"       LEFT JOIN USERMENU B ON A.PRG_CD = B.PRG_CD               "
 			+"       WHERE B.USER_ID = :userId                                 "
+			+"         AND A.USE_YN = 'Y'                                      "
 			, nativeQuery = true)
 	public List<ProgramModel> findMenuByUser(String userId);
 }
