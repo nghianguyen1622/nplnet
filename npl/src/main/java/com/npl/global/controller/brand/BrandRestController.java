@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.npl.global.common.CheckUtil;
 import com.npl.global.dto.ResultProcDto;
 import com.npl.global.dto.brand.BrandDto;
 import com.npl.global.model.brand.BrandModel;
@@ -24,10 +25,12 @@ import com.npl.global.service.brand.BrandService;
 import com.npl.global.service.system.StorageService;
 
 @RestController
-public class BrandRestController {
+public class BrandRestController extends BaseBrandController{
 	private Logger logger = LoggerFactory.getLogger(BrandRestController.class);
 	
 	@Autowired private BrandService service;
+	
+	@Autowired private CheckUtil checkUtil;
 	
 	@Autowired
 	private StorageService storageService;
@@ -35,9 +38,7 @@ public class BrandRestController {
 	@GetMapping("/2010/list")
 	public  @ResponseBody List<BrandModel> getAll() {
 		try {
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			NplUserDetails loggedUser = (NplUserDetails) authentication.getPrincipal();
-			String comId = loggedUser.getUser().getCompany().getComId();
+			String comId = checkUtil.getComId();
 			List<BrandModel> listBrand = service.findAll(comId);
 			return listBrand;
 		} catch (Exception e) {
@@ -49,9 +50,7 @@ public class BrandRestController {
 	@GetMapping("/2010/{id}")
 	public  @ResponseBody BrandModel getInfo(@PathVariable(name = "id") String brandId) {
 		try {
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			NplUserDetails loggedUser = (NplUserDetails) authentication.getPrincipal();
-			String comId = loggedUser.getUser().getCompany().getComId();
+			String comId = checkUtil.getComId();
 			BrandModel brandInfo = service.findInfo(brandId, comId);
 			return brandInfo;
 		} catch (Exception e) {
@@ -103,10 +102,7 @@ public class BrandRestController {
 	@RequestMapping(value = "/2010/delete/{brandId}")
 	public  @ResponseBody ResultProcDto  delete( @PathVariable(name = "brandId") String brandId) {
 		try {
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			NplUserDetails loggedUser = (NplUserDetails) authentication.getPrincipal();
-			
-			String comId = loggedUser.getUser().getCompany().getComId();
+			String comId = checkUtil.getComId();
 			
 			String fileName = this.service.findInfo(brandId, comId).getFileName();
 			ResultProcDto result = this.service.delBrand(brandId);

@@ -23,7 +23,7 @@ import com.npl.global.service.category.CategoryService;
 import com.npl.global.service.product.ProductService;
 
 @Controller
-public class ProductController {
+public class ProductController extends BaseProductController{
 	private Logger logger = LoggerFactory.getLogger(ProductController.class);
 	
 	@Autowired private ProductService service;
@@ -34,8 +34,8 @@ public class ProductController {
 	@GetMapping("/2030")
 	public String viewPage(Model model) {
 		model.addAttribute("pageTitle", "Quản lý sản phẩm");
-		String urlHepl = "/2030";
-		String htmlNo = "2030";
+		String urlHepl = "/product/2030";
+		String htmlNo = "product/2030";
 		return checkYN.canAccess(urlHepl, htmlNo);
 	}
 	
@@ -54,7 +54,7 @@ public class ProductController {
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
-		return "2031";
+		return "product/2031";
 	}
 	
 	@GetMapping("/2032/{pdtId}")
@@ -74,7 +74,7 @@ public class ProductController {
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
-		return "2032";
+		return "product/2032";
 	}
 	
 }

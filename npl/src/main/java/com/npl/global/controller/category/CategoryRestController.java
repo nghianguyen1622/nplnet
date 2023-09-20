@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.npl.global.common.CheckUtil;
 import com.npl.global.dto.ResultProcDto;
 import com.npl.global.dto.category.CategoryDto;
 import com.npl.global.model.category.CategoryModel;
@@ -25,10 +26,12 @@ import com.npl.global.service.category.CategoryService;
 import com.npl.global.service.system.StorageService;
 
 @RestController
-public class CategoryRestController {
+public class CategoryRestController extends BaseCategoryController{
 	private Logger logger = LoggerFactory.getLogger(CategoryRestController.class);
 	
 	@Autowired private CategoryService service;
+	
+	@Autowired private CheckUtil checkUtil;
 	
 	@Autowired
 	private StorageService storageService;
@@ -36,9 +39,7 @@ public class CategoryRestController {
 	@GetMapping("/2020/list")
 	public  @ResponseBody List<CategoryModel> getAll() {
 		try {
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			NplUserDetails loggedUser = (NplUserDetails) authentication.getPrincipal();
-			String comId = loggedUser.getUser().getCompany().getComId();
+			String comId = checkUtil.getComId();
 			List<CategoryModel> listCat = service.findAll(comId);
 			return listCat;
 		} catch (Exception e) {
@@ -50,9 +51,7 @@ public class CategoryRestController {
 	@GetMapping("/2020/{id}")
 	public  @ResponseBody CategoryModel getInfo(@PathVariable(name = "id") String catId) {
 		try {
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			NplUserDetails loggedUser = (NplUserDetails) authentication.getPrincipal();
-			String comId = loggedUser.getUser().getCompany().getComId();
+			String comId = checkUtil.getComId();
 			CategoryModel catInfo = service.findInfo(catId, comId);
 			return catInfo;
 		} catch (Exception e) {
@@ -104,10 +103,7 @@ public class CategoryRestController {
 	@RequestMapping(value = "/2020/delete/{catId}")
 	public  @ResponseBody ResultProcDto  delete( @PathVariable(name = "catId") String catId) {
 		try {
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			NplUserDetails loggedUser = (NplUserDetails) authentication.getPrincipal();
-			
-			String comId = loggedUser.getUser().getCompany().getComId();
+			String comId = checkUtil.getComId();
 			
 			String fileName = this.service.findInfo(catId, comId).getFileName();
 			ResultProcDto result = this.service.delCat(catId);
@@ -123,9 +119,7 @@ public class CategoryRestController {
 	@GetMapping("/listCate")
 	public  @ResponseBody List<CategoryModel> findListCateByBrand(@RequestParam("brandId") String brandId) {
 		try {
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			NplUserDetails loggedUser = (NplUserDetails) authentication.getPrincipal();
-			String comId = loggedUser.getUser().getCompany().getComId();
+			String comId = checkUtil.getComId();
 			List<CategoryModel> listCat = service.findByBrand(comId, brandId);
 			return listCat;
 		} catch (Exception e) {

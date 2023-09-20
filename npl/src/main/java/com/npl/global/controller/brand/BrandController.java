@@ -15,7 +15,7 @@ import com.npl.global.model.category.CategoryModel;
 import com.npl.global.service.category.CategoryService;
 
 @Controller
-public class BrandController {
+public class BrandController extends BaseBrandController{
 	private Logger logger = LoggerFactory.getLogger(BrandController.class);
 
 	@Autowired private CategoryService catService;
@@ -24,8 +24,8 @@ public class BrandController {
 
 	@GetMapping("/2010")
 	public String viewHomePage1(Model model) {
-		String urlHelp = "/2010";
-		String htmlNo = "2010";
+		String urlHelp = "/brand/2010";
+		String htmlNo = "brand/2010";
 
 		String result = checkUtil.canAccess(urlHelp, htmlNo);
 

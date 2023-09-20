@@ -15,7 +15,7 @@ import com.npl.global.model.category.CategoryModel;
 import com.npl.global.service.category.CategoryService;
 
 @Controller
-public class CategoryController {
+public class CategoryController extends BaseCategoryController{
 	private Logger logger = LoggerFactory.getLogger(CategoryController.class);
 
 	@Autowired
@@ -25,8 +25,8 @@ public class CategoryController {
 
 	@GetMapping("/2020")
 	public String viewHomePage(Model model) {
-		String urlHelp = "/2020";
-		String htmlNo = "2020";
+		String urlHelp = "/category/2020";
+		String htmlNo = "category/2020";
 
 		String result = checkUtil.canAccess(urlHelp, htmlNo);
 		if (result.equals(htmlNo)) {

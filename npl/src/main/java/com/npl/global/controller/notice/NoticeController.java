@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.npl.global.common.CheckUtil;
 
 @Controller
-public class NoticeController {
+public class NoticeController extends BaseOmnitrionController{
 
 	
 	@Autowired
@@ -16,8 +16,8 @@ public class NoticeController {
 
 	@GetMapping("/4020")
 	public String viewPage(Model model) {
-		String urlHepl = "/4020";
-		String htmlNo = "4020";
+		String urlHepl = "/omnitrion/4020";
+		String htmlNo = "omnitrion/4020";
 		model.addAttribute("pageTitle", "Quản lý thông báo");
 		return checkYN.canAccess(urlHepl, htmlNo);
 	}

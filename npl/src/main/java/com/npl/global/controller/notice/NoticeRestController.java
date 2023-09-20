@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +22,7 @@ import com.npl.global.security.NplUserDetails;
 import com.npl.global.service.notice.NoticeService;
 
 @RestController
-public class NoticeRestController {
+public class NoticeRestController extends BaseOmnitrionController{
 
 @Autowired private NoticeService service;
 	
@@ -43,7 +42,7 @@ public class NoticeRestController {
 		}
 	}
 	
-	@GetMapping("/8010/{id}")
+	@GetMapping("/4020/{id}")
 	public  @ResponseBody NoticeModel getInfo(@PathVariable(name = "id") String id) {
 		try {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

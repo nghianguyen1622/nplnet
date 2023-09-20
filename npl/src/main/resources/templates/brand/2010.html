@@ -144,7 +144,7 @@
 	<script th:src="@{/js/commom-list.js}"></script>
 	<script th:src="@{/js/commom-form.js}"></script>
 	<script type="text/javascript">
-		moduleURL = "[[@{/2010}]]";
+		moduleURL = "[[@{/brand/2010}]]";
 		contextPath = "[[@{/}]]";
 		MAX_FILE_SIZE = 5000000; //5MB
 		
@@ -152,7 +152,7 @@
 		var csrfValue = "[[${_csrf.token}]]";
 		
 		function findDataById(id, callback){
-			var url = contextPath+ "2010/"+id.toString();
+			var url = contextPath+ "brand/2010/"+id.toString();
 			$.ajax({
 				type: "Get",
 				url: url,
@@ -218,7 +218,7 @@
 			$(".title").text("Chỉnh sửa thương hiệu");
 			$("#brandId").val(id);
 			$("#imgupload").val('');
-			listCateByBrand("/listCate", id);
+			listCateByBrand("/category/listCate", id);
 			findDataById(id, function (data) {
 				$("#name").val(data.name);
 				$("#thumbnail").attr({ "src": data.filePath});
@@ -232,7 +232,7 @@
 			disabledControl(true);
 			$(".title").text("Chi tiết thương hiệu");
 			$("#brandId").val(id)
-			listCateByBrand("/listCate", id)
+			listCateByBrand("/category/listCate", id)
 			findDataById(id, function (data) {
 				$("#name").val(data.name);
 				$("#thumbnail").attr("src", data.filePath);
@@ -291,7 +291,7 @@
 						{title:"Category", field:"listCate", list:true},
 						{title:"Status", field:"isEnabled", status:true},
 						];
-			var arrURL = {api: "/2010/list", urlDel: "/2010/delete/"};
+			var arrURL = {api: "/brand/2010/list", urlDel: "/brand/2010/delete/"};
 			NioApp.DataTable.initWithUrlAndArr('.datatable-init-export', arrURL, "", arr, mergedOptions);
 		}
 		
@@ -337,7 +337,7 @@
 					data.append("fileData", fileInput.files[0]);
 				}
 
-				save("/2010/save", data);
+				save("/brand/2010/save", data);
 			});
 
 			loaddata();

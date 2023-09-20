@@ -43,7 +43,7 @@
                                                                 <a href="#" class="dropdown-toggle btn btn-icon btn-primary" data-bs-toggle="dropdown"><em class="icon ni ni-plus"></em></a>
                                                                 <div class="dropdown-menu dropdown-menu-end">
                                                                     <ul class="link-list-opt no-bdr">
-                                                                        <li><a href="#" data-bs-toggle="modal" data-bs-target="#newModal"><span>Tạo tin</span></a></li>
+                                                                        <li><a href="#" data-bs-toggle="modal" onclick="openNewModal()"><span>Tạo tin</span></a></li>
                                                                         <li><a href="#"><span>Thông báo đã hết hạn</span></a></li>
                                                                     </ul>
                                                                 </div>
@@ -84,55 +84,59 @@
                 <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
 				<div class="modal-body modal-body-md">
 					<h4 class="title">Tạo mới tin tức</h4>
-					<form action="#" class="form-validate is-alter">
-						<input type='hidden' id="nt_id"/>
-						<ul class="nk-nav nav nav-tabs">
-							<li class="nav-item"><a class="nav-link active"
-								data-bs-toggle="tab" href="#tabItem1">Thông tin cơ bản</a></li>
-						</ul>
-						<div class="tab-content">
-							<div class="tab-pane active" id="tabItem1">
+					<form action="#" id="formCategory" th:object="${category}" class="form-validate is-alter" enctype="multipart/form-data">
+						<input type="hidden" th:field="*{catId}"/> 
+						<div class="row g-4">
+							<div class="col-lg-6">
 								<div class="form-group">
-									<label class="form-label" for="full-name">Title</label>
+									<label class="form-label" for="name">Name</label>
 									<div class="form-control-wrap">
-										<textarea class="form-control" rows="5" id="title"></textarea>
+										<input type="text" class="form-control" required th:field="*{name}">
 									</div>
 								</div>
+							</div>
+							<div class="col-lg-6">
 								<div class="form-group">
-									<label class="form-label" for="full-name">Content</label>
+									<label class="form-label" for="alias">Alias</label>
 									<div class="form-control-wrap">
-										<textarea class="summernote1" id="content" rows="5"> </textarea>
-										<div id="contentHidden"></div>
+										<input class="form-control" type="text" th:field="*{alias}" required readonly>
 									</div>
 								</div>
+							</div>
+							<div class="col-lg-6">
 								<div class="form-group">
-									<label class="form-label">Communication</label>
-									<ul class="custom-control-group g-3 align-center">
-										<li>
-											<input type="checkbox" class="" id="enable">
-											<label class="">Enable</label>
-										</li>
-										<li>
-											<input type="checkbox" class="" id="poppup">
-											<label class="">Poppup</label>
-										</li>
-									</ul>
+									<label class="form-label" for="parentId">Parent Category</label>
+									<div class="form-control-wrap">
+										<select class="form-select js-select2" id="parentId" th:field="*{parentId}">
+											<option value="0">Main category</option>
+											<th:block th:each="cat : ${listCat}">
+												<option th:value="${cat.catId}" th:text="${cat.name}">
+												</option>
+											</th:block>
+										</select>
+									</div>
 								</div>
-								<div class="row form-group">
-									<div class="col-md-6">
-										<label class="form-label">Start Date</label>
-										<input type="text" class="date form-control" id="sdate">
-									</div>
-									<div class="col-md-6">
-										<label class="form-label">End Date</label>
-										<input type="text" class="date form-control" id="edate">
-									</div>
+							</div>
+							<div class="col-sm-6 row">
+								<div class="m-2">
+									<img id="thumbnail" alt="Main image preview" class="img-fluid" width="200px" src="./images/default-image.jpg">
+								</div>
+								<div id="myfileupload">
+									<label for="imgupload" class="custom-file-upload btn btn-sm btn-dim btn-light">Chọn ảnh</label> 
+									<input type="file" id="imgupload" th:field="*{fileData}" accept="image/png , image/jpeg" style="display: none"/>
+								</div>
+							</div>
+							<div class="col-lg-12">
+								<div class="custom-control custom-switch">
+									<input type="checkbox" class="custom-control-input" id="enable">
+									<label class="custom-control-label" for="enable">Kích hoạt</label>
 								</div>
 							</div>
 						</div>
 						<div class="form-group mt-1 text-center">
-							<a type="submit" id="btn-submit" class="btn btn-lg btn-primary">Lưu</a>
-							<a href="#" id="cancelButton" class="btn btn-lg btn-warning" data-bs-dismiss="modal">Hủy</a>
+							<button type="submit"  class="btn btn-lg btn-primary">Lưu</button>
+							<a href="#" id="cancelButton" class="btn btn-lg btn-warning"
+								data-bs-dismiss="modal">Hủy</a>
 						</div>
 					</form>
 				</div>
@@ -149,15 +153,17 @@
 	<script th:src="@{/js/dataTables.fixedColumns.min.js}"></script>
 	
 	<script th:src="@{/js/commom-list.js}"></script>
+	<script th:src="@{/js/commom-form.js}"></script>
 	<script type="text/javascript">
-		moduleURL = "[[@{/4020}]]";
+		moduleURL = "[[@{/category/2020}]]";
 		contextPath = "[[@{/}]]";
+		MAX_FILE_SIZE = 5000000; //5MB
 		
 		var csrfHeaderName = "[[${_csrf.headerName}]]";
 		var csrfValue = "[[${_csrf.token}]]";
 		
 		function fetchDataById(id, callback){
-			var url = contextPath+ "4020/"+id.toString();
+			var url = contextPath+ "category/2020/"+id.toString();
 			$.ajax({
 				type: "Get",
 				url: url,
@@ -174,54 +180,70 @@
 			});
 		}
 		
-
+		function disabledControl(disabled){
+			$("#name").prop("readonly", disabled);
+			$('#parentId').prop('disabled', disabled);
+			$("#enable").prop( "disabled", disabled );
+			if(disabled){
+				$("#myfileupload").hide();
+			}else{
+				$("#myfileupload").show();
+			}
+		}
+		
+		function openNewModal(){
+			disabledControl(false);
+			document.getElementById("formCategory").reset();
+			$("#catId").val('');
+			$("#parentId").val(0).trigger("change");
+			$("#thumbnail").attr("src", "./images/default-image.jpg");
+			$("#newModal").modal("show");
+		}
 		
 		function openEditModal(id) {
-			$(".title").text("Chỉnh sửa thông báo");
-			$("#nt_id").val(id)
-			fetchDataById(id, function (dataToEdit) {
-				console.log(dataToEdit.startDate)
-				$("#title").val(dataToEdit.title);
-				$("#content").summernote('code', dataToEdit.content)
-				$("#sdate").datepicker("setDate", new Date(dataToEdit.startDate));
-				$("#edate").datepicker("setDate", new Date(dataToEdit.startDate));
-				$("#enable").prop("checked", dataToEdit.isEnabled === "Y");
-				$("#poppup").prop("checked", dataToEdit.isPoppup === "Y");
+			disabledControl(false);
+			$(".title").text("Chỉnh sửa danh mục");
+			$("#catId").val(id)
+			fetchDataById(id, function (data) {
+				$("#name").val(data.name);
+				$("#alias").val(data.alias);
+				$("#parentId").val(data.parentId?data.parentId:0).trigger('change');
+				$("#thumbnail").attr({ "src": data.filePath});
+				$("#enable").prop("checked", data.isEnabled === "Y");
 				
 				$("#newModal").modal("show");
 			});
 		}
 		
 		function openInfoModal(id) {
-			$(".title").text("Chi tiết thông báo");
-			$("#nt_id").val(id)
-			fetchDataById(id, function (dataToEdit) {
-				$("#title").val(dataToEdit.title);
-				$("#contentHidden").html(dataToEdit.content);
-				$("#sdate").datepicker("setDate", new Date(dataToEdit.startDate));
-				$("#edate").datepicker("setDate", new Date(dataToEdit.startDate));
-				$("#enable").prop("checked", dataToEdit.isEnabled === "Y");
-				$("#poppup").prop("checked", dataToEdit.isPoppup === "Y");
-				
-				$("#title").prop("readonly", true);
-				$("#content").summernote('destroy');
-				$("#content").css("display", "none");
-				$("#sdate").datepicker("destroy");
-				$("#edate").datepicker("destroy");
-				$("#enable").prop( "disabled", true );
-				$("#poppup").prop( "disabled", true );
+			disabledControl(true);
+			$(".title").text("Chi tiết danh mục");
+			$("#catId").val(id)
+			fetchDataById(id, function (data) {
+				$("#name").val(data.name);
+				$("#alias").val(data.alias);
+				$("#parentId").val(data.parentId?data.parentId:0).trigger('change');
+				$("#thumbnail").attr("src", data.filePath);
+				$("#enable").prop("checked", data.isEnabled === "Y");
 				
 				$("#newModal").modal("show");
 			});
 		}
 		
+		function readURL(input) {
+			var file = input.files[0];
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				$('#thumbnail').attr('src', e.target.result);
+			}
+			reader.readAsDataURL(file);
+		}
+		
 		function loaddata(){
-			
 			var dataTableOptions = {
 						responsive: {
 							details: false
 						},
-						
 						buttons: [
 							{
 								extend: 'print',
@@ -248,27 +270,24 @@
 		 	};
 			var mergedOptions = Object.assign({}, mergedOptions, dataTableOptions);
 			
-			var arr = [ {title:"Action", field: null, delEdit: true, className: "text-center", name:"id"},
-						{title:"Title", field:"title"},
-						{title:"Content", field:"content"},
-						{title:"Start Date", field:"startDate"},
-						{title:"End Date", field:"endDate"}];
-			var arrURL = {api: "/4020/list", urlDel: "/4020/delete/"};
-			NioApp.DataTable.initWithUrlAndArr('.datatable-init-export', arrURL, arr, mergedOptions);
+			var arr = [ {title:"Action", field: null, delEdit: true, className: "text-center", name:"catId"},
+						{title:"Id", field:"catId"},
+						{title:"Logo", field:"filePath", img:true},
+						{title:"Name", field:"name"},
+						{title:"Alias", field:"alias"},
+						{title:"Status", field:"isEnabled", status:true},
+						];
+			var arrURL = {api: "/category/2020/list", urlDel: "/category/2020/delete/"};
+			NioApp.DataTable.initWithUrlAndArr('.datatable-init-export', arrURL, "", arr, mergedOptions);
 		}
 		
-		
-	
-			
 		$(document).on('click', '#cancelButton', function() { 
 			$("#newModal").trigger('reset'); 
 		});
 
 		function afterSaveForm() {
+			$('#newModal').modal("hide");
 			$('#myDataTable').DataTable().destroy();
-			$('#newModal').on('hidden.bs.modal', function() {
-			});
-
 			loaddata();
 		}
 
@@ -279,19 +298,27 @@
 			$(".date").datepicker({
 				format : 'dd-mm-yyyy'
 			});
+			
+			$('#name').on('input',function(){
+				$('#alias').val($(this).val().toLowerCase().replace(/ /g, '-'));
+			});
+			
+			$('#imgupload').change(function(){
+				 readURL(this);
+			});
 
-			$("#btn-submit").click(function() {
-				var data = {
-					ntId : $("#nt_id").val(),
-					title : $("#title").val(),
-					content : $("#content").val(),
-					sDate : $("#sdate").val(),
-					eDate : $("#edate").val(),
-					enable : ($("#enable").is(":checked") ? "Y" : "N"),
-					popup : ($("#poppup").is(":checked") ? "Y" : "N")
-				};
-
-				save("/4020/save", data);
+			$('#formCategory').on('submit', function(e) {
+				e.preventDefault();
+				var form0 = $('#formCategory')[0];
+				var data = new FormData(form0);
+				var fileInput = document.getElementById("imgupload");
+				//data.append("parentId", $("#parentId").val());
+				data.append("enable" , ($("#enable").is(":checked") ? "Y" : "N"));
+				if (fileInput.files.length > 0) {
+					data.append("fileData", fileInput.files[0]);
+				}
+				
+				save("/category/2020/save", data);
 			});
 
 			loaddata();

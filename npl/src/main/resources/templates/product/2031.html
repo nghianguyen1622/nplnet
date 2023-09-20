@@ -48,7 +48,6 @@
 																data-bs-toggle="tab" href="#tabItem8"><em
 																	class="icon ni ni-property-add"></em><span>Chi tiết</span></a></li>
 														</ul>
-
 													</div>
 													<div class="tab-content">
 														<div class="tab-pane active" id="tabItem5">
@@ -136,8 +135,7 @@
 																</div>
 																<div class="col-lg-12">
 																	<div class="custom-control custom-switch">
-																		<input type="hidden" th:field="*{isEnabled}">
-																		<input type="checkbox" class="custom-control-input" id="enabled">
+																		<input type="checkbox" class="custom-control-input" id="enabled" >
 																		<label class="custom-control-label" for="enabled">Mở khóa sản phẩm</label>
 																	</div>
 																</div>
@@ -162,7 +160,7 @@
 																		<label class="tableCodeFalse">Ảnh đại diện:</label>
 																	</div>
 																	<div class="m-2">
-																		<img id="thumbnail" alt="Main image preview" class="img-fluid" width="200px"  th:src="@{${pdt.filePath} == null or ${#strings.isEmpty(pdt.filePath)} ? '/images/default-image.jpg' : '/'+${pdt.filePath}}">
+																		<img id="thumbnail" alt="Main image preview" class="img-fluid" width="200px" src="../images/default-image.jpg">
 																	</div>
 																	<div id="myfileupload">
 																		<label for="imgupload" class="custom-file-upload btn btn-sm btn-dim btn-light">Chọn ảnh</label> 
@@ -171,27 +169,27 @@
 																</div>
 																<div class="col border m-3 p-2">
 																	<div class="form-control-wrap">
-																		<div id="imagePreviews">
+																		<div class="form-file">
+																			<input type="file" style="display: none" id="fileInput" multiple accept="image/*">
+																			<button type="button" id="addFileBtn">Thêm tệp</button>
 																		</div>
+																		<div id="imagePreviews"></div>
 																	</div>
 																</div>
 															</div>
 														</div>
 														<div class="tab-pane" id="tabItem8">
 															<div id="divProductDetails">
-																<th:block th:each="detail, index : ${listDetail}">
-																	<div class="form-inline" th:id="'detail-' + ${detail.sortNo}">
-																		<label class="m-3">Thuộc tính:</label>
-																		<input type="text" class="form-control w-25" name="detailNames" th:value="${detail.detailName}" maxlength="255" placeholder="vd: Ram" />
-																		<label class="m-3">Dữ liệu:</label>
-																		<input type="text" class="form-control w-25" name="detailValues" th:value="${detail.detailValue}" maxlength="255" placeholder="vd: 8GB" />
-																		<a class="btn btn-trigger btn-icon delete-product" th:attr="data-row-id=${detail.sortNo}"  title="Xóa trường này"><em class="icon ni ni-cross"></em></a>
-																	</div>
-																</th:block>
+																<div class="form-inline" >
+																	<label class="m-3">Thuộc tính:</label>
+																	<input type="text" class="form-control w-25" name="detailNames" maxlength="255" placeholder="vd: Ram" />
+																	<label class="m-3">Dữ liệu:</label>
+																	<input type="text" class="form-control w-25" name="detailValues" maxlength="255" placeholder="vd: 8GB" />
+																</div>
 															</div>
-														<div>
-															<input type="button" class="btn btn-primary" value="+" onclick="addDetail()" />
-														</div>
+															<div>
+																<input type="button" class="btn btn-primary" value="+" onclick="addDetail()" />
+															</div>
 														</div>
 													</div>
 												</div>
@@ -236,135 +234,14 @@
 	var csrfHeaderName = "[[${_csrf.headerName}]]";
 	var csrfValue = "[[${_csrf.token}]]";
 	
-	moduleURL = "[[@{/2030}]]";
-	brandModuleURL = "[[@{/2010}]]";
+	moduleURL = "[[@{/product/2030}]]";
+	brandModuleURL = "[[@{/brand/2010}]]";
 	defaultImageThumbnailSrc = "[[@{/images/default-image.jpg}]]";
-	checkUniqueUrl = "[[@{/2030/check_unique}]]";
+	checkUniqueUrl = "[[@{/product/2030/check_unique}]]";
 	
 	$('#fullDes').summernote({
 		minHeight: 150,
 	});
-	
-	function drawLargeImage(index){
-		var txtLarge = '';
-		
-		txtLarge += '<tr>';
-			txtLarge += '<th rowspan="3">';
-				txtLarge += '<div class="mb-10">product image</div>';
-			txtLarge += '</th>';
-		for(var i=0; i<index; i++){
-			txtLarge += '<td class="bb-0 pt-10">img '+ (i+1) +'</td>';
-		}
-		txtLarge += '</tr>';
-		txtLarge += '<tr>';
-		for(var i=0; i<index; i++){
-			if(i==0){
-				txtLarge += '<td class="bb-0 bl-0">';
-			}else{
-				txtLarge += '<td class="bb-0">';
-			}
-				txtLarge += '<div class="item-product">';
-					txtLarge += '<div class="item-img"><img id="photoLarge'+i+'" name="photoLarge'+i+'" src="/images/default-image.jpg" class="w-200p" alt=""></div>';
-					txtLarge += '     <input type="hidden" value="" class="wd-100p" id="fileNameLarge'+ i +'" name="fileNameLarge'+i+'"/>';
-					txtLarge += '     <input type="hidden" value="" class="wd-100p" id="sortNoLarge'+ i +'" name="sortNoLarge'+i+'"/>';
-					txtLarge += '     <input type="hidden" value="" class="wd-100p" id="filePathLarge'+ i +'" name="filePathLarge'+i+'"/>';
-					txtLarge += '     <input type="hidden" value="" class="wd-100p" id="fileNameOrgLarge'+ i +'" name="fileNameOrgLarge'+i+'"/>';
-					txtLarge += '     <input type="hidden" value="0" class="wd-100p" id="deletedImgLarge'+ i +'" name="deletedImgLarge'+i+'"/>';
-					txtLarge += '     <input type="hidden" value="" class="wd-100p" id="regNoLarge'+ i +'" name="regNoLarge'+i+'"/>';
-					txtLarge += '<button type="button" class="item-action" onclick="fn_clear(\'Large\', '+i+')">';
-						txtLarge += '<div class="delete-btn"><span>delete</span></div>';
-					txtLarge += '</button>';
-				txtLarge += '</div>';
-			txtLarge += '</td>';
-			
-			if(i == index-1){
-				txtLarge += '</tr>'
-				txtLarge += '<tr>'
-				for(var j=0; j<index; j++){
-					if(j==0){
-						txtLarge += '<td class="bl-0">'
-					}else{
-						txtLarge += '<td>'
-					}
-					txtLarge += '<button type="button" onclick="fn_saveimg(\'Large\', '+j+')" class="btn btn-gray">File</button>';
-					txtLarge += '<input type="file" id="fileLarge'+j+'" name="fileLarge'+j+'" style="display:none;">';
-					txtLarge += '</td>';
-				}
-				txtLarge += '</tr>'
-			}
-		}
-		
-		$('#imagePreviews').append(txtLarge);
-	}
-	
-	function fn_clear(kind, j){
-		$('#photo' + kind + j).attr('src', "/images/default-image.jpg");
-		$('#fileName' + kind +j).val('')
-		$('#filePath' + kind +j).val('')
-		$('#fileNameOrg' + kind +j).val('')
-		$("#deletedImg" + kind + j).val("1");
-		$("#file"+ kind +j).val('');
-	}
-	
-	function fn_saveimg(kind, i) {
-		$('#file' + kind + i).trigger('click');
-		$('#file' + kind + i).change(function () {
-			readURL0(this, kind, i);
-		});
-	}
-	
-	function readURL0(input, kind, i) {
-		var file = input.files[0];
-		var reader = new FileReader();
-		reader.onload = function (e) {
-			$('#photo' + kind + i).attr('src', e.target.result);
-			$("#deletedImg" + kind + i).val("0");
-		}
-		reader.readAsDataURL(file);
-		
-	}
-	
-	function loadImege(pdtId, totalImg) {
-		$.ajaxSetup({ async:false });
-		for (var i = 0; i < totalImg; i++) {
-			$('#photoLarge' + i).attr('src', contextPath+"images/default-image.jpg");
-			$("#filePathLarge" + i).val("");
-			$("#fileNameLarge" + i).val("");
-			$("#deletedImgLarge" + i).val(0);
-			$("#regNoLarge" + i).val("");
-		}
-		
-		$.ajaxSetup({ async:true });
-		
-		$.ajax({
-			url: contextPath+"2030/loadImg/"+pdtId ,
-			type: "GET",
-			success: function (data) {
-				if (data) {
-					drawLargeImage(totalImg)
-					
-					$.each(data, function (k, v) {
-						if(v.imageKind == "LARGE"){
-							for (var i = 0; i < totalImg; i++) {
-								if(v.sortNo == i) {
-									if (v.filePath != null) {
-										$("#photoLarge"+i).attr({ "src": contextPath+v.filePath });
-									}else{
-										$("#photoLarge"+i).attr({ "src": '/images/default-image.jpg'});
-									}
-									$("#fileNameLarge"+i).val(v.fileName);
-									$("#filePathLarge"+i).val(v.filePath);
-									$("#fileNameOrgLarge"+i).val(v.fileNameOrg);
-									$("#sortNoLarge"+i).val(v.sortNo);
-									$("#regNoLarge"+i).val(v.regNo);
-								}
-							}
-						}
-					});
-				}
-			}
-		});
-	}
 	
 	function readURL(input) {
 		var file = input.files[0];
@@ -376,15 +253,12 @@
 	}
 	
 	function afterSaveForm() {
-		location.href=contextPath+"2030";
+		location.href=contextPath+"product/2030";
 	}
 	
 	$(document).ready(function() {
-		var pdtId = $("#pdtId").val();
 		var brandId = $("#brandId").val();
-		listCate("/listCate", brandId);
-		var enabled = $('#isEnabled').val()
-		$("#enabled").prop("checked", enabled == "Y");
+		listCate("/category/listCate", brandId);
 		
 		$('#name').on('input',function(){
 			$('#alias').val($(this).val().toLowerCase().replace(/ /g, '-'));
@@ -398,39 +272,42 @@
 			$("#categoryId").empty();
 			var selectedBrand = $(this).val();
 			
-			listCate("/listCate", selectedBrand);
+			listCate("/category/listCate", selectedBrand);
 		});
 		
-		$(document).on('click', '.delete-product', function() {
-			var rowId = $(this).attr('data-row-id');
-			
-			 $.ajax({
-				type: 'POST',
-				url: '/2030/delDetail/' + pdtId + '/' + rowId, 
-				beforeSend: function(xhr) {
-					xhr.setRequestHeader(csrfHeaderName, csrfValue);
-				},
-				success: function(response) {
-					if(response.retCode && response.retCode == 'OK') {
-						Swal.fire('Thông báo!', response.retStr, 'success').then((result) => {
-							if (result.isConfirmed) {
-								$('#id-' + rowId).remove();
-								$('#formPdt')[0].reset();
-							}
-						});;
-					} else {
-						if(response.retStr){
-							Swal.fire({ icon: 'error', title: response.retStr });
-						}
+		var filesArray = [];
+		
+		$('#fileInput').on('change', function() {
+			var files = $(this)[0].files;
+			for (var i = 0; i < files.length; i++) {
+				filesArray.push(files[i]); // Thêm tệp vào mảng
+				displayImagePreview(files[i]); // Hiển thị ảnh đã chọn
+			}
+			$(this).val(''); // Xóa giá trị của input file để cho phép chọn lại cùng một tệp
+		});
+
+		$('#addFileBtn').on('click', function() {
+			$('#fileInput').click();
+		});
+
+		function displayImagePreview(file) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				var img = $('<img>').attr('src', e.target.result);
+				var deleteBtn = $('<button>').text('Xoá').on('click', function() {
+					// Xoá ảnh khỏi mảng và cả giao diện
+					var index = filesArray.indexOf(file);
+					if (index !== -1) {
+						filesArray.splice(index, 1);
+						$(this).prev('img').remove();
+						$(this).remove();
 					}
-				},
-				error: function(xhr, status, error) {
-					Swal.fire('Lỗi', 'Đã xảy ra lỗi khi xóa ', 'error');
-				}
-			});
-		});
-		
-		loadImege(pdtId, 5);
+				});
+				$('#imagePreviews').append(img).append(deleteBtn);
+			};
+			reader.readAsDataURL(file);
+		};
+
 		
 		$('#formPdt').on('submit', function(e) {
 			e.preventDefault();
@@ -455,11 +332,14 @@
 			data.append("delYn", "Y");
 			data.append("editYn", "Y");
 			data.append("inStock", "Y");
-			if (fileInput.files.length > 0) {
-				data.append("fileMainImage", fileInput.files[0]);
+			data.append("fileMainImage", fileInput.files[0]);
+			for (var i = 0; i < filesArray.length; i++) {
+				data.append('fileExtraImage', filesArray[i]);
 			}
-			
-			save("/2030/save", data);
+			for (const pair of data.entries()) {
+				  console.log(`${pair[0]}, ${pair[1]}`);
+				}
+			save("/product/2030/save", data);
 		});
 	});
 </script>

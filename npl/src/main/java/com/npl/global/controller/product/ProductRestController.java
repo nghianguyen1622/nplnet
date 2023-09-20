@@ -31,7 +31,7 @@ import com.npl.global.service.product.ProductService;
 import com.npl.global.service.system.StorageService;
 
 @RestController
-public class ProductRestController {
+public class ProductRestController extends BaseProductController{
 	private Logger logger = LoggerFactory.getLogger(ProductController.class);
 	
 	@Autowired private ProductService service;
