@@ -135,6 +135,11 @@ function addDetail(){
 }
 
 	$(function() {
+		$(".btn-group button").click(function() {
+			$(".btn-group button").removeClass("active");
+
+			$(this).addClass("active");
+		});
 		$("#today").click(function() {
 			if(!flag){
 				var today = new Date();
