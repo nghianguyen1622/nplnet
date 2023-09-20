@@ -596,7 +596,7 @@
 					"render": function(data, type, row, meta) {
 						if (columnInfo.field != null) {
 							if(columnInfo.img){
-								return `<img height="28px" src="${ data}" alt="" class="thumb">`;
+								return `<img height="28px" src="${contextPath+ data}" alt="" class="thumb">`;
 							}if(columnInfo.status){
 								if(data=='Y'){
 									return `<a class="btn btn-icon" style="color: #3ed900" >
