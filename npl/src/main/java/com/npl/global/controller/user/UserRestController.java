@@ -31,7 +31,7 @@ import com.npl.global.service.system.StorageService;
 import com.npl.global.service.user.UserService;
 
 @RestController
-public class UserRestController {
+public class UserRestController extends BaseUserController{
 
 	@Autowired private UserService service;
 	

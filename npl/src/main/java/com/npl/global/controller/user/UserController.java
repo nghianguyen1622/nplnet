@@ -14,7 +14,7 @@ import com.npl.global.model.user.RoleModel;
 import com.npl.global.service.user.UserService;
 
 @Controller
-public class UserController {
+public class UserController extends BaseUserController{
 	private Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	@Autowired UserService servide;
@@ -30,6 +30,6 @@ public class UserController {
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
-		return "1010";
+		return "user/1010";
 	}
 }

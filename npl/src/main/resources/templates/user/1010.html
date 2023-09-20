@@ -243,7 +243,7 @@
 	<script th:src="@{/js/commom-list.js}"></script>
 	<script th:src="@{/js/commom-form.js}"></script>
 	<script type="text/javascript">
-		moduleURL = "[[@{/1010}]]";
+		moduleURL = "[[@{/user/1010}]]";
 		contextPath = "[[@{/}]]";
 		MAX_FILE_SIZE = 5000000; //5MB
 		
@@ -253,7 +253,7 @@
 		var csrfValue = "[[${_csrf.token}]]";
 		
 		function fetchDataById(id, callback) {
-			var url = contextPath + "1010/" + id.toString();
+			var url = contextPath + "user/1010/" + id.toString();
 			$.ajax({
 				type : "Get",
 				url : url,
@@ -389,8 +389,8 @@
 						{ title : "Update Time", field : "updatedTime" },
 						{ title : "Create Time", field : "createdTime" }, 
 					];
-			var arrURL = { 	api : "/1010/list",
-							urlDel : "/1010/delete/"
+			var arrURL = { 	api : "/user/1010/list",
+							urlDel : "/user/1010/delete/"
 						};
 			var conditon = { fromDate : $("#fromDate").val() ,
 							toDate : $("#toDate").val() ,
@@ -435,7 +435,7 @@
 					data.append("fileData", fileInput.files[0]);
 				}
 
-				save("/1010/save", data);
+				save("/user/1010/save", data);
 			});
 
 			loaddata();
