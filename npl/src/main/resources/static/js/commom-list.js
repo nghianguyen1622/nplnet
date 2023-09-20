@@ -139,7 +139,6 @@ function addDetail(){
 			var today = new Date();
 			$("#fromDate").datepicker("setDate", today);
 			$("#toDate").datepicker("setDate", today);
-			afterSaveForm();
 		});
 		$("#lastWeek").click(function() {
 			var today = new Date();
@@ -154,7 +153,6 @@ function addDetail(){
 
 			$("#fromDate").datepicker("setDate", lastWeekStart);
 			$("#toDate").datepicker("setDate", lastWeekEnd);
-			afterSaveForm();
 		});
 		$("#lastMonth").click(function() {
 			var today = new Date();
@@ -165,7 +163,6 @@ function addDetail(){
 
 			$("#fromDate").datepicker("setDate", lastMonthStart);
 			$("#toDate").datepicker("setDate", lastMonthEnd);
-			afterSaveForm();
 		});
 
 		$("#last3Months").click(function() {
@@ -177,18 +174,15 @@ function addDetail(){
 
 			$("#fromDate").datepicker("setDate", last3MonthsStart);
 			$("#toDate").datepicker("setDate", last3MonthsEnd);
-			afterSaveForm();
 		});
 		$("#lastYear").click(function() {
 			var today = new Date();
 			$("#fromDate").datepicker("setDate", new Date(today.getFullYear() - 1, 0, 1));
 			$("#toDate").datepicker("setDate", new Date(today.getFullYear() - 1, 11, 31));
-			afterSaveForm();
 		});
 		$("#All").click(function() {
 			$("#fromDate").datepicker("setDate", '');
 			$("#toDate").datepicker("setDate", '');
-			afterSaveForm();
 		});
 	})
 

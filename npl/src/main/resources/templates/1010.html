@@ -418,12 +418,7 @@
 			$('#imgupload').change(function() {
 				readURL(this);
 			});
-			$('#fromDate').change(function() {
-				console.log($(this).val());
-				afterSaveForm();
-			});
-			$('#toDate').change(function() {
-				console.log($(this).val());
+			$('#fromDate, #toDate').change(function() {
 				afterSaveForm();
 			});
 
