@@ -136,53 +136,65 @@ function addDetail(){
 
 	$(function() {
 		$("#today").click(function() {
-			var today = new Date();
-			$("#fromDate").datepicker("setDate", today);
-			$("#toDate").datepicker("setDate", today);
+			if(!flag){
+				var today = new Date();
+				$("#fromDate").datepicker("setDate", today);
+				$("#toDate").datepicker("setDate", today);
+			}
 		});
 		$("#lastWeek").click(function() {
-			var today = new Date();
-			var lastWeekStart = new Date(today);
-			lastWeekStart.setDate(today.getDate() - 7);
-
-			while (lastWeekStart.getDay() !== 1) {
-				lastWeekStart.setDate(lastWeekStart.getDate() - 1);
+			if(!flag){
+				var today = new Date();
+				var lastWeekStart = new Date(today);
+				lastWeekStart.setDate(today.getDate() - 7);
+	
+				while (lastWeekStart.getDay() !== 1) {
+					lastWeekStart.setDate(lastWeekStart.getDate() - 1);
+				}
+				var lastWeekEnd = new Date(lastWeekStart);
+				lastWeekEnd.setDate(lastWeekEnd.getDate() + 6);
+	
+				$("#fromDate").datepicker("setDate", lastWeekStart);
+				$("#toDate").datepicker("setDate", lastWeekEnd);
 			}
-			var lastWeekEnd = new Date(lastWeekStart);
-			lastWeekEnd.setDate(lastWeekEnd.getDate() + 6);
-
-			$("#fromDate").datepicker("setDate", lastWeekStart);
-			$("#toDate").datepicker("setDate", lastWeekEnd);
 		});
 		$("#lastMonth").click(function() {
-			var today = new Date();
-			var lastMonthStart = new Date(today);
-			lastMonthStart.setMonth(today.getMonth() - 1, 1);
-			var lastMonthEnd = new Date(today);
-			lastMonthEnd.setDate(0);
-
-			$("#fromDate").datepicker("setDate", lastMonthStart);
-			$("#toDate").datepicker("setDate", lastMonthEnd);
+			if(!flag){
+				var today = new Date();
+				var lastMonthStart = new Date(today);
+				lastMonthStart.setMonth(today.getMonth() - 1, 1);
+				var lastMonthEnd = new Date(today);
+				lastMonthEnd.setDate(0);
+	
+				$("#fromDate").datepicker("setDate", lastMonthStart);
+				$("#toDate").datepicker("setDate", lastMonthEnd);
+			}
 		});
 
 		$("#last3Months").click(function() {
-			var today = new Date();
-			var last3MonthsStart = new Date(today);
-			last3MonthsStart.setMonth(today.getMonth() - 3, 1);
-			var last3MonthsEnd = new Date(today);
-			last3MonthsEnd.setDate(0);
-
-			$("#fromDate").datepicker("setDate", last3MonthsStart);
-			$("#toDate").datepicker("setDate", last3MonthsEnd);
+			if(!flag){
+				var today = new Date();
+				var last3MonthsStart = new Date(today);
+				last3MonthsStart.setMonth(today.getMonth() - 3, 1);
+				var last3MonthsEnd = new Date(today);
+				last3MonthsEnd.setDate(0);
+	
+				$("#fromDate").datepicker("setDate", last3MonthsStart);
+				$("#toDate").datepicker("setDate", last3MonthsEnd);
+			}
 		});
 		$("#lastYear").click(function() {
-			var today = new Date();
-			$("#fromDate").datepicker("setDate", new Date(today.getFullYear() - 1, 0, 1));
-			$("#toDate").datepicker("setDate", new Date(today.getFullYear() - 1, 11, 31));
+			if(!flag){
+				var today = new Date();
+				$("#fromDate").datepicker("setDate", new Date(today.getFullYear() - 1, 0, 1));
+				$("#toDate").datepicker("setDate", new Date(today.getFullYear() - 1, 11, 31));
+			}
 		});
 		$("#All").click(function() {
-			$("#fromDate").datepicker("setDate", '');
-			$("#toDate").datepicker("setDate", '');
+			if(!flag){
+				$("#fromDate").datepicker("setDate", '');
+				$("#toDate").datepicker("setDate", '');
+			}
 		});
 	})
 

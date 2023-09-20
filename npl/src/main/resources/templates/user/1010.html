@@ -40,9 +40,9 @@
 																		<label class="form-label">Lọc dữ liệu</label>
 																		<div class="form-control-wrap">
 																			<div class="input-daterange date-picker-range input-group">
-																				<input type="text" id="fromDate" class="form-control date" readonly="readonly"/>
+																				<input type="text" id="fromDate" class="form-control popClass date" readonly="readonly"/>
 																				<div class="input-group-addon">Tới</div>
-																				<input type="text" id="toDate" class="form-control date" readonly="readonly"/>
+																				<input type="text" id="toDate" class="form-control popClass date" readonly="readonly"/>
 																			</div>
 																		</div>
 																	</div>
@@ -246,11 +246,10 @@
 		moduleURL = "[[@{/user/1010}]]";
 		contextPath = "[[@{/}]]";
 		MAX_FILE_SIZE = 5000000; //5MB
-		
 		defaultImageThumbnailSrc = "[[@{/images/default-image.jpg}]]";
-		
 		var csrfHeaderName = "[[${_csrf.headerName}]]";
 		var csrfValue = "[[${_csrf.token}]]";
+		var flag=false;
 		
 		function fetchDataById(id, callback) {
 			var url = contextPath + "user/1010/" + id.toString();
@@ -418,8 +417,16 @@
 			$('#imgupload').change(function() {
 				readURL(this);
 			});
-			$('#fromDate, #toDate').change(function() {
-				afterSaveForm();
+			$(document).on('change', '.popClass', function() {
+				console.log(flag);
+				if(!flag){
+					flag=true;
+					Promise.resolve().then(function() {
+						console.log(flag);
+						afterSaveForm();
+						flag = false;
+					});
+				}
 			});
 
 			$('#formUser').on('submit', function(e) {
