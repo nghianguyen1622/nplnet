@@ -1,4 +1,4 @@
-package com.npl.global.controller.company;
+package com.npl.global.controller.system;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ import com.npl.global.service.settings.CompanyService;
 import com.npl.global.service.system.StorageService;
 
 @RestController
-public class CompanyRestController {
+public class CompanyRestController extends BaseSystemController{
 private Logger logger = LoggerFactory.getLogger(CompanyRestController.class);
 	
 	@Autowired private CompanyService service;
@@ -31,7 +31,7 @@ private Logger logger = LoggerFactory.getLogger(CompanyRestController.class);
 	@Autowired
 	private StorageService storageService;
 	
-	@GetMapping("/6020")
+	@GetMapping("/6020/list")
 	public  @ResponseBody List<CompanyModel> getAll() {
 		try {
 			List<CompanyModel> list = service.getAll();

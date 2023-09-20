@@ -1,4 +1,4 @@
-package com.npl.global.controller.company;
+package com.npl.global.controller.system;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.npl.global.dto.settings.CompanyDto;
 
 @Controller
-public class CompanyController {
+public class CompanyController extends BaseSystemController{
 	private Logger logger = LoggerFactory.getLogger(CompanyController.class);
 
 
-	@GetMapping("/company")
+	@GetMapping("/6020")
 	public String company(Model model) {
 		try {
 			CompanyDto company = new CompanyDto();
@@ -23,6 +23,6 @@ public class CompanyController {
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
-		return "6020";
+		return "system/6020";
 	}
 }

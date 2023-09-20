@@ -1,4 +1,4 @@
-package com.npl.global.controller.program;
+package com.npl.global.controller.system;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ import com.npl.global.security.NplUserDetails;
 import com.npl.global.service.settings.ProgramService;
 
 @RestController
-public class ProgramRestController {
+public class ProgramRestController extends BaseSystemController{
 	private Logger logger = LoggerFactory.getLogger(ProgramRestController.class);
 	
 	@Autowired private ProgramService service;
