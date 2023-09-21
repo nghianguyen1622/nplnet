@@ -34,35 +34,48 @@
 															<h3 class="nk-block-title page-title">[[${pageTitle}]]</h3>
 														</div>
 														<div class="col-lg-10 col-xxl-10">
-															<div class="col-lg-12 col-xxl-12 row">
-																<div class="col-lg-4 col-xxl-4">
-																	<div class="form-group">
-																		<label class="form-label">Lọc dữ liệu</label>
-																		<div class="form-control-wrap">
-																			<div class="input-daterange date-picker-range input-group">
-																				<input type="text" id="fromDate" class="form-control popClass date" readonly="readonly"/>
-																				<div class="input-group-addon">Tới</div>
-																				<input type="text" id="toDate" class="form-control popClass date" readonly="readonly"/>
+															<form action="">
+																<div class="col-lg-12 col-xxl-12 row">
+																
+																	<div class="col-lg-4 col-xxl-4">
+																		<div class="form-group">
+																			<label class="form-label">Lọc dữ liệu</label>
+																			<div class="form-control-wrap">
+																				<div class="input-daterange date-picker-range input-group">
+																					<input type="text" id="fromDate" class="form-control popClass date" readonly="readonly"/>
+																					<div class="input-group-addon">Tới</div>
+																					<input type="text" id="toDate" class="form-control popClass date" readonly="readonly"/>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="col-lg-8 col-xxl-8">
+																		<div class="form-group">
+																			<label class="form-label">Tìm mặc định</label>
+																			<div class="form-control-wrap">
+																				<div class="btn-group">
+																					<button type="button" id="today" class="btn btn-outline-light active">H.nay</button>
+																					<button type="button" id="lastWeek" class="btn btn-outline-light">Tuần trước</button>
+																					<button type="button" id="lastMonth" class="btn btn-outline-light">Thg trước</button>
+																					<button type="button" id="last3Months" class="btn btn-outline-light">3 Thg trước</button>
+																					<button type="button" id="lastYear" class="btn btn-outline-light">Năm trước</button>
+																					<button type="button" id="All" class="btn btn-outline-light">T.cả</button>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="col-lg-4 col-xxl-4">
+																		<div class="form-group">
+																			<div class="form-control-wrap">
+																				<select class="form-select js-select2" id="comId" name="comId">
+																					<option value="All">Tất cả công ty</option>
+																					<option th:each="com : ${listCom}" th:value="${com.comId}" th:text="${com.comName}"></option>
+																				</select>
 																			</div>
 																		</div>
 																	</div>
 																</div>
-																<div class="col-lg-8 col-xxl-8">
-																	<div class="form-group">
-																		<label class="form-label">Tìm mặc định</label>
-																		<div class="form-control-wrap">
-																			<div class="btn-group">
-																				<button type="button" id="today" class="btn btn-outline-light active">H.nay</button>
-																				<button type="button" id="lastWeek" class="btn btn-outline-light">Tuần trước</button>
-																				<button type="button" id="lastMonth" class="btn btn-outline-light">Thg trước</button>
-																				<button type="button" id="last3Months" class="btn btn-outline-light">3 Thg trước</button>
-																				<button type="button" id="lastYear" class="btn btn-outline-light">Năm trước</button>
-																				<button type="button" id="All" class="btn btn-outline-light">T.cả</button>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-															</div>
+															</form>
 														</div>
 														<div class="col-lg-2 col-xxl-2">
 															<div class="toggle-wrap nk-block-tools-toggle d-flex flex-row-reverse">
@@ -239,7 +252,6 @@
     <script th:src="@{/js/example-sweetalert.js}"></script>
 
 	<script th:src="@{/js/dataTables.fixedColumns.min.js}"></script>
-	
 	<script th:src="@{/js/commom-list.js}"></script>
 	<script th:src="@{/js/commom-form.js}"></script>
 	<script type="text/javascript">
@@ -372,27 +384,25 @@
 					leftColumns : 2
 				}
 			};
-			var mergedOptions = Object.assign({}, mergedOptions,
-					dataTableOptions);
+			var mergedOptions = Object.assign({}, mergedOptions, dataTableOptions);
 
 			var arr = [ { title : "Action", field : null, delEdit : true, className : "text-center", name : "userId" },
 						{ title : "User Id", field : "userId" },
-						{ title : "User Name", field : "userName" },
-						{ title : "Img", field : "filePath", img : true },
+						{ title : "User Name", field : "userName" , url:"/pathInfo/", id:"id"},
+						{ title : "Img", field : "filePath", img : true , className: "text-center"},
 						{ title : "Email", field : "email" },
 						{ title : "Adress", field : "adress" },
 						{ title : "Phone", field : "phone" },
 						{ title : "Bith Day", field : "birthDay" },
-						{ title : "Status", field : "enabled", status : true },
+						{ title : "Status", field : "enabled", status : true , url: "/product/enable/", className: "text-center"},
 						{ title : "Work User", field : "workUser" },
 						{ title : "Update Time", field : "updatedTime" },
 						{ title : "Create Time", field : "createdTime" }, 
 					];
-			var arrURL = { 	api : "/user/1010/list",
-							urlDel : "/user/1010/delete/"
-						};
+			var arrURL = { 	api : "/user/1010/list", urlDel : "/user/1010/delete/" };
 			var conditon = { fromDate : $("#fromDate").val() ,
-							toDate : $("#toDate").val() ,
+							 toDate : $("#toDate").val() ,
+							 comId : $("#comId").val()
 							}
 			
 			NioApp.DataTable.initWithUrlAndArr('.datatable-init-export', arrURL, conditon, arr, mergedOptions);
@@ -418,11 +428,9 @@
 				readURL(this);
 			});
 			$(document).on('change', '.popClass', function() {
-				console.log(flag);
 				if(!flag){
 					flag=true;
 					Promise.resolve().then(function() {
-						console.log(flag);
 						afterSaveForm();
 						flag = false;
 					});

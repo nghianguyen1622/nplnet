@@ -46,9 +46,9 @@ public class UserRestController extends BaseUserController{
 	private Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	@GetMapping("/1010/list")
-	public  @ResponseBody List<UserModel> getAll(@RequestParam String fromDate, @RequestParam String toDate) {
+	public  @ResponseBody List<UserModel> getAll(@RequestParam String fromDate, @RequestParam String toDate, @RequestParam String comId) {
 		try {
-			List<UserModel> listUser = service.findAll(fromDate, toDate);
+			List<UserModel> listUser = service.findAll(fromDate, toDate, comId);
 			return listUser;
 		} catch (Exception e) {
 			logger.error(e.getMessage());

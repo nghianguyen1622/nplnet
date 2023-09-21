@@ -12,7 +12,7 @@ public interface UserService {
 	public UserModel findUserName(String userId);
 	public User findUserNameParam(String userId);
 	
-	public List<UserModel> findAll(String fromDate, String toDate);
+	public List<UserModel> findAll(String fromDate, String toDate, String comId);
 	public List<UserModel> findByComId(String comId, String fromDate, String toDate);
 	public ResultProcDto saveUser(UserDto userSave) throws Exception;
 	public ResultProcDto delUser(String userId) throws Exception;

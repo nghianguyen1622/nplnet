@@ -569,16 +569,16 @@
 		},
 		
 		initComplete: function(settings, json) {
-            // cấu hình tr cho table. Lưu ý rằng có thể thêm vào tùy chọn
-            // vị trí "text-? (left | right | justify | center)"
-            // màu sắc "text-? (primary , success, dark, white, danger, warning, gray"
-            // viết thường, in, chữ đầu in "text-?" (lowercase | uppercase | capitalize)
-            // size "text-?px" (9 | 10 | 11 | 12 | 13 | 14 | 15 | 16)
-            $(elm + ' thead tr').addClass('nk-tb-item nk-tb-head');
-            $(elm + ' thead th').addClass('nk-tb-col tb-col-md text-center');
-            $(elm + ' tbody tr').addClass('nk-tb-item');
-            $(elm + ' tbody td').addClass('nk-tb-col tb-col-md');
-            
+			// cấu hình tr cho table. Lưu ý rằng có thể thêm vào tùy chọn
+			// vị trí "text-? (left | right | justify | center)"
+			// màu sắc "text-? (primary , success, dark, white, danger, warning, gray"
+			// viết thường, in, chữ đầu in "text-?" (lowercase | uppercase | capitalize)
+			// size "text-?px" (9 | 10 | 11 | 12 | 13 | 14 | 15 | 16)
+			$(elm + ' thead tr').addClass('nk-tb-item nk-tb-head');
+			$(elm + ' thead th').addClass('nk-tb-col tb-col-md text-center');
+			$(elm + ' tbody tr').addClass('nk-tb-item');
+			$(elm + ' tbody td').addClass('nk-tb-col tb-col-md');
+			
 			$(elm + ' tbody tr').each(function() {
 				$(this).find('td').each(function(columnIndex) {
 					var cellClassName = arr[columnIndex].className;
@@ -587,7 +587,7 @@
 					}
 				});
 			});
-        },
+		},
 		columns: arr.map(function (columnInfo) {
 				return {
 					"data": columnInfo.field,
@@ -596,7 +596,11 @@
 					"render": function(data, type, row, meta) {
 						if (columnInfo.field != null) {
 							if(columnInfo.img){
-								return `<img height="28px" src="${contextPath+ data}" alt="" class="thumb">`;
+								if (data === null || data === undefined) {
+									return "";
+								} else {
+									return `<img height="28px" src="${contextPath+ data}" alt="" class="thumb">`;
+								}
 							}if(columnInfo.status){
 								if(data=='Y'){
 									return `<a class="btn btn-icon" style="color: #3ed900" >

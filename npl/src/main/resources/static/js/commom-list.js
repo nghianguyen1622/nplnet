@@ -213,5 +213,8 @@ $(document).ready(function() {
 			'success'
 		);
 	}
+	$('#comId').change(function(){
+				afterSaveForm();
+			});
 });
 

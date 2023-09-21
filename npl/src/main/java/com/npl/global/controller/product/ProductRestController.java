@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.websocket.server.PathParam;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,12 +43,12 @@ public class ProductRestController extends BaseProductController{
 	private StorageService storageService;
 	
 	@GetMapping("/2030/list")
-	public  @ResponseBody List<ProductModel> getAll() {
+	public  @ResponseBody List<ProductModel> getAll(@RequestParam(name = "comId1", required = false) String comId1 ) {
 		try {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			NplUserDetails loggedUser = (NplUserDetails) authentication.getPrincipal();
 			String comId = loggedUser.getUser().getCompany().getComId();
-			List<ProductModel> listAll = service.findAll(comId);
+			List<ProductModel> listAll = service.findAll(comId1 == null ? comId : comId1 );
 			return listAll;
 		} catch (Exception e) {
 			logger.error(e.getMessage());

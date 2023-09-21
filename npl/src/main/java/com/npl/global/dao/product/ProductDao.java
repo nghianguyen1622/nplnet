@@ -32,6 +32,7 @@ public interface ProductDao extends PagingAndSortingRepository<Product, Integer>
 			+ "      , WORK_USER as workUser                              "
 			+ "     FROM products                                         "
 			+ "     WHERE COM_ID = :comId                                 "
+			+ "     OR :comId = 'All'                                     "
 			, nativeQuery = true)
 	List<ProductModel> findAll(String comId);
 	

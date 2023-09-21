@@ -60,8 +60,9 @@ public interface UserDao extends PagingAndSortingRepository<User, String>{
 			+"      WHERE ((:fromDate = '' AND :toDate = '')                                     "
 			+"             OR created_time BETWEEN uf_converttoyyymmdd(:fromDate, 'DD-MM-YYYY')  "
 			+"                AND uf_converttoyyymmdd(:toDate, 'DD-MM-YYYY') )                   "
+			+"        AND (COM_ID = :comId OR :comId = 'All')                                    "
 			, nativeQuery = true)
-	public List<UserModel> findAll(String fromDate, String toDate);
+	public List<UserModel> findAll(String fromDate, String toDate, String comId);
 	
 	@Query(value=" SELECT user_id  as userId                                                     "
 			+"          , CREATED_TIME  as createdTime                                           "
