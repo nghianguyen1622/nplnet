@@ -37,8 +37,8 @@ public class ProductController extends BaseProductController{
 	@GetMapping("/2030")
 	public String viewPage(Model model) {
 		if(checkYN.isAdmin()) {
-			List<CompanyModel> com = comService.getAll();
-			model.addAttribute("isAdmin", com);
+			List<CompanyModel> listCom = comService.getAll();
+			model.addAttribute("listCom", listCom);
 		}
 		model.addAttribute("pageTitle", "Quản lý sản phẩm");
 		String urlHepl = "/product/2030";

@@ -208,7 +208,7 @@
 				$("#name").val(data.name);
 				$("#alias").val(data.alias);
 				$("#parentId").val(data.parentId?data.parentId:0).trigger('change');
-				$("#thumbnail").attr({ "src": data.filePath});
+				$("#thumbnail").attr({ "src": contextPath+data.filePath});
 				$("#enable").prop("checked", data.isEnabled === "Y");
 				
 				$("#newModal").modal("show");
@@ -223,7 +223,7 @@
 				$("#name").val(data.name);
 				$("#alias").val(data.alias);
 				$("#parentId").val(data.parentId?data.parentId:0).trigger('change');
-				$("#thumbnail").attr("src", data.filePath);
+				$("#thumbnail").attr("src", contextPath+data.filePath);
 				$("#enable").prop("checked", data.isEnabled === "Y");
 				
 				$("#newModal").modal("show");

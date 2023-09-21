@@ -29,12 +29,12 @@
                                     <div class="nk-block-between">
                                         <div class="nk-block-head-content">
                                             <h3 class="nk-block-title page-title">[[${pageTitle}]]</h3>
-                                            <th:block th:if="${isAdmin}">
+                                            <th:block th:if="${listCom}">
 												<div class="form-group">
 													<div class="form-control-wrap">
 														<select class="form-select js-select2" id="comId">
 															<option value="All">Tất cả công ty</option>
-															<th:block th:each="com : ${isAdmin}">
+															<th:block th:each="com : ${listCom}">
 																<option th:value="${com.comId}" th:text="${com.comName}">
 																</option>
 															</th:block>
@@ -102,9 +102,7 @@
 		moduleURL = "[[@{/}]]";
 		
 		$(document).ready(function() {
-			$('#comId').change(function(){
-				afterSaveForm();
-			});
+			
 			$(document).on("click", ".link-delete", function(e) {
 				e.preventDefault();
 				var entityName = $(this).attr("data-entityName");

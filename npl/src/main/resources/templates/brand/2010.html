@@ -221,7 +221,7 @@
 			listCateByBrand("/category/listCate", id);
 			findDataById(id, function (data) {
 				$("#name").val(data.name);
-				$("#thumbnail").attr({ "src": data.filePath});
+				$("#thumbnail").attr({ "src": contextPath+data.filePath});
 				$("#enable").prop("checked", data.isEnabled === "Y");
 				
 				$("#newModal").modal("show");
@@ -235,7 +235,7 @@
 			listCateByBrand("/category/listCate", id)
 			findDataById(id, function (data) {
 				$("#name").val(data.name);
-				$("#thumbnail").attr("src", data.filePath);
+				$("#thumbnail").attr("src", contextPath+data.filePath);
 				$("#enable").prop("checked", data.isEnabled === "Y");
 				
 				$("#newModal").modal("show");
