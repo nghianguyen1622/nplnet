@@ -1,6 +1,6 @@
 "use strict";
 
-!function (NioApp, $) {
+!function (npl, $) {
   "use strict";
 
   //////// for developer - User Balance //////// 
@@ -58,7 +58,7 @@
           maintainAspectRatio: false,
           tooltips: {
             enabled: true,
-            rtl: NioApp.State.isRTL,
+            rtl: npl.State.isRTL,
             callbacks: {
               title: function title(tooltipItem, data) {
                 return false; //data['labels'][tooltipItem[0]['index']];
@@ -83,7 +83,7 @@
           scales: {
             yAxes: [{
               display: true,
-              position: NioApp.State.isRTL ? "right" : "left",
+              position: npl.State.isRTL ? "right" : "left",
               ticks: {
                 beginAtZero: false,
                 fontSize: 12,
@@ -93,9 +93,9 @@
                 stepSize: 300
               },
               gridLines: {
-                color: NioApp.hexRGB("#526484", .2),
+                color: npl.hexRGB("#526484", .2),
                 tickMarkLength: 0,
-                zeroLineColor: NioApp.hexRGB("#526484", .2)
+                zeroLineColor: npl.hexRGB("#526484", .2)
               }
             }],
             xAxes: [{
@@ -105,7 +105,7 @@
                 fontColor: '#9eaecf',
                 source: 'auto',
                 padding: 0,
-                reverse: NioApp.State.isRTL
+                reverse: npl.State.isRTL
               },
               gridLines: {
                 color: "transparent",
@@ -120,7 +120,7 @@
     });
   }
   // init chart
-  NioApp.coms.docReady.push(function () {
+  npl.coms.docReady.push(function () {
     analyticsAu();
   });
   var analyticOvData = {
@@ -137,7 +137,7 @@
       label: "Current Month",
       color: "#798bff",
       dash: 0,
-      background: NioApp.hexRGB('#798bff', .15),
+      background: npl.hexRGB('#798bff', .15),
       data: [4110, 4220, 4810, 5480, 4600, 5670, 6660, 4830, 5590, 5730, 4790, 4950, 5100, 5800, 5950, 5850, 5950, 4450, 4900, 8000, 7200, 7250, 7900, 8950, 6300, 7200, 7250, 7650, 6950, 4750]
     }]
   };
@@ -187,7 +187,7 @@
           maintainAspectRatio: false,
           tooltips: {
             enabled: true,
-            rtl: NioApp.State.isRTL,
+            rtl: npl.State.isRTL,
             callbacks: {
               title: function title(tooltipItem, data) {
                 return data['labels'][tooltipItem[0]['index']];
@@ -213,7 +213,7 @@
           scales: {
             yAxes: [{
               display: true,
-              position: NioApp.State.isRTL ? "right" : "left",
+              position: npl.State.isRTL ? "right" : "left",
               ticks: {
                 beginAtZero: true,
                 fontSize: 12,
@@ -222,9 +222,9 @@
                 stepSize: 2400
               },
               gridLines: {
-                color: NioApp.hexRGB("#526484", .2),
+                color: npl.hexRGB("#526484", .2),
                 tickMarkLength: 0,
-                zeroLineColor: NioApp.hexRGB("#526484", .2)
+                zeroLineColor: npl.hexRGB("#526484", .2)
               }
             }],
             xAxes: [{
@@ -234,7 +234,7 @@
                 fontColor: '#9eaecf',
                 source: 'auto',
                 padding: 0,
-                reverse: NioApp.State.isRTL
+                reverse: npl.State.isRTL
               },
               gridLines: {
                 color: "transparent",
@@ -249,7 +249,7 @@
     });
   }
   // init chart
-  NioApp.coms.docReady.push(function () {
+  npl.coms.docReady.push(function () {
     analyticsLineLarge();
   });
   var BookingData = {
@@ -299,7 +299,7 @@
           maintainAspectRatio: false,
           tooltips: {
             enabled: true,
-            rtl: NioApp.State.isRTL,
+            rtl: npl.State.isRTL,
             callbacks: {
               title: function title(tooltipItem, data) {
                 return data['labels'][tooltipItem[0]['index']];
@@ -327,7 +327,7 @@
     });
   }
   // init chart
-  NioApp.coms.docReady.push(function () {
+  npl.coms.docReady.push(function () {
     analyticsDoughnut();
   });
   var totalRoom = {
@@ -336,7 +336,7 @@
     stacked: true,
     datasets: [{
       label: "User",
-      color: [NioApp.hexRGB("#6576ff", .2), NioApp.hexRGB("#6576ff", .2), NioApp.hexRGB("#6576ff", .2), NioApp.hexRGB("#6576ff", .2), NioApp.hexRGB("#6576ff", .2), NioApp.hexRGB("#6576ff", .2), "#6576ff"],
+      color: [npl.hexRGB("#6576ff", .2), npl.hexRGB("#6576ff", .2), npl.hexRGB("#6576ff", .2), npl.hexRGB("#6576ff", .2), npl.hexRGB("#6576ff", .2), npl.hexRGB("#6576ff", .2), "#6576ff"],
       // @v2.0
       data: [12, 15, 6, 5, 15, 7, 8]
     }]
@@ -347,7 +347,7 @@
     stacked: true,
     datasets: [{
       label: "User",
-      color: [NioApp.hexRGB("#816bff", .2), NioApp.hexRGB("#816bff", .2), NioApp.hexRGB("#816bff", .2), NioApp.hexRGB("#816bff", .2), NioApp.hexRGB("#816bff", .2), NioApp.hexRGB("#816bff", .2), "#816bff"],
+      color: [npl.hexRGB("#816bff", .2), npl.hexRGB("#816bff", .2), npl.hexRGB("#816bff", .2), npl.hexRGB("#816bff", .2), npl.hexRGB("#816bff", .2), npl.hexRGB("#816bff", .2), "#816bff"],
       // @v2.0
       data: [120, 150, 80, 69, 50, 105, 75]
     }]
@@ -358,7 +358,7 @@
     stacked: true,
     datasets: [{
       label: "Expenses",
-      color: [NioApp.hexRGB("#559bfb", .2), NioApp.hexRGB("#559bfb", .2), NioApp.hexRGB("#559bfb", .2), NioApp.hexRGB("#559bfb", .2), NioApp.hexRGB("#559bfb", .2), NioApp.hexRGB("#559bfb", .2), "#559bfb"],
+      color: [npl.hexRGB("#559bfb", .2), npl.hexRGB("#559bfb", .2), npl.hexRGB("#559bfb", .2), npl.hexRGB("#559bfb", .2), npl.hexRGB("#559bfb", .2), npl.hexRGB("#559bfb", .2), "#559bfb"],
       // @v2.0
       data: [600, 700, 800, 500, 600, 500, 1200]
     }]
@@ -404,7 +404,7 @@
           maintainAspectRatio: false,
           tooltips: {
             enabled: true,
-            rtl: NioApp.State.isRTL,
+            rtl: npl.State.isRTL,
             callbacks: {
               title: function title(tooltipItem, data) {
                 return false;
@@ -437,7 +437,7 @@
               display: false,
               stacked: _get_data.stacked ? _get_data.stacked : false,
               ticks: {
-                reverse: NioApp.State.isRTL
+                reverse: npl.State.isRTL
               }
             }]
           }
@@ -446,7 +446,7 @@
     });
   }
   // init chart
-  NioApp.coms.docReady.push(function () {
+  npl.coms.docReady.push(function () {
     ivDataChart();
   });
-}(NioApp, jQuery);
+}(npl, jQuery);

@@ -1,6 +1,6 @@
 "use strict";
 
-!function (NioApp, $) {
+!function (npl, $) {
   "use strict";
 
   //////// for developer - User Balance //////// 
@@ -16,7 +16,7 @@
     datasets: [{
       label: "Total Received",
       color: "#798bff",
-      background: NioApp.hexRGB('#798bff', .3),
+      background: npl.hexRGB('#798bff', .3),
       data: [111, 80, 125, 75, 95, 75, 90, 111, 80, 125, 75, 95, 75, 90, 111, 80, 125, 75, 95, 75, 90, 111, 80, 125, 75, 95, 75, 90, 75, 90]
     }]
   };
@@ -60,7 +60,7 @@
           maintainAspectRatio: false,
           tooltips: {
             enabled: true,
-            rtl: NioApp.State.isRTL,
+            rtl: npl.State.isRTL,
             callbacks: {
               title: function title(tooltipItem, data) {
                 return false;
@@ -87,7 +87,7 @@
             }],
             xAxes: [{
               display: false,
-              reverse: NioApp.State.isRTL
+              reverse: npl.State.isRTL
             }]
           }
         }
@@ -96,7 +96,7 @@
   }
 
   // init chart
-  NioApp.coms.docReady.push(function () {
+  npl.coms.docReady.push(function () {
     lineProfileBalance();
   });
   var orderOverview = {
@@ -153,7 +153,7 @@
           maintainAspectRatio: false,
           tooltips: {
             enabled: true,
-            rtl: NioApp.State.isRTL,
+            rtl: npl.State.isRTL,
             callbacks: {
               title: function title(tooltipItem, data) {
                 return data.datasets[tooltipItem[0].datasetIndex].label;
@@ -178,7 +178,7 @@
             yAxes: [{
               display: true,
               stacked: _get_data.stacked ? _get_data.stacked : false,
-              position: NioApp.State.isRTL ? "right" : "left",
+              position: npl.State.isRTL ? "right" : "left",
               ticks: {
                 beginAtZero: true,
                 fontSize: 11,
@@ -192,9 +192,9 @@
                 stepSize: 1200
               },
               gridLines: {
-                color: NioApp.hexRGB("#526484", .2),
+                color: npl.hexRGB("#526484", .2),
                 tickMarkLength: 0,
-                zeroLineColor: NioApp.hexRGB("#526484", .2)
+                zeroLineColor: npl.hexRGB("#526484", .2)
               }
             }],
             xAxes: [{
@@ -205,7 +205,7 @@
                 fontColor: '#9eaecf',
                 source: 'auto',
                 padding: 10,
-                reverse: NioApp.State.isRTL
+                reverse: npl.State.isRTL
               },
               gridLines: {
                 color: "transparent",
@@ -219,7 +219,7 @@
     });
   }
   // init chart
-  NioApp.coms.docReady.push(function () {
+  npl.coms.docReady.push(function () {
     orderOverviewChart();
   });
   var userActivity = {
@@ -232,7 +232,7 @@
       data: [110, 80, 125, 55, 95, 75, 90, 110, 80, 125, 55, 95, 75, 90, 110, 80, 125, 55, 95, 75, 90]
     }, {
       label: "Referral Join",
-      color: NioApp.hexRGB("#9cabff", .4),
+      color: npl.hexRGB("#9cabff", .4),
       data: [125, 55, 95, 75, 90, 110, 80, 125, 55, 95, 75, 90, 110, 80, 125, 55, 95, 75, 90, 75, 90]
     }]
   };
@@ -277,7 +277,7 @@
           maintainAspectRatio: false,
           tooltips: {
             enabled: true,
-            rtl: NioApp.State.isRTL,
+            rtl: npl.State.isRTL,
             callbacks: {
               title: function title(tooltipItem, data) {
                 return data.datasets[tooltipItem[0].datasetIndex].label;
@@ -310,7 +310,7 @@
               display: false,
               stacked: _get_data.stacked ? _get_data.stacked : false,
               ticks: {
-                reverse: NioApp.State.isRTL
+                reverse: npl.State.isRTL
               }
             }]
           }
@@ -319,7 +319,7 @@
     });
   }
   // init chart
-  NioApp.coms.docReady.push(function () {
+  npl.coms.docReady.push(function () {
     userActivityChart();
   });
   var coinOverview = {
@@ -331,7 +331,7 @@
       data: [1740, 2500, 1820, 1200, 1600, 2500]
     }, {
       label: "Sell Orders",
-      color: [NioApp.hexRGB('#f98c45', .2), NioApp.hexRGB('#9cabff', .4), NioApp.hexRGB('#8feac5', .4), NioApp.hexRGB('#6b79c8', .4), NioApp.hexRGB('#79f1dc', .4)],
+      color: [npl.hexRGB('#f98c45', .2), npl.hexRGB('#9cabff', .4), npl.hexRGB('#8feac5', .4), npl.hexRGB('#6b79c8', .4), npl.hexRGB('#79f1dc', .4)],
       data: [2420, 1820, 3000, 5000, 2450, 1820]
     }]
   };
@@ -377,7 +377,7 @@
           maintainAspectRatio: false,
           tooltips: {
             enabled: true,
-            rtl: NioApp.State.isRTL,
+            rtl: npl.State.isRTL,
             callbacks: {
               title: function title(tooltipItem, data) {
                 return data['labels'][tooltipItem[0]['index']];
@@ -407,9 +407,9 @@
                 padding: 0
               },
               gridLines: {
-                color: NioApp.hexRGB("#526484", .2),
+                color: npl.hexRGB("#526484", .2),
                 tickMarkLength: 0,
-                zeroLineColor: NioApp.hexRGB("#526484", .2)
+                zeroLineColor: npl.hexRGB("#526484", .2)
               }
             }],
             xAxes: [{
@@ -420,7 +420,7 @@
                 fontColor: '#9eaecf',
                 source: 'auto',
                 padding: 0,
-                reverse: NioApp.State.isRTL
+                reverse: npl.State.isRTL
               },
               gridLines: {
                 color: "transparent",
@@ -434,7 +434,7 @@
     });
   }
   // init chart
-  NioApp.coms.docReady.push(function () {
+  npl.coms.docReady.push(function () {
     coinOverviewChart();
   });
   var salesRevenue = {
@@ -443,7 +443,7 @@
     stacked: true,
     datasets: [{
       label: "Sales Revenue",
-      color: [NioApp.hexRGB("#6576ff", .2), NioApp.hexRGB("#6576ff", .2), NioApp.hexRGB("#6576ff", .2), NioApp.hexRGB("#6576ff", .2), NioApp.hexRGB("#6576ff", .2), NioApp.hexRGB("#6576ff", .2), NioApp.hexRGB("#6576ff", .2), NioApp.hexRGB("#6576ff", .2), NioApp.hexRGB("#6576ff", .2), NioApp.hexRGB("#6576ff", .2), NioApp.hexRGB("#6576ff", .2), "#6576ff"],
+      color: [npl.hexRGB("#6576ff", .2), npl.hexRGB("#6576ff", .2), npl.hexRGB("#6576ff", .2), npl.hexRGB("#6576ff", .2), npl.hexRGB("#6576ff", .2), npl.hexRGB("#6576ff", .2), npl.hexRGB("#6576ff", .2), npl.hexRGB("#6576ff", .2), npl.hexRGB("#6576ff", .2), npl.hexRGB("#6576ff", .2), npl.hexRGB("#6576ff", .2), "#6576ff"],
       //@v2.0
       data: [11000, 8000, 12500, 5500, 9500, 14299, 11000, 8000, 12500, 5500, 9500, 14299]
     }]
@@ -454,7 +454,7 @@
     stacked: true,
     datasets: [{
       label: "Active User",
-      color: [NioApp.hexRGB("#6576ff", .2), NioApp.hexRGB("#6576ff", .2), NioApp.hexRGB("#6576ff", .2), NioApp.hexRGB("#6576ff", .2), NioApp.hexRGB("#6576ff", .2), "#6576ff"],
+      color: [npl.hexRGB("#6576ff", .2), npl.hexRGB("#6576ff", .2), npl.hexRGB("#6576ff", .2), npl.hexRGB("#6576ff", .2), npl.hexRGB("#6576ff", .2), "#6576ff"],
       //@v2.0
       data: [8200, 7800, 9500, 5500, 9200, 9690]
     }]
@@ -465,7 +465,7 @@
     stacked: true,
     datasets: [{
       label: "Active User",
-      color: [NioApp.hexRGB("#aea1ff", .2), NioApp.hexRGB("#aea1ff", .2), NioApp.hexRGB("#aea1ff", .2), NioApp.hexRGB("#aea1ff", .2), NioApp.hexRGB("#aea1ff", .2), "#aea1ff"],
+      color: [npl.hexRGB("#aea1ff", .2), npl.hexRGB("#aea1ff", .2), npl.hexRGB("#aea1ff", .2), npl.hexRGB("#aea1ff", .2), npl.hexRGB("#aea1ff", .2), "#aea1ff"],
       //@v2.0
       data: [8200, 7800, 9500, 5500, 9200, 9690]
     }]
@@ -511,7 +511,7 @@
           maintainAspectRatio: false,
           tooltips: {
             enabled: true,
-            rtl: NioApp.State.isRTL,
+            rtl: npl.State.isRTL,
             callbacks: {
               title: function title(tooltipItem, data) {
                 return false;
@@ -544,7 +544,7 @@
               display: false,
               stacked: _get_data.stacked ? _get_data.stacked : false,
               ticks: {
-                reverse: NioApp.State.isRTL
+                reverse: npl.State.isRTL
               }
             }]
           }
@@ -553,7 +553,7 @@
     });
   }
   // init chart
-  NioApp.coms.docReady.push(function () {
+  npl.coms.docReady.push(function () {
     salesBarChart();
   });
   var salesOverview = {
@@ -563,7 +563,7 @@
     datasets: [{
       label: "Sales Overview",
       color: "#798bff",
-      background: NioApp.hexRGB('#798bff', .3),
+      background: npl.hexRGB('#798bff', .3),
       data: [8200, 7800, 9500, 5500, 9200, 9690, 8200, 7800, 9500, 5500, 9200, 9690, 8200, 7800, 9500, 5500, 9200, 9690, 8200, 7800, 9500, 5500, 9200, 9690, 8200, 7800, 9500, 5500, 9200, 9690]
     }]
   };
@@ -612,7 +612,7 @@
           maintainAspectRatio: false,
           tooltips: {
             enabled: true,
-            rtl: NioApp.State.isRTL,
+            rtl: npl.State.isRTL,
             callbacks: {
               title: function title(tooltipItem, data) {
                 return data['labels'][tooltipItem[0]['index']];
@@ -637,7 +637,7 @@
             yAxes: [{
               display: true,
               stacked: _get_data.stacked ? _get_data.stacked : false,
-              position: NioApp.State.isRTL ? "right" : "left",
+              position: npl.State.isRTL ? "right" : "left",
               ticks: {
                 beginAtZero: true,
                 fontSize: 11,
@@ -650,9 +650,9 @@
                 stepSize: 3000
               },
               gridLines: {
-                color: NioApp.hexRGB("#526484", .2),
+                color: npl.hexRGB("#526484", .2),
                 tickMarkLength: 0,
-                zeroLineColor: NioApp.hexRGB("#526484", .2)
+                zeroLineColor: npl.hexRGB("#526484", .2)
               }
             }],
             xAxes: [{
@@ -663,7 +663,7 @@
                 fontColor: '#9eaecf',
                 source: 'auto',
                 padding: 10,
-                reverse: NioApp.State.isRTL
+                reverse: npl.State.isRTL
               },
               gridLines: {
                 color: "transparent",
@@ -678,7 +678,7 @@
   }
 
   // init chart
-  NioApp.coms.docReady.push(function () {
+  npl.coms.docReady.push(function () {
     lineSalesOverview();
   });
   var supportStatus = {
@@ -690,11 +690,11 @@
       data: [66, 74, 92, 142, 189]
     }, {
       label: "Open",
-      color: [NioApp.hexRGB('#f98c45', .4), NioApp.hexRGB('#9cabff', .4), NioApp.hexRGB('#8feac5', .4), NioApp.hexRGB('#6b79c8', .4), NioApp.hexRGB('#79f1dc', .4)],
+      color: [npl.hexRGB('#f98c45', .4), npl.hexRGB('#9cabff', .4), npl.hexRGB('#8feac5', .4), npl.hexRGB('#6b79c8', .4), npl.hexRGB('#79f1dc', .4)],
       data: [66, 74, 92, 32, 26]
     }, {
       label: "Pending",
-      color: [NioApp.hexRGB('#f98c45', .2), NioApp.hexRGB('#9cabff', .2), NioApp.hexRGB('#8feac5', .2), NioApp.hexRGB('#6b79c8', .2), NioApp.hexRGB('#79f1dc', .2)],
+      color: [npl.hexRGB('#f98c45', .2), npl.hexRGB('#9cabff', .2), npl.hexRGB('#8feac5', .2), npl.hexRGB('#6b79c8', .2), npl.hexRGB('#79f1dc', .2)],
       data: [66, 74, 92, 21, 9]
     }]
   };
@@ -740,7 +740,7 @@
           maintainAspectRatio: false,
           tooltips: {
             enabled: true,
-            rtl: NioApp.State.isRTL,
+            rtl: npl.State.isRTL,
             callbacks: {
               title: function title(tooltipItem, data) {
                 return data['labels'][tooltipItem[0]['index']];
@@ -784,7 +784,7 @@
                 fontColor: '#9eaecf',
                 source: 'auto',
                 padding: 0,
-                reverse: NioApp.State.isRTL
+                reverse: npl.State.isRTL
               },
               gridLines: {
                 color: "transparent",
@@ -798,7 +798,7 @@
     });
   }
   // init chart
-  NioApp.coms.docReady.push(function () {
+  npl.coms.docReady.push(function () {
     supportStatusChart();
   });
-}(NioApp, jQuery);
+}(npl, jQuery);

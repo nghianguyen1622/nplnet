@@ -1,11 +1,11 @@
 "use strict";
 
-!function (NioApp, $) {
+!function (npl, $) {
   "use strict";
 
   var $win = $(window),
     $body = $('body'),
-    breaks = NioApp.Break;
+    breaks = npl.Break;
 
   // Inbox Variable
   var $ibx_aside = $('.nk-ibx-aside'),
@@ -16,7 +16,7 @@
     $tagify = $('.tagify'),
     hide_aside = 'hide-aside',
     show_ibx = 'show-ibx';
-  NioApp.Message = function () {
+  npl.Message = function () {
     function ibx_show() {
       $ibx_link.on('click', function (e) {
         $ibx_link.removeClass('current');
@@ -54,5 +54,5 @@
     }
     tagify_init();
   };
-  NioApp.coms.docReady.push(NioApp.Message);
-}(NioApp, jQuery);
+  npl.coms.docReady.push(npl.Message);
+}(npl, jQuery);

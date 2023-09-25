@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /*!
-* Template Name: DashLite
+* Template Name: NplNet
 * Author: Softnio
 * Author URI: http://themeforest.net/user/softnio
 * Version: 3.2.0
@@ -18471,15 +18471,15 @@ div.dataTables_wrapper div.dataTables_length .input-group-lg > select,
   content: "\ece5";
 }
 
-.ni-dashlite:before {
+.ni-nplnet:before {
   content: "\eb91";
 }
 
-.ni-dashlite-circle:before {
+.ni-nplnet-circle:before {
   content: "\ec56";
 }
 
-.ni-dashlite-alt:before {
+.ni-nplnet-alt:before {
   content: "\ec57";
 }
 

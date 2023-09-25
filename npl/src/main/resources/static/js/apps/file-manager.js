@@ -1,23 +1,23 @@
 "use strict";
 
-!function (NioApp, $) {
+!function (npl, $) {
   "use strict";
 
   var $win = $(window),
     $body = $('body'),
-    breaks = NioApp.Break;
+    breaks = npl.Break;
 
   // Variable
   var $file_dload = $('.file-dl-toast');
-  NioApp.FileManager = function () {
+  npl.FileManager = function () {
     $file_dload.on("click", function (e) {
       e.preventDefault();
-      NioApp.Toast('<h5>Downloading File</h5><p>Generating the file to start download.</p>', 'success', {
+      npl.Toast('<h5>Downloading File</h5><p>Generating the file to start download.</p>', 'success', {
         position: 'bottom-center',
         icon: 'ni ni-download-cloud',
         ui: 'is-dark'
       });
     });
   };
-  NioApp.coms.docReady.push(NioApp.FileManager);
-}(NioApp, jQuery);
+  npl.coms.docReady.push(npl.FileManager);
+}(npl, jQuery);

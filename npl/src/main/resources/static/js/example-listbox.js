@@ -1,6 +1,6 @@
 "use strict";
 
-(function (NioApp, $) {
+(function (npl, $) {
   'use strict';
 
   var dualListbox = new DualListbox('#basic-listbox');
@@ -15,4 +15,4 @@
     addAllButtonText: '<em class="icon ni ni-chevrons-right"></em>',
     removeAllButtonText: '<em class="icon ni ni-chevrons-left"></em>'
   });
-})(NioApp, jQuery);
+})(npl, jQuery);

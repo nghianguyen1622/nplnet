@@ -1,6 +1,6 @@
 "use strict";
 
-(function (NioApp, $) {
+(function (npl, $) {
   'use strict';
 
   // Basic
@@ -50,4 +50,4 @@
 
   // Drag Container
   dragula([document.querySelector("#dragContainer")]);
-})(NioApp, jQuery);
+})(npl, jQuery);

@@ -1,6 +1,6 @@
 "use strict";
 
-(function (NioApp, $) {
+(function (npl, $) {
   'use strict';
 
   // Basic Sweet Alerts
@@ -152,4 +152,4 @@
     });
     e.preventDefault();
   });
-})(NioApp, jQuery);
+})(npl, jQuery);

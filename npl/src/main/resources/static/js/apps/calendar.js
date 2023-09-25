@@ -1,13 +1,13 @@
 "use strict";
 
-!function (NioApp, $) {
+!function (npl, $) {
   "use strict";
 
   // Variable
   var $win = $(window),
     $body = $('body'),
-    breaks = NioApp.Break;
-  NioApp.Calendar = function () {
+    breaks = npl.Break;
+  npl.Calendar = function () {
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -38,7 +38,7 @@
     var editEventPopup = $('#editEventPopup');
     var previewEventPopup = $('#previewEventPopup');
     var deleteEventBtn = $('#deleteEvent');
-    var mobileView = NioApp.Win.width < NioApp.Break.md ? true : false;
+    var mobileView = npl.Win.width < npl.Break.md ? true : false;
     var calendar = new FullCalendar.Calendar(calendarEl, {
       timeZone: 'UTC',
       initialView: mobileView ? 'listWeek' : 'dayGridMonth',
@@ -58,7 +58,7 @@
           dayMaxEventRows: 2
         }
       },
-      direction: NioApp.State.isRTL ? "rtl" : "ltr",
+      direction: npl.State.isRTL ? "rtl" : "ltr",
       nowIndicator: true,
       now: TODAY + 'T09:25:00',
       eventMouseEnter: function eventMouseEnter(info) {
@@ -294,7 +294,7 @@
         elm.remove();
       });
     }
-    NioApp.Select2('.select-calendar-theme', {
+    npl.Select2('.select-calendar-theme', {
       templateResult: customCalSelect
     });
     addEventPopup.on('hidden.bs.modal', function (e) {
@@ -308,5 +308,5 @@
       $('#preview-event-header').removeClass().addClass('modal-header');
     });
   };
-  NioApp.coms.docReady.push(NioApp.Calendar);
-}(NioApp, jQuery);
+  npl.coms.docReady.push(npl.Calendar);
+}(npl, jQuery);

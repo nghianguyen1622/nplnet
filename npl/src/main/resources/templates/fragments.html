@@ -32,7 +32,7 @@
 <meta property="og:locale" content="vi_VN" />
 <!-- Fav Icon  -->
 <!-- StyleSheets  -->
-<link rel="stylesheet" th:href="@{/css/dashlite.css?ver=3.2.0}">
+<link rel="stylesheet" th:href="@{/css/nplnet.css?ver=3.2.0}">
 <link id="skin-default" rel="stylesheet" th:href="@{/css/theme.css?ver=3.2.0}">
 <link rel="stylesheet" th:href="@{/css/skins/theme-blue.css}">
 
@@ -194,6 +194,53 @@
 
 	<div th:fragment="format_time(dateTime)" th:remove="tag">
 		<span th:text="${#dates.format(dateTime, 'dd-MM-yyyy | HH:mm:ss')}"></span>
+	</div>
+
+	<div th:fragment="search_date" th:remove="tag">
+		<div class="col-lg-11 col-xxl-11">
+			<form action="">
+				<div class="col-lg-12 col-xxl-12 row">
+					<div class="col-lg-4 col-xxl-4">
+						<div class="form-group">
+							<label class="form-label">Ngày đăng ký</label>
+							<div class="form-control-wrap">
+								<div class="input-daterange date-picker-range input-group">
+									<input type="text" id="fromDate" class="form-control popClass date" readonly="readonly"/>
+									<div class="input-group-addon">Tới</div>
+									<input type="text" id="toDate" class="form-control popClass date" readonly="readonly"/>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-8 col-xxl-8">
+						<div class="form-group">
+							<label class="form-label">Tìm mặc định</label>
+							<div class="form-control-wrap">
+								<div class="btn-group">
+									<button type="button" id="today" class="btn btn-outline-light active">H.nay</button>
+									<button type="button" id="lastWeek" class="btn btn-outline-light">Tuần trước</button>
+									<button type="button" id="lastMonth" class="btn btn-outline-light">Thg trước</button>
+									<button type="button" id="last3Months" class="btn btn-outline-light">3 Thg trước</button>
+									<button type="button" id="lastYear" class="btn btn-outline-light">Năm trước</button>
+									<button type="button" id="All" class="btn btn-outline-light">T.cả</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-xxl-3">
+						<div class="form-group">
+							<label class="form-label">Công ty</label>
+							<div class="form-control-wrap">
+								<select class="form-select js-select2" id="comId" name="comId">
+									<option value="All">Tất cả công ty</option>
+									<option th:each="com : ${listCom}" th:value="${com.comId}" th:text="${com.comName}"></option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
 	</div>
 
 

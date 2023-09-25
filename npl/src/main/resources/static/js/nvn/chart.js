@@ -30,7 +30,7 @@ function barChart(selector, set_data) {
         options: {
           legend: {
             display: _get_data.legend ? _get_data.legend : false,
-            rtl: NioApp.State.isRTL,
+            rtl: npl.State.isRTL,
             labels: {
               boxWidth: 30,
               padding: 20,
@@ -40,7 +40,7 @@ function barChart(selector, set_data) {
           maintainAspectRatio: false,
           tooltips: {
             enabled: true,
-            rtl: NioApp.State.isRTL,
+            rtl: npl.State.isRTL,
             callbacks: {
               title: function title(tooltipItem, data) {
                 return data.datasets[tooltipItem[0].datasetIndex].label;
@@ -65,7 +65,7 @@ function barChart(selector, set_data) {
             yAxes: [{
               display: true,
               stacked: _get_data.stacked ? _get_data.stacked : false,
-              position: NioApp.State.isRTL ? "right" : "left",
+              position: npl.State.isRTL ? "right" : "left",
               ticks: {
                 beginAtZero: true,
                 fontSize: 12,
@@ -73,9 +73,9 @@ function barChart(selector, set_data) {
                 padding: 5
               },
               gridLines: {
-                color: NioApp.hexRGB("#526484", .2),
+                color: npl.hexRGB("#526484", .2),
                 tickMarkLength: 0,
-                zeroLineColor: NioApp.hexRGB("#526484", .2)
+                zeroLineColor: npl.hexRGB("#526484", .2)
               }
             }],
             xAxes: [{
@@ -86,7 +86,7 @@ function barChart(selector, set_data) {
                 fontColor: '#9eaecf',
                 source: 'auto',
                 padding: 5,
-                reverse: NioApp.State.isRTL
+                reverse: npl.State.isRTL
               },
               gridLines: {
                 color: "transparent",

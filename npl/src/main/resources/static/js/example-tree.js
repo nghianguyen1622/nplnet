@@ -1,6 +1,6 @@
 "use strict";
 
-(function (NioApp, $) {
+(function (npl, $) {
   'use strict';
 
   $("#basic-tree").jstree({
@@ -43,4 +43,4 @@
     },
     "plugins": ["wholerow", "checkbox"]
   });
-})(NioApp, jQuery);
+})(npl, jQuery);

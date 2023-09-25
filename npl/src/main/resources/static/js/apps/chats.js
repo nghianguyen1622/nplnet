@@ -1,11 +1,11 @@
 "use strict";
 
-!function (NioApp, $) {
+!function (npl, $) {
   "use strict";
 
   var $win = $(window),
     $body = $('body'),
-    breaks = NioApp.Break;
+    breaks = npl.Break;
 
   // Chats Variable
   var $toggle = $('.chat-profile-toggle'),
@@ -23,9 +23,9 @@
     show_chat = 'show-chat',
     info_break = $body.hasClass('has-apps-sidebar') ? 1200 : breaks.xxl,
     flat_break = breaks.lg;
-  NioApp.Chats = function () {
+  npl.Chats = function () {
     function chat_autohide() {
-      if (NioApp.Win.width >= flat_break) {
+      if (npl.Win.width >= flat_break) {
         if (!$body.hasClass(hideau_profile)) $body.addClass(hideau_profile);
       } else {
         if ($body.hasClass(hideau_profile)) $body.removeClass(hideau_profile);
@@ -45,7 +45,7 @@
     }
     function profile_overlay() {
       var overlay = '.' + olay_profile;
-      if (NioApp.Win.width < info_break && $chat_profile.hasClass('visible')) {
+      if (npl.Win.width < info_break && $chat_profile.hasClass('visible')) {
         !$chat_profile.next().hasClass(olay_profile) ? $chat_profile.after('<div class="' + olay_profile + '"></div>') : null;
       } else {
         $(overlay).remove();
@@ -58,7 +58,7 @@
     }
     function search_show() {
       $search_toggle.on('click', function (e) {
-        if (NioApp.Win.width <= info_break) {
+        if (npl.Win.width <= info_break) {
           profile_hide();
           profile_overlay();
         }
@@ -102,10 +102,10 @@
         } else {
           $body.removeClass('chat-' + shown_profile);
         }
-        if (NioApp.Win.width >= flat_break) {
+        if (npl.Win.width >= flat_break) {
           if ($body.hasClass(hideau_profile)) {
             $body.removeClass(hideau_profile);
-          } else if (NioApp.Win.width < info_break && !$(this).hasClass('active')) {
+          } else if (npl.Win.width < info_break && !$(this).hasClass('active')) {
             $body.addClass(hideau_profile);
           }
         }
@@ -115,7 +115,7 @@
     }
     profile_trigger();
     function chat_on_init() {
-      if (NioApp.Win.width >= info_break) {
+      if (npl.Win.width >= info_break) {
         profile_show();
       } else {
         profile_hide();
@@ -125,13 +125,13 @@
     chat_on_init();
     function chat_on_resize() {
       if ($body.hasClass(hideau_profile)) {
-        if (NioApp.Win.width >= info_break) {
+        if (npl.Win.width >= info_break) {
           profile_show();
         } else {
           profile_hide();
         }
       }
-      if (NioApp.Win.width >= flat_break && NioApp.Win.width < info_break) {
+      if (npl.Win.width >= flat_break && npl.Win.width < info_break) {
         if ($body.hasClass('chat-' + shown_profile)) {
           $body.removeClass('chat-' + shown_profile);
           profile_hide();
@@ -143,5 +143,5 @@
       profile_overlay();
     });
   };
-  NioApp.coms.docReady.push(NioApp.Chats);
-}(NioApp, jQuery);
+  npl.coms.docReady.push(npl.Chats);
+}(npl, jQuery);

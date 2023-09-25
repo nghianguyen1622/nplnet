@@ -278,7 +278,7 @@
 						{title:"Status", field:"isEnabled", status:true},
 						];
 			var arrURL = {api: "/category/2020/list", urlDel: "/category/2020/delete/"};
-			NioApp.DataTable.initWithUrlAndArr('.datatable-init-export', arrURL, "", arr, mergedOptions);
+			npl.gird.create('.datatable-init-export', arrURL, "", arr, mergedOptions);
 		}
 		
 		$(document).on('click', '#cancelButton', function() { 

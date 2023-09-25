@@ -254,7 +254,7 @@
 						{title:"Start Date", field:"startDate"},
 						{title:"End Date", field:"endDate"}];
 			var arrURL = {api: "/omnitrion/4020/list", urlDel: "/omnitrion/4020/delete/"};
-			NioApp.DataTable.initWithUrlAndArr('.datatable-init-export', arrURL, arr, mergedOptions);
+			npl.gird.create('.datatable-init-export', arrURL, arr, mergedOptions);
 		}
 		
 		

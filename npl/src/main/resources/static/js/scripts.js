@@ -1,10 +1,10 @@
 "use strict";
 
-!function (NioApp, $) {
+!function (npl, $) {
   "use strict";
 
-  NioApp.Package.name = "DashLite";
-  NioApp.Package.version = "3.2";
+  npl.Package.name = "NplNet";
+  npl.Package.version = "3.2";
   var $win = $(window),
     $body = $('body'),
     $doc = $(document),
@@ -17,7 +17,7 @@
     _sidebar = 'nk-sidebar',
     _sidebar_mob = 'nk-sidebar-mobile',
     //breakpoints
-    _break = NioApp.Break;
+    _break = npl.Break;
   function extend(obj, ext) {
     Object.keys(ext).forEach(function (key) {
       obj[key] = ext[key];
@@ -25,34 +25,34 @@
     return obj;
   }
   // ClassInit @v1.0
-  NioApp.ClassBody = function () {
-    NioApp.AddInBody(_sidebar);
+  npl.ClassBody = function () {
+    npl.AddInBody(_sidebar);
   };
 
   // ClassInit @v1.0
-  NioApp.ClassNavMenu = function () {
-    NioApp.BreakClass('.' + _header_menu, _break.lg, {
+  npl.ClassNavMenu = function () {
+    npl.BreakClass('.' + _header_menu, _break.lg, {
       timeOut: 0
     });
-    NioApp.BreakClass('.' + _sidebar, _break.lg, {
+    npl.BreakClass('.' + _sidebar, _break.lg, {
       timeOut: 0,
       classAdd: _sidebar_mob
     });
     $win.on('resize', function () {
-      NioApp.BreakClass('.' + _header_menu, _break.lg);
-      NioApp.BreakClass('.' + _sidebar, _break.lg, {
+      npl.BreakClass('.' + _header_menu, _break.lg);
+      npl.BreakClass('.' + _sidebar, _break.lg, {
         classAdd: _sidebar_mob
       });
     });
   };
 
   // Code Prettify @v1.0
-  NioApp.Prettify = function () {
+  npl.Prettify = function () {
     window.prettyPrint && prettyPrint();
   };
 
   // Copied @v1.0
-  NioApp.Copied = function () {
+  npl.Copied = function () {
     var clip = '.clipboard-init',
       target = '.clipboard-text',
       sclass = 'clipboard-success',
@@ -100,7 +100,7 @@
   };
 
   // CurrentLink Detect @v1.0
-  NioApp.CurrentLink = function () {
+  npl.CurrentLink = function () {
     var _link = '.nk-menu-link, .menu-link, .nav-link',
       _currentURL = window.location.href,
       fileName = _currentURL.substring(0, _currentURL.indexOf("#") == -1 ? _currentURL.length : _currentURL.indexOf("#")),
@@ -122,12 +122,12 @@
   };
 
   // PasswordSwitch @v1.0
-  NioApp.PassSwitch = function () {
-    NioApp.Passcode('.passcode-switch');
+  npl.PassSwitch = function () {
+    npl.Passcode('.passcode-switch');
   };
 
   // Toastr Message @v1.0 
-  NioApp.Toast = function (msg, ttype, opt) {
+  npl.Toast = function (msg, ttype, opt) {
     var ttype = ttype ? ttype : 'info',
       msi = '',
       ticon = ttype === 'info' ? 'ni ni-info-fill' : ttype === 'success' ? 'ni ni-check-circle-fill' : ttype === 'error' ? 'ni ni-cross-circle-fill' : ttype === 'warning' ? 'ni ni-alert-fill' : '',
@@ -166,7 +166,7 @@
   };
 
   // Toggle Screen @v1.0
-  NioApp.TGL.screen = function (elm) {
+  npl.TGL.screen = function (elm) {
     if ($(elm).exists()) {
       $(elm).each(function () {
         var ssize = $(this).data('toggle-screen');
@@ -178,7 +178,7 @@
   };
 
   // Toggle Content @v1.0
-  NioApp.TGL.content = function (elm, opt) {
+  npl.TGL.content = function (elm, opt) {
     var toggle = elm ? elm : '.toggle',
       $toggle = $(toggle),
       $contentD = $('[data-content]'),
@@ -190,10 +190,10 @@
         "break": toggleBreak
       },
       attr = opt ? extend(def, opt) : def;
-    NioApp.TGL.screen($contentD);
+    npl.TGL.screen($contentD);
     $toggle.on('click', function (e) {
       toggleCurrent = this;
-      NioApp.Toggle.trigger($(this).data('target'), attr);
+      npl.Toggle.trigger($(this).data('target'), attr);
       e.preventDefault();
     });
     $doc.on('mouseup', function (e) {
@@ -205,7 +205,7 @@
           $tpc = $('.ui-timepicker-container'),
           $mdl = $('.modal');
         if (!$toggleCurrent.is(e.target) && $toggleCurrent.has(e.target).length === 0 && !$contentCurrent.is(e.target) && $contentCurrent.has(e.target).length === 0 && $(e.target).closest('.select2-container').length === 0 && !$dpd.is(e.target) && $dpd.has(e.target).length === 0 && !$tpc.is(e.target) && $tpc.has(e.target).length === 0 && !$mdl.is(e.target) && $mdl.has(e.target).length === 0) {
-          NioApp.Toggle.removed($toggleCurrent.data('target'), attr);
+          npl.Toggle.removed($toggleCurrent.data('target'), attr);
           toggleCurrent = false;
         }
       }
@@ -215,28 +215,28 @@
         var content = $(this).data('content'),
           ssize = $(this).data('toggle-screen'),
           toggleBreak = _break[ssize];
-        if (NioApp.Win.width > toggleBreak) {
-          NioApp.Toggle.removed(content, attr);
+        if (npl.Win.width > toggleBreak) {
+          npl.Toggle.removed(content, attr);
         }
       });
     });
   };
 
   // ToggleExpand @v1.0
-  NioApp.TGL.expand = function (elm, opt) {
+  npl.TGL.expand = function (elm, opt) {
     var toggle = elm ? elm : '.expand',
       def = {
         toggle: true
       },
       attr = opt ? extend(def, opt) : def;
     $(toggle).on('click', function (e) {
-      NioApp.Toggle.trigger($(this).data('target'), attr);
+      npl.Toggle.trigger($(this).data('target'), attr);
       e.preventDefault();
     });
   };
 
   // Dropdown Menu @v1.0
-  NioApp.TGL.ddmenu = function (elm, opt) {
+  npl.TGL.ddmenu = function (elm, opt) {
     var imenu = elm ? elm : '.nk-menu-toggle',
       def = {
         active: 'active',
@@ -245,15 +245,15 @@
       },
       attr = opt ? extend(def, opt) : def;
     $(imenu).on('click', function (e) {
-      if (NioApp.Win.width < _break.lg || $(this).parents().hasClass(_sidebar)) {
-        NioApp.Toggle.dropMenu($(this), attr);
+      if (npl.Win.width < _break.lg || $(this).parents().hasClass(_sidebar)) {
+        npl.Toggle.dropMenu($(this), attr);
       }
       e.preventDefault();
     });
   };
 
   // Show Menu @v1.0
-  NioApp.TGL.showmenu = function (elm, opt) {
+  npl.TGL.showmenu = function (elm, opt) {
     var toggle = elm ? elm : '.nk-nav-toggle',
       $toggle = $(toggle),
       $contentD = $('[data-content]'),
@@ -273,23 +273,23 @@
       },
       attr = opt ? extend(def, opt) : def;
     $toggle.on('click', function (e) {
-      NioApp.Toggle.trigger($(this).data('target'), attr);
+      npl.Toggle.trigger($(this).data('target'), attr);
       e.preventDefault();
     });
     $doc.on('mouseup', function (e) {
-      if (!$toggle.is(e.target) && $toggle.has(e.target).length === 0 && !$contentD.is(e.target) && $contentD.has(e.target).length === 0 && NioApp.Win.width < toggleBreak) {
-        NioApp.Toggle.removed($toggle.data('target'), attr);
+      if (!$toggle.is(e.target) && $toggle.has(e.target).length === 0 && !$contentD.is(e.target) && $contentD.has(e.target).length === 0 && npl.Win.width < toggleBreak) {
+        npl.Toggle.removed($toggle.data('target'), attr);
       }
     });
     $win.on('resize', function () {
-      if ((NioApp.Win.width < _break.xl || NioApp.Win.width < toggleBreak) && !NioApp.State.isMobile) {
-        NioApp.Toggle.removed($toggle.data('target'), attr);
+      if ((npl.Win.width < _break.xl || npl.Win.width < toggleBreak) && !npl.State.isMobile) {
+        npl.Toggle.removed($toggle.data('target'), attr);
       }
     });
   };
 
   // Compact Sidebar @v1.0
-  NioApp.sbCompact = function () {
+  npl.sbCompact = function () {
     var toggle = '.nk-nav-compact',
       $toggle = $(toggle),
       $content = $('[data-content]'),
@@ -319,7 +319,7 @@
   };
 
   // Animate FormSearch @v1.0
-  NioApp.Ani.formSearch = function (elm, opt) {
+  npl.Ani.formSearch = function (elm, opt) {
     var def = {
         active: 'active',
         timeout: 400,
@@ -361,7 +361,7 @@
   };
 
   // Animate FormElement @v1.0
-  NioApp.Ani.formElm = function (elm, opt) {
+  npl.Ani.formElm = function (elm, opt) {
     var def = {
         focus: 'focused'
       },
@@ -387,7 +387,7 @@
   };
 
   // Form Validate @v1.0
-  NioApp.Validate = function (elm, opt) {
+  npl.Validate = function (elm, opt) {
     if ($(elm).exists()) {
       $(elm).each(function () {
         var def = {
@@ -395,21 +395,21 @@
           },
           attr = opt ? extend(def, opt) : def;
         $(this).validate(attr);
-        NioApp.Validate.OnChange('.js-select2');
-        NioApp.Validate.OnChange('.date-picker');
-        NioApp.Validate.OnChange('.js-tagify');
+        npl.Validate.OnChange('.js-select2');
+        npl.Validate.OnChange('.date-picker');
+        npl.Validate.OnChange('.js-tagify');
       });
     }
   };
 
   //On change validation for third party plugins
-  NioApp.Validate.OnChange = function (elm) {
+  npl.Validate.OnChange = function (elm) {
     $(elm).on('change', function () {
       $(this).valid();
     });
   };
-  NioApp.Validate.init = function () {
-    NioApp.Validate('.form-validate', {
+  npl.Validate.init = function () {
+    npl.Validate('.form-validate', {
       errorElement: "span",
       errorClass: "invalid",
       errorPlacement: function errorPlacement(error, element) {
@@ -423,7 +423,7 @@
   };
 
   // Dropzone @v1.1
-  NioApp.Dropzone = function (elm, opt) {
+  npl.Dropzone = function (elm, opt) {
     if ($(elm).exists()) {
       $(elm).each(function () {
         var maxFiles = $(elm).data('max-files'),
@@ -445,14 +445,14 @@
   };
 
   // Dropzone Init @v1.0
-  NioApp.Dropzone.init = function () {
-    NioApp.Dropzone('.upload-zone', {
+  npl.Dropzone.init = function () {
+    npl.Dropzone('.upload-zone', {
       url: "/images"
     });
   };
 
   // Wizard @v1.0
-  NioApp.Wizard = function () {
+  npl.Wizard = function () {
     var $wizard = $(".nk-wizard");
     if ($wizard.exists()) {
       $wizard.each(function () {
@@ -502,7 +502,7 @@
   };
 
   // DataTable @1.1
-  NioApp.DataTable = function (elm, opt, externalOptions) {
+  npl.gird = function (elm, opt, externalOptions) {
     if ($(elm).exists()) {
       $(elm).each(function () {
         var auto_responsive = $(this).data('auto-responsive'),
@@ -548,45 +548,22 @@
     }
   };
 
+	// DataTable Init @v1.0
+	npl.gird.init = function() {
+		npl.gird('.datatable-init', {
+			responsive: {
+				details: true
+			},
+		});
+	};
   
-  // DataTable Init @v1.0
-  NioApp.DataTable.init = function () {
-    NioApp.DataTable('.datatable-init', {
-      responsive: {
-        details: true
-      },
-      
-    });
-    
-  };
-  
-	NioApp.DataTable.initWithUrlAndArr = function (elm, arrURL, conditon, arr,  opt) {
+	// Draw Table with API 
+	npl.gird.create = function (elm, arrURL, conditon, arr,  opt) {
 		var myExternalOptions = {
 		ajax: {
 			url: arrURL.api,
 			dataSrc: "",
 			data: conditon
-		},
-		
-		initComplete: function(settings, json) {
-			// cấu hình tr cho table. Lưu ý rằng có thể thêm vào tùy chọn
-			// vị trí "text-? (left | right | justify | center)"
-			// màu sắc "text-? (primary , success, dark, white, danger, warning, gray"
-			// viết thường, in, chữ đầu in "text-?" (lowercase | uppercase | capitalize)
-			// size "text-?px" (9 | 10 | 11 | 12 | 13 | 14 | 15 | 16)
-			$(elm + ' thead tr').addClass('nk-tb-item nk-tb-head');
-			$(elm + ' thead th').addClass('nk-tb-col tb-col-md text-center');
-			$(elm + ' tbody tr').addClass('nk-tb-item');
-			$(elm + ' tbody td').addClass('nk-tb-col tb-col-md');
-			
-			$(elm + ' tbody tr').each(function() {
-				$(this).find('td').each(function(columnIndex) {
-					var cellClassName = arr[columnIndex].className;
-					if (cellClassName) {
-						$(this).addClass(cellClassName);
-					}
-				});
-			});
 		},
 		columns: arr.map(function (columnInfo) {
 				return {
@@ -643,16 +620,36 @@
 						}
 					}
 				};
-		}),
-	};
+			}),
+		};
+		$(elm).on('draw.dt', function() {
+			// cấu hình tr cho table. Lưu ý rằng có thể thêm vào tùy chọn
+			// vị trí "text-? (left | right | justify | center)"
+			// màu sắc "text-? (primary , success, dark, white, danger, warning, gray"
+			// viết thường, in, chữ đầu in "text-?" (lowercase | uppercase | capitalize)
+			// size "text-?px" (9 | 10 | 11 | 12 | 13 | 14 | 15 | 16)
+			$(elm + ' thead tr').addClass('nk-tb-item nk-tb-head');
+			$(elm + ' thead th').addClass('nk-tb-col tb-col-md text-center');
+			$(elm + ' tbody tr').addClass('nk-tb-item');
+			$(elm + ' tbody td').addClass('nk-tb-col tb-col-md');
 
-  var mergedOptions = opt ? Object.assign({}, myExternalOptions, opt) : myExternalOptions;
-  NioApp.DataTable(elm, mergedOptions);
-};
+			$(elm + ' tbody tr').each(function() {
+				$(this).find('td').each(function(columnIndex) {
+					var cellClassName = arr[columnIndex].className;
+					if (cellClassName) {
+						$(this).addClass(cellClassName);
+					}
+				});
+			});
+		});
+
+		var mergedOptions = opt ? Object.assign({}, myExternalOptions, opt) : myExternalOptions;
+		npl.gird(elm, mergedOptions);
+	};
 
 
   // BootStrap Extended
-  NioApp.BS.ddfix = function (elm, exc) {
+  npl.BS.ddfix = function (elm, exc) {
     var dd = elm ? elm : '.dropdown-menu',
       ex = exc ? exc : 'a:not(.clickable), button:not(.clickable), a:not(.clickable) *, button:not(.clickable) *';
     $(dd).on('click', function (e) {
@@ -661,7 +658,7 @@
         return;
       }
     });
-    if (NioApp.State.isRTL) {
+    if (npl.State.isRTL) {
       var $dMenu = $('.dropdown-menu');
       $dMenu.each(function () {
         var $self = $(this);
@@ -683,7 +680,7 @@
   };
 
   // BootStrap Specific Tab Open
-  NioApp.BS.tabfix = function (elm) {
+  npl.BS.tabfix = function (elm) {
     var tab = elm ? elm : '[data-toggle="modal"]';
     $(tab).on('click', function () {
       var _this = $(this),
@@ -702,7 +699,7 @@
   };
 
   // Dark Mode Switch @since v2.0
-  NioApp.ModeSwitch = function () {
+  npl.ModeSwitch = function () {
     var toggle = $('.dark-switch');
     if ($body.hasClass('dark-mode')) {
       toggle.addClass('active');
@@ -717,7 +714,7 @@
   };
 
   // Knob @v1.0
-  NioApp.Knob = function (elm, opt) {
+  npl.Knob = function (elm, opt) {
     if ($(elm).exists() && typeof $.fn.knob === 'function') {
       var def = {
           min: 0
@@ -729,7 +726,7 @@
     }
   };
   // Knob Init @v1.0
-  NioApp.Knob.init = function () {
+  npl.Knob.init = function () {
     var knob = {
       "default": {
         readOnly: true,
@@ -742,12 +739,12 @@
         lineCap: "round"
       }
     };
-    NioApp.Knob('.knob', knob["default"]);
-    NioApp.Knob('.knob-half', knob.half);
+    npl.Knob('.knob', knob["default"]);
+    npl.Knob('.knob-half', knob.half);
   };
 
   // Range @v1.0.1
-  NioApp.Range = function (elm, opt) {
+  npl.Range = function (elm, opt) {
     if ($(elm).exists() && typeof noUiSlider !== 'undefined') {
       $(elm).each(function () {
         var $self = $(this),
@@ -777,7 +774,7 @@
         var def = {
             start: _start,
             connect: _connect,
-            direction: NioApp.State.isRTL ? "rtl" : "ltr",
+            direction: npl.State.isRTL ? "rtl" : "ltr",
             range: {
               'min': _min,
               'max': _max
@@ -795,23 +792,23 @@
   };
 
   // Range Init @v1.0
-  NioApp.Range.init = function () {
-    NioApp.Range('.form-control-slider');
-    NioApp.Range('.form-range-slider');
+  npl.Range.init = function () {
+    npl.Range('.form-control-slider');
+    npl.Range('.form-range-slider');
   };
-  NioApp.Select2.init = function () {
-    // NioApp.Select2('.select');
-    NioApp.Select2('.js-select2');
+  npl.Select2.init = function () {
+    // npl.Select2('.select');
+    npl.Select2('.js-select2');
   };
 
   // Slick Slider @v1.0.1
-  NioApp.Slick = function (elm, opt) {
+  npl.Slick = function (elm, opt) {
     if ($(elm).exists() && typeof $.fn.slick === 'function') {
       $(elm).each(function () {
         var def = {
             'prevArrow': '<div class="slick-arrow-prev"><a href="javascript:void(0);" class="slick-prev"><em class="icon ni ni-chevron-left"></em></a></div>',
             'nextArrow': '<div class="slick-arrow-next"><a href="javascript:void(0);" class="slick-next"><em class="icon ni ni-chevron-right"></em></a></div>',
-            rtl: NioApp.State.isRTL
+            rtl: npl.State.isRTL
           },
           attr = opt ? extend(def, opt) : def;
         $(this).slick(attr);
@@ -820,12 +817,12 @@
   };
 
   // Slick Init @v1.0
-  NioApp.Slider.init = function () {
-    NioApp.Slick('.slider-init');
+  npl.Slider.init = function () {
+    npl.Slick('.slider-init');
   };
 
   // Magnific Popup @v1.0.0
-  NioApp.Lightbox = function (elm, type, opt) {
+  npl.Lightbox = function (elm, type, opt) {
     if ($(elm).exists()) {
       $(elm).each(function () {
         var def = {};
@@ -862,7 +859,7 @@
   };
 
   // Controls @v1.0.0
-  NioApp.Control = function (elm) {
+  npl.Control = function (elm) {
     var control = document.querySelectorAll(elm);
     control.forEach(function (item, index, arr) {
       item.checked ? item.parentNode.classList.add('checked') : null;
@@ -881,7 +878,7 @@
   };
 
   // Number Spinner @v1.0
-  NioApp.NumberSpinner = function (elm, opt) {
+  npl.NumberSpinner = function (elm, opt) {
     var plus = document.querySelectorAll("[data-number='plus']");
     var minus = document.querySelectorAll("[data-number='minus']");
     plus.forEach(function (item, index, arr) {
@@ -923,7 +920,7 @@
   };
 
   // Stepper @v1.0
-  NioApp.Stepper = function (elm, opt) {
+  npl.Stepper = function (elm, opt) {
     var element = document.querySelectorAll(elm);
     if (element.length > 0) {
       element.forEach(function (item, index) {
@@ -946,20 +943,20 @@
             current_step: 1
           },
           attr = opt ? extend(def, opt) : def;
-        NioApp.Custom.Stepper(item, attr);
-        NioApp.Validate.OnChange('.js-select2');
-        NioApp.Validate.OnChange('.date-picker');
-        NioApp.Validate.OnChange('.js-tagify');
+        npl.Custom.Stepper(item, attr);
+        npl.Validate.OnChange('.js-select2');
+        npl.Validate.OnChange('.date-picker');
+        npl.Validate.OnChange('.js-tagify');
       });
     }
   };
   // Stepper Init @v1.0
-  NioApp.Stepper.init = function () {
-    NioApp.Stepper('.stepper-init');
+  npl.Stepper.init = function () {
+    npl.Stepper('.stepper-init');
   };
 
   // Tagify @v1.0.1
-  NioApp.Tagify = function (elm, opt) {
+  npl.Tagify = function (elm, opt) {
     if ($(elm).exists() && typeof $.fn.tagify === 'function') {
       var def,
         attr = opt ? extend(def, opt) : def;
@@ -967,74 +964,74 @@
     }
   };
   // Tagify Init @v1.0
-  NioApp.Tagify.init = function () {
-    NioApp.Tagify('.js-tagify');
+  npl.Tagify.init = function () {
+    npl.Tagify('.js-tagify');
   };
 
   // Extra @v1.1
-  NioApp.OtherInit = function () {
-    NioApp.ClassBody();
-    NioApp.PassSwitch();
-    NioApp.CurrentLink();
-    NioApp.LinkOff('.is-disable');
-    NioApp.ClassNavMenu();
-    NioApp.SetHW('[data-height]', 'height');
-    NioApp.SetHW('[data-width]', 'width');
-    NioApp.NumberSpinner();
-    NioApp.Lightbox('.popup-video', 'video');
-    NioApp.Lightbox('.popup-iframe', 'iframe');
-    NioApp.Lightbox('.popup-image', 'image');
-    NioApp.Lightbox('.popup-content', 'content');
-    NioApp.Control('.custom-control-input');
+  npl.OtherInit = function () {
+    npl.ClassBody();
+    npl.PassSwitch();
+    npl.CurrentLink();
+    npl.LinkOff('.is-disable');
+    npl.ClassNavMenu();
+    npl.SetHW('[data-height]', 'height');
+    npl.SetHW('[data-width]', 'width');
+    npl.NumberSpinner();
+    npl.Lightbox('.popup-video', 'video');
+    npl.Lightbox('.popup-iframe', 'iframe');
+    npl.Lightbox('.popup-image', 'image');
+    npl.Lightbox('.popup-content', 'content');
+    npl.Control('.custom-control-input');
   };
 
   // Animate Init @v1.0
-  NioApp.Ani.init = function () {
-    NioApp.Ani.formElm('.form-control-outlined');
-    NioApp.Ani.formSearch('.toggle-search');
+  npl.Ani.init = function () {
+    npl.Ani.formElm('.form-control-outlined');
+    npl.Ani.formSearch('.toggle-search');
   };
 
   // BootstrapExtend Init @v1.0
-  NioApp.BS.init = function () {
-    NioApp.BS.menutip('a.nk-menu-link');
-    NioApp.BS.tooltip('.nk-tooltip');
-    NioApp.BS.tooltip('.btn-tooltip', {
+  npl.BS.init = function () {
+    npl.BS.menutip('a.nk-menu-link');
+    npl.BS.tooltip('.nk-tooltip');
+    npl.BS.tooltip('.btn-tooltip', {
       placement: 'top'
     });
-    NioApp.BS.tooltip('[data-toggle="tooltip"]');
-    NioApp.BS.tooltip('[data-bs-toggle="tooltip"]');
-    NioApp.BS.tooltip('.tipinfo,.nk-menu-tooltip', {
+    npl.BS.tooltip('[data-toggle="tooltip"]');
+    npl.BS.tooltip('[data-bs-toggle="tooltip"]');
+    npl.BS.tooltip('.tipinfo,.nk-menu-tooltip', {
       placement: 'right'
     });
-    NioApp.BS.popover('[data-toggle="popover"]');
-    NioApp.BS.popover('[data-bs-toggle="popover"]');
-    NioApp.BS.progress('[data-progress]');
-    NioApp.BS.fileinput('.form-file-input');
-    NioApp.BS.modalfix();
-    NioApp.BS.ddfix();
-    NioApp.BS.tabfix();
+    npl.BS.popover('[data-toggle="popover"]');
+    npl.BS.popover('[data-bs-toggle="popover"]');
+    npl.BS.progress('[data-progress]');
+    npl.BS.fileinput('.form-file-input');
+    npl.BS.modalfix();
+    npl.BS.ddfix();
+    npl.BS.tabfix();
   };
 
   // Picker Init @v1.0
-  NioApp.Picker.init = function () {
+  npl.Picker.init = function () {
 	$.fn.datepicker.dates['en'].months = ["Tháng 1","Tháng 2","Tháng 3","Tháng 4","Tháng 5","Tháng 6","Tháng 7","Tháng 8","Tháng 9","Tháng 10","Tháng 11","Tháng 12"];
 	$.fn.datepicker.dates['en'].monthsShort = ["Tg 1","Tg 2","Tg 3","Tg 4","Tg 5","Tg 6","Tg 7","Tg 8","Tg 9","Tg 10","Tg 11","Tg 12"];
 	$.fn.datepicker.dates['en'].daysMin = ["CN","T2","T3","T4","T5","T6","T7"];
 	$.fn.datepicker.dates['en'].clear = "Xóa";
-   // NioApp.Picker.date('.date-picker');
-    NioApp.Picker.dob('.date-picker-alt');
-    NioApp.Picker.time('.time-picker');
-    NioApp.Picker.date('.date-picker-range', {
+   // npl.Picker.date('.date-picker');
+    npl.Picker.dob('.date-picker-alt');
+    npl.Picker.time('.time-picker');
+    npl.Picker.date('.date-picker-range', {
       todayHighlight: true,
       autoclose: false,
       format: "dd/mm/yyyy",
     });
-    NioApp.Picker.date('.date-picker', {
+    npl.Picker.date('.date-picker', {
       todayHighlight: true,
       autoclose: true,
       format: "dd/mm/yyyy",
     });
-    NioApp.Picker.date('.date-picker-ym', {
+    npl.Picker.date('.date-picker-ym', {
       format: "mm/yy",
       startView: 2,
       autoclose: true,
@@ -1044,55 +1041,55 @@
   };
 
   // Addons @v1
-  NioApp.Addons.Init = function () {
-    NioApp.Knob.init();
-    NioApp.Range.init();
-    NioApp.Select2.init();
-    NioApp.Dropzone.init();
-    NioApp.Slider.init();
-    NioApp.DataTable.init();
-    NioApp.Tagify.init();
+  npl.Addons.Init = function () {
+    npl.Knob.init();
+    npl.Range.init();
+    npl.Select2.init();
+    npl.Dropzone.init();
+    npl.Slider.init();
+    npl.gird.init();
+    npl.Tagify.init();
   };
 
   // Toggler @v1
-  NioApp.TGL.init = function () {
-    NioApp.TGL.content('.toggle');
-    NioApp.TGL.expand('.toggle-expand');
-    NioApp.TGL.expand('.toggle-opt', {
+  npl.TGL.init = function () {
+    npl.TGL.content('.toggle');
+    npl.TGL.expand('.toggle-expand');
+    npl.TGL.expand('.toggle-opt', {
       toggle: false
     });
-    NioApp.TGL.showmenu('.nk-nav-toggle');
-    NioApp.TGL.ddmenu('.' + _menu + '-toggle', {
+    npl.TGL.showmenu('.nk-nav-toggle');
+    npl.TGL.ddmenu('.' + _menu + '-toggle', {
       self: _menu + '-toggle',
       child: _menu + '-sub'
     });
   };
-  NioApp.BS.modalOnInit = function () {
+  npl.BS.modalOnInit = function () {
     $('.modal').on('shown.bs.modal', function () {
-      NioApp.Select2.init();
-      NioApp.Validate.init();
+      npl.Select2.init();
+      npl.Validate.init();
     });
   };
 
   // Initial by default
   /////////////////////////////
-  NioApp.init = function () {
-    NioApp.coms.docReady.push(NioApp.OtherInit);
-    NioApp.coms.docReady.push(NioApp.Prettify);
-    NioApp.coms.docReady.push(NioApp.ColorBG);
-    NioApp.coms.docReady.push(NioApp.ColorTXT);
-    NioApp.coms.docReady.push(NioApp.Copied);
-    NioApp.coms.docReady.push(NioApp.Ani.init);
-    NioApp.coms.docReady.push(NioApp.TGL.init);
-    NioApp.coms.docReady.push(NioApp.BS.init);
-    NioApp.coms.docReady.push(NioApp.Validate.init);
-    NioApp.coms.docReady.push(NioApp.Picker.init);
-    NioApp.coms.docReady.push(NioApp.Addons.Init);
-    NioApp.coms.docReady.push(NioApp.Wizard);
-    NioApp.coms.docReady.push(NioApp.sbCompact);
-    NioApp.coms.docReady.push(NioApp.Stepper.init);
-    NioApp.coms.winLoad.push(NioApp.ModeSwitch);
+  npl.init = function () {
+    npl.coms.docReady.push(npl.OtherInit);
+    npl.coms.docReady.push(npl.Prettify);
+    npl.coms.docReady.push(npl.ColorBG);
+    npl.coms.docReady.push(npl.ColorTXT);
+    npl.coms.docReady.push(npl.Copied);
+    npl.coms.docReady.push(npl.Ani.init);
+    npl.coms.docReady.push(npl.TGL.init);
+    npl.coms.docReady.push(npl.BS.init);
+    npl.coms.docReady.push(npl.Validate.init);
+    npl.coms.docReady.push(npl.Picker.init);
+    npl.coms.docReady.push(npl.Addons.Init);
+    npl.coms.docReady.push(npl.Wizard);
+    npl.coms.docReady.push(npl.sbCompact);
+    npl.coms.docReady.push(npl.Stepper.init);
+    npl.coms.winLoad.push(npl.ModeSwitch);
   };
-  NioApp.init();
-  return NioApp;
-}(NioApp, jQuery);
+  npl.init();
+  return npl;
+}(npl, jQuery);
