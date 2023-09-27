@@ -209,7 +209,7 @@
 			document.getElementById("formBrand").reset();
 			$("#brandId").val('');
 			$("#listCateIds").val(null).trigger("change");
-			$("#thumbnail").attr("src", "./images/default-image.jpg");
+			$("#thumbnail").attr("src", "/images/default-image.jpg");
 			$("#newModal").modal("show");
 		}
 		
@@ -221,7 +221,7 @@
 			listCateByBrand("/category/listCate", id);
 			findDataById(id, function (data) {
 				$("#name").val(data.name);
-				$("#thumbnail").attr({ "src": contextPath+data.filePath});
+				$("#thumbnail").attr({ "src": data.filePath?contextPath+data.filePath:'/images/default-image.jpg'});
 				$("#enable").prop("checked", data.isEnabled === "Y");
 				
 				$("#newModal").modal("show");
@@ -235,7 +235,7 @@
 			listCateByBrand("/category/listCate", id)
 			findDataById(id, function (data) {
 				$("#name").val(data.name);
-				$("#thumbnail").attr("src", contextPath+data.filePath);
+				$("#thumbnail").attr("src", data.filePath?contextPath+data.filePath:'/images/default-image.jpg');
 				$("#enable").prop("checked", data.isEnabled === "Y");
 				
 				$("#newModal").modal("show");

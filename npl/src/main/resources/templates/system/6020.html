@@ -31,80 +31,133 @@
                                                 <div class="card-head">
                                                     <h5 class="card-title">Thông tin doanh nghiệp</h5>
                                                 </div>
-                                                <form action="#" class="gy-3">
-                                                    <div class="row g-3 align-center">
-                                                        <div class="col-lg-5">
-                                                            <div class="form-group">
-                                                                <label class="form-label" for="site-name">Tên d.nghiệp</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-7">
-                                                            <div class="form-group">
-                                                                <div class="form-control-wrap">
-                                                                    <input type="text" class="form-control" id="site-name" value="NplNet Admin Template">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-5">
-                                                            <div class="form-group">
-                                                                <label class="form-label">Chủ d.nghiệp</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-7">
-                                                            <div class="form-group">
-                                                                <div class="form-control-wrap">
-                                                                    <input type="text" class="form-control" id="site-email" value="info@softnio.com">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-5">
-                                                            <div class="form-group">
-                                                                <label class="form-label">Email</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-7">
-                                                            <div class="form-group">
-                                                                <div class="form-control-wrap">
-                                                                    <input type="text" class="form-control" id="site-copyright" value="&copy; 2023, NplNet. All Rights Reserved.">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-5">
-                                                            <div class="form-group">
-                                                                <label class="form-label">Main Website</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-7">
-                                                            <div class="form-group">
-                                                                <div class="form-control-wrap">
-                                                                    <input type="text" class="form-control" name="site-url" value="https://www.softnio.com">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-5">
-                                                            <div class="form-group">
-                                                                <label class="form-label" for="site-off">Maintanance Mode</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-7">
-                                                            <div class="form-group">
-                                                                <div class="custom-control custom-switch">
-                                                                    <input type="checkbox" class="custom-control-input" name="reg-public" id="site-off">
-                                                                    <label class="custom-control-label" for="site-off">Offline</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row g-3 ">
-                                                        <div class="col-lg-12 border-top">
-                                                            <div class="form-group mt-1">
-                                                                <a class="btn btn-round btn-icon btn-sm btn-outline-warning" title="Tải lại"><em class="icon ni ni-redo"></em></a>
-                                                                <a type="submit" class="btn btn-round btn-icon btn-sm btn-outline-success" title="Lưu"><em class="icon ni ni-check"></em></a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
+												<form action="#" id="formCom" class="gy-3" th:object="${company}" enctype="multipart/form-data">
+													<input type="hidden" th:field="*{comId}"/>
+													<div class="row g-3 align-center">
+														<div class="col-lg-5">
+															<div class="form-group">
+																<label class="form-label" for="site-name">Logo</label>
+															</div>
+														</div>
+														<div class="col-lg-7">
+															<div class="m-2">
+																<img id="thumbnail" alt="logo company" class="img-fluid" width="100px" src="/images/default-image.jpg">
+															</div>
+															<div id="myfileupload">
+																<label for="imgupload" class="custom-file-upload btn btn-sm btn-dim btn-light">Chọn ảnh</label>
+																<input type="file" id="imgupload" th:field="*{fileData}" accept="image/png , image/jpeg" style="display: none" />
+															</div>
+														</div>
+														<div class="col-lg-2">
+															<div class="form-group">
+																<label class="form-label" for="site-name">Tên d.nghiệp</label>
+															</div>
+														</div>
+														<div class="col-lg-4">
+															<div class="form-group">
+																<div class="form-control-wrap">
+																	<input type="text" class="form-control" th:field="*{comName}" placeholder="NplNet Admin Template">
+																</div>
+															</div>
+														</div>
+														<div class="col-lg-2">
+															<div class="form-group">
+																<label class="form-label">Chủ d.nghiệp</label>
+															</div>
+														</div>
+														<div class="col-lg-4">
+															<div class="form-group">
+																<div class="form-control-wrap">
+																	<input type="text" class="form-control" th:field="*{owner}" placeholder="info@softnio.com">
+																</div>
+															</div>
+														</div>
+														<div class="col-lg-2">
+															<div class="form-group">
+																<label class="form-label">Email</label>
+															</div>
+														</div>
+														<div class="col-lg-4">
+															<div class="form-group">
+																<div class="form-control-wrap">
+																	<input type="text" class="form-control"th:field="*{email}" placeholder="&copy; 2023, NplNet. All Rights Reserved.">
+																</div>
+															</div>
+														</div>
+														<div class="col-lg-2">
+															<div class="form-group">
+																<label class="form-label">Addr1</label>
+															</div>
+														</div>
+														<div class="col-lg-4">
+															<div class="form-group">
+																<div class="form-control-wrap">
+																	<input type="text" class="form-control" th:field="*{addr1}">
+																</div>
+															</div>
+														</div>
+														<div class="col-lg-2">
+															<div class="form-group">
+																<label class="form-label">Addr2</label>
+															</div>
+														</div>
+														<div class="col-lg-4">
+															<div class="form-group">
+																<div class="form-control-wrap">
+																	<input type="text" class="form-control" th:field="*{addr2}">
+																</div>
+															</div>
+														</div>
+														<div class="col-lg-2">
+															<div class="form-group">
+																<label class="form-label">Addr map</label>
+															</div>
+														</div>
+														<div class="col-lg-4">
+															<div class="form-group">
+																<div class="form-control-wrap">
+																	<input type="text" class="form-control" th:field="*{addrMap}">
+																</div>
+															</div>
+														</div>
+														<div class="col-lg-2">
+															<div class="form-group">
+																<label class="form-label">Tax No</label>
+															</div>
+														</div>
+														<div class="col-lg-4">
+															<div class="form-group">
+																<div class="form-control-wrap">
+																	<input type="text" class="form-control" th:field="*{taxNo}">
+																</div>
+															</div>
+														</div>
+														<div class="col-lg-2">
+															<div class="form-group">
+																<label class="form-label">Tel</label>
+															</div>
+														</div>
+														<div class="col-lg-4">
+															<div class="form-group">
+																<div class="form-control-wrap">
+																	<input type="text" class="form-control" th:field="*{tel}">
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="row g-3 ">
+														<div class="col-lg-12 border-top">
+															<div class="form-group mt-1">
+																<a class="btn btn-round btn-icon btn-sm btn-outline-warning"
+																	title="Tải lại" id="reload"><em class="icon ni ni-redo"></em></a>
+																<button type="submit" class="btn btn-round btn-icon btn-sm btn-outline-success"
+																	title="Lưu"><em class="icon ni ni-check"></em>
+																</button>
+															</div>
+														</div>
+													</div>
+												</form>
+											</div>
                                         </div>
                                 </div><!-- .nk-block-head -->
                                 <div class="nk-block nk-block-lg">
@@ -143,49 +196,110 @@
 	<script type="text/javascript">
 		moduleURL = "[[@{/system/6020}]]";
 		contextPath = "[[@{/}]]";
-		
+
 		var csrfHeaderName = "[[${_csrf.headerName}]]";
 		var csrfValue = "[[${_csrf.token}]]";
-		
-		loaddata();
-		
-		
-		function loaddata(){
-			
-			var dataTableOptions = {
-						responsive: {
-							details: false
-						},
-						fixedColumns: {
-						leftColumns: 2
-					}
-		 	};
-			var mergedOptions = Object.assign({}, mergedOptions, dataTableOptions);
-			
-			var arr = [ {title:"Action", field: null, delEdit: true, className: "text-center", name:"comId"},
-						{title:"Mã d.nghiệp", field:"comId"},
-						{title:"Tên d.nghiệp", field:"comName"},
-						{title:"Chủ d.nghiệp", field:"owner"},
-						{title:"Email", field:"email"},
-						{title:"Sđt", field:"tel"},
-						{title:"Tên n.hàng", field:"bankName"},
-						{title:"Số tk", field:"bankCd"},
-						{title:"Tax", field:"taxNo"}
-						];
-			var arrURL = {api: "/system/6020/list", urlDel: "/system/6020/delete/"};
-			npl.gird.create('.datatable-init-export', arrURL, "", arr, mergedOptions);
+
+		function readURL(input) {
+			var file = input.files[0];
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				$('#thumbnail').attr('src', e.target.result);
+			}
+			reader.readAsDataURL(file);
 		}
-		
-		
+
+		function loaddata() {
+			var dataTableOptions = {
+				responsive : {
+					details : false
+				},
+				fixedColumns : {
+					leftColumns : 2
+				}
+			};
+			var mergedOptions = Object.assign({}, mergedOptions,
+					dataTableOptions);
+
+			var arr = [ { title : "Action", field : null, delEdit : true, className : "text-center", name : "comId"
+					}, { title : "Mã d.nghiệp", field : "comId"
+					}, { title : "Tên d.nghiệp", field : "comName"
+					}, { title : "Chủ d.nghiệp", field : "owner"
+					}, { title : "Email", field : "email"
+					}, { title : "Sđt", field : "tel"
+					}, { title : "Tên n.hàng", field : "bankName"
+					}, { title : "Số tk", field : "bankCd"
+					}, { title : "Tax", field : "taxNo"
+					} ];
+			var arrURL = {
+				api : "/system/6020/list",
+				urlDel : "/system/6020/delete/"
+			};
+			npl.gird.create('.datatable-init-export', arrURL, "", arr,
+					mergedOptions);
+		}
 
 		function afterSaveForm() {
 			$('#myDataTable').DataTable().destroy();
 			$('#newModal').on('hidden.bs.modal', function() {
 			});
-
 			loaddata();
 		}
 
+		function getDataById(id, callback) {
+			var url = contextPath + "system/6020/" + id.toString();
+			$.ajax({
+				type : "Get",
+				url : url,
+				dataType : 'json',
+				beforeSend : function(xhr) {
+					xhr.setRequestHeader(csrfHeaderName, csrfValue);
+				},
+				success : function(response) {
+					callback(response);
+				},
+				error : function(xhr, status, error) {
+					Swal.fire({
+						icon : 'error',
+						title : xhr.responseText
+					});
+				}
+			});
+		}
+
+		function openEditModal(id) {
+			$("#comId").val(id)
+			getDataById(id, function(data) {
+				$("#thumbnail").attr({ "src" : data.filePath ? contextPath + data.filePath : '/images/default-image.jpg'});
+				$("#comName").val(data.comName);
+				$("#owner").val(data.owner);
+				$("#email").val(data.email);
+				$("#addr1").val(data.addr1);
+				$("#addr2").val(data.addr2);
+				$("#addrMap").val(data.addrMap);
+				$("#taxNo").val(data.taxNo);
+				$("#tel").val(data.tel);
+			});
+		}
+
+		$(document).ready(function() {
+			loaddata();
+			$('#imgupload').change(function() {
+				readURL(this);
+			});
+
+			$('#formCom').on('submit', function(e) {
+				e.preventDefault();
+				var form0 = $('#formCom')[0];
+				var data = new FormData(form0);
+				var fileInput = document.getElementById("imgupload");
+				if (fileInput.files.length > 0) {
+					data.append("fileData", fileInput.files[0]);
+				}
+
+				save("/system/6020/save", data);
+			});
+		});
 	</script>
 	
 	<script th:src="@{/js/libs/editors/summernote.js}"></script>

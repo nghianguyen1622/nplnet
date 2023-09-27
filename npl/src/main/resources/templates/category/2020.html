@@ -196,7 +196,7 @@
 			document.getElementById("formCategory").reset();
 			$("#catId").val('');
 			$("#parentId").val(0).trigger("change");
-			$("#thumbnail").attr("src", "./images/default-image.jpg");
+			$("#thumbnail").attr("src", "/images/default-image.jpg");
 			$("#newModal").modal("show");
 		}
 		
@@ -208,7 +208,7 @@
 				$("#name").val(data.name);
 				$("#alias").val(data.alias);
 				$("#parentId").val(data.parentId?data.parentId:0).trigger('change');
-				$("#thumbnail").attr({ "src": contextPath+data.filePath});
+				$("#thumbnail").attr({ "src": data.filePath?contextPath+data.filePath:'/images/default-image.jpg'});
 				$("#enable").prop("checked", data.isEnabled === "Y");
 				
 				$("#newModal").modal("show");
@@ -223,7 +223,7 @@
 				$("#name").val(data.name);
 				$("#alias").val(data.alias);
 				$("#parentId").val(data.parentId?data.parentId:0).trigger('change');
-				$("#thumbnail").attr("src", contextPath+data.filePath);
+				$("#thumbnail").attr("src", data.filePath?contextPath+data.filePath:'/images/default-image.jpg');
 				$("#enable").prop("checked", data.isEnabled === "Y");
 				
 				$("#newModal").modal("show");

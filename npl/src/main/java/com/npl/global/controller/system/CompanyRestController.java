@@ -67,9 +67,9 @@ private Logger logger = LoggerFactory.getLogger(CompanyRestController.class);
 			
 			
 			if(!dto.getFileData().isEmpty()) {
-//				if(!dto.getBrandId().isEmpty()) {
-//					storageService.delete(service.findInfo(dto.getBrandId(), comId).getFileName(), "brand");
-//				}
+				if(!dto.getComId().isEmpty()) {
+					storageService.delete(service.findByComId(dto.getComId()).getFileName(), "company");
+				}
 				String fileName = storageService.store(dto.getFileData(), "company");
 				
 				dto.setFilePath("fileupload/company/" + fileName);

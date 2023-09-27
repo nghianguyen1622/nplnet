@@ -12,5 +12,6 @@ public class AdditionalResourceWebConfiguration implements WebMvcConfigurer {
 		registry.addResourceHandler("/fileupload/product/**").addResourceLocations("file:fileupload/product/");
 		registry.addResourceHandler("/fileupload/brand/**").addResourceLocations("file:fileupload/brand/");
 		registry.addResourceHandler("/fileupload/category/**").addResourceLocations("file:fileupload/category/");
+		registry.addResourceHandler("/fileupload/company/**").addResourceLocations("file:fileupload/company/");
 	}
 }
