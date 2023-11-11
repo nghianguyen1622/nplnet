@@ -295,6 +295,11 @@
       $content = $('[data-content]'),
       $sidebar = $('.' + _sidebar),
       $sidebar_body = $('.' + _sidebar + '-body');
+    var isCompact = sessionStorage.getItem('sidebarState') === 'compact';
+    if (isCompact) {
+      $toggle.addClass('compact-active');
+      $content.addClass('is-compact');
+    }
     $toggle.on('click', function (e) {
       e.preventDefault();
       var $self = $(this),
@@ -302,9 +307,7 @@
         $self_content = $('[data-content=' + get_target + ']');
       $self.toggleClass('compact-active');
       $self_content.toggleClass('is-compact');
-      if (!$self_content.hasClass('is-compact')) {
-        $self_content.removeClass('has-hover');
-      }
+      sessionStorage.setItem('sidebarState', $self_content.hasClass('is-compact') ? 'compact' : '');
     });
     $sidebar_body.on('mouseenter', function (e) {
       if ($sidebar.hasClass('is-compact')) {
@@ -701,15 +704,17 @@
   // Dark Mode Switch @since v2.0
   npl.ModeSwitch = function () {
     var toggle = $('.dark-switch');
-    if ($body.hasClass('dark-mode')) {
+    var isDarkMode = sessionStorage.getItem('darkMode') === 'enabled';
+    if (isDarkMode) {
       toggle.addClass('active');
-    } else {
-      toggle.removeClass('active');
+      $body.addClass('dark-mode');
     }
     toggle.on('click', function (e) {
       e.preventDefault();
-      $(this).toggleClass('active');
-      $body.toggleClass('dark-mode');
+      var enableDarkMode = !$(this).hasClass('active');
+      $(this).toggleClass('active', enableDarkMode);
+      $body.toggleClass('dark-mode', enableDarkMode);
+      sessionStorage.setItem('darkMode', enableDarkMode ? 'enabled' : '');
     });
   };
 

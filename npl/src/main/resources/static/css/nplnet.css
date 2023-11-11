@@ -4826,8 +4826,8 @@ div.dataTables_wrapper div.dataTables_filter .input-group.has-validation > .form
 }
 
 .pagination {
-  --bs-pagination-padding-x: 0.625rem;
-  --bs-pagination-padding-y: 0.5625rem;
+  --bs-pagination-padding-x: 0.425rem;
+  --bs-pagination-padding-y: 0.3625rem;
   --bs-pagination-font-size: 0.8125rem;
   --bs-pagination-color: #526484;
   --bs-pagination-bg: #fff;
@@ -4841,6 +4841,7 @@ div.dataTables_wrapper div.dataTables_filter .input-group.has-validation > .form
   --bs-pagination-focus-bg: var(--bs-secondary-bg);
   --bs-pagination-focus-box-shadow: none;
   --bs-pagination-active-color: #fff;
+  --bs-pagination-active-hover-color: #fff;
   --bs-pagination-active-bg: #6576ff;
   --bs-pagination-active-border-color: #6576ff;
   --bs-pagination-disabled-color: #dbdfea;
